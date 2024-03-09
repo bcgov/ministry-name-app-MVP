@@ -1,6 +1,8 @@
 import app from './app.js';
 import http from 'http';
+import "dotenv/config.js";
 
+// get port from .env file and load into express
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', process.env.PORT);
 

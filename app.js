@@ -3,9 +3,11 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import morgan from 'morgan';
-import router from './routes/index.js';
+import indexRouter from './routes/index.js';
+//import dbRouter from './routes/db.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
 
 //create expres app
 const app= express();
@@ -27,23 +29,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // add routes
-app.use('/', router);
-
-
- 
-//    app.get('/', (req, res)=>{
-//        res.send('This is working!');
-//    })
-
-
+app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next)=> {
     next(createError(404));
   });
   
   // error handler
-  app.use(function(err, req, res, next) {
+  app.use((err, req, res, next) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
