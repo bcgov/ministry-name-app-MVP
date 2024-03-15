@@ -1,10 +1,17 @@
-version: '3.4'
-
-volumes:
-  postgres-volume-test:
-    driver: local
+version: '3.8'
 
 services:
+  postgres:
+    image: 'postgres'
+    restart: always
+    env_file: ./.env
+    environment:
+      - POSTGRES_USER=kat
+      - POSTGRES_PASSWORD=mypass
+      - POSTGRES_DB=name-app-db
+    volumes:
+      - postgres-volume-test:/var/lib/postgresql/data
+
   ministrynameapp:
     image: ministrynameapp
     build:
@@ -13,32 +20,12 @@ services:
     depends_on:
       - postgres
     env_file: ./.env
-    environment:
-      - POSTGRESDB_HOST=postgresdb
-      - POSTGRESDB_USER=$POSTGRESDB_USER
-      - POSTGRESDB_PASSWORD=$POSTGRESDB_ROOT_PASSWORD
-      - POSTGRESDB_NAME=$POSTGRESDB_DATABASE
-      - POSTGRESDB_PORT=$POSTGRESDB_DOCKER_PORT
     stdin_open: true
     tty: true
     ports:
-      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT # originally 3000:3000
+      - '3000:3000'
 
-  postgres:
-    image: eb634efa7ee4668e7bb7a9afa946987699608e5cff79418d39e7c5302f6ea3e8
-    restart: always
-    env_file: ./.env
-    environment:
-      # You can set the value of environment variables
-      # in your docker-compose.yml file
-      # Our Node app will use these to connect
-      # to the database
-      - POSTGRESDB_USER=$POSTGRES_USER 
-      - POSTGRESDB_PASSWORD=$POSTGRES_PASSWORD
-      - POSTGRESDB_DB=$POSTGRES_DB
-      - POSTGRESDB_PASSWORD=$POSTGRESDB_ROOT_PASSWORD
-    ports:
-      # Standard port for PostgreSQL databases
-      - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
-    volumes:
-      - postgres-volume-test:/var/lib/postgres
+volumes:
+  postgres-volume-test:
+    name: postgres-volume-test
+

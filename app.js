@@ -3,11 +3,12 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import morgan from 'morgan';
-import indexRouter from './routes/index.js';
-//import dbRouter from './routes/db.js';
+import mountRoutes from './routes/index.js';
 import path from 'path';
+import pool from './db/index.js';
 import { fileURLToPath } from 'url';
 
+import { createMinistryTbl, seedDb } from './controllers/helperfunctions.js';
 
 //create expres app
 const app= express();
@@ -29,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // add routes
-app.use('/', indexRouter);
+mountRoutes(app);
 
 // catch 404 and forward to error handler
 app.use((req, res, next)=> {
@@ -47,6 +48,8 @@ app.use((req, res, next)=> {
     res.render('error');
   });
 
-
+// Create and seed ministry table:
+//createMinistryTbl(pool);
+//seedDb(pool);
 //export
 export default app;

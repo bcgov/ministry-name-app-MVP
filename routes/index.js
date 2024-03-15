@@ -1,9 +1,7 @@
-import express from 'express';
-const indexRouter = express.Router();
+import ministry from './ministry.js';
 
-
-indexRouter.get('/', (req, res) =>{
-    res.render('index', { title: 'Ministry Names' });
-})
-
-export default indexRouter; 
+const mountRoutes = (app) => {
+    app.use('/', ministry)
+  }
+   
+  export default mountRoutes
