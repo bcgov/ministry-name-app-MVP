@@ -5,10 +5,7 @@ import compression from 'compression';
 import morgan from 'morgan';
 import mountRoutes from './routes/index.js';
 import path from 'path';
-import pool from './db/index.js';
 import { fileURLToPath } from 'url';
-
-import { createMinistryTbl, seedDb } from './controllers/helperfunctions.js';
 
 //create expres app
 const app= express();
@@ -48,8 +45,5 @@ app.use((req, res, next)=> {
     res.render('error');
   });
 
-// Create and seed ministry table:
-//createMinistryTbl(pool);
-//seedDb(pool);
 //export
 export default app;

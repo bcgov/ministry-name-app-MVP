@@ -15,6 +15,4 @@ const pool = new Pool({
   createMinistryTbl(pool);
   seedDb(pool);
 
-  //let db={};
-
 export default pool;
