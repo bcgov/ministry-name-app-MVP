@@ -1,13 +1,8 @@
-// import app from './app.js';
-// import http from 'http';
-// import "dotenv/config.js";
-// import {normalizePort, onError} from "./controllers/helperfunctions.js";
-
+//import dependencies
 const app = require('./app');
 const http = require('http');
 const helperfunctions = require('./controllers/helperfunctions.js')
 require('dotenv').config({path: '../.env'});
-
 
 // get port from .env file and load into expressh
 const port = helperfunctions.normalizePort(process.env.PORT || '3000');

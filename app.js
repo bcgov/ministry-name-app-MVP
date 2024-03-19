@@ -1,13 +1,4 @@
-//import dependencies
-// import express from 'express';
-// import cookieParser from 'cookie-parser';
-// import compression from 'compression';
-// import morgan from 'morgan';
-// import mountRoutes from './routes/index.js';
-// import path from 'path';
-
-
-// import { fileURLToPath } from 'url';
+// import dependencies
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
@@ -16,14 +7,10 @@ const createError = require('http-errors');
 const path = require('path');
 const mountRoutes = require('./routes/index.js');
 
-
-//create expres app
+// create expres app
 const app= express();
 
-// view engine setup
-//const __filename = fileURLToPath(import.meta.url);
-//const __dirname =path.dirname(__filename);
-
+// view engine setu
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -54,9 +41,5 @@ app.use((req, res, next)=> {
     res.status(err.status || 500);
     res.render('error');
   });
-
-  //get data:
-  //getData();
-//export
 
 module.exports = app;

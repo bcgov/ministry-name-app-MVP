@@ -12,7 +12,6 @@
   };
 
   // Seed the db
-
   const seedDb =async (pool) =>{
     try {
         const seedQuery = `INSERT INTO ministry (ministry_name, acronym) 
@@ -55,13 +54,11 @@
   };
 
   // test function
-
   const testing = ()=>{
       console.log('export function working')
   };
 
   //fetch data + populate
-
   const fetchData = ()=>{
       fetch("/ministry")
       .then((response) => response.json())
@@ -84,7 +81,6 @@
   };
 
   // Normalize a port into a number, string, or false.
-
   const normalizePort = (val) =>{
       const testPort = parseInt(val, 10);
       if (isNaN(testPort)) {
@@ -99,7 +95,6 @@
     };
 
   // Event listener for HTTP server "error" event.
-
   const onError = (error) => {
       if (error.syscall !== 'listen') {
         throw error;

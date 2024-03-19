@@ -1,10 +1,8 @@
-//import ministry from './ministry.js';
+// import dependencies
 const ministry = require('./ministry.js');
-
 
 const mountRoutes = (app) => {
     app.use('/', ministry)
   }
    
-  //export default mountRoutes
-  module.exports = mountRoutes;
+module.exports = mountRoutes;

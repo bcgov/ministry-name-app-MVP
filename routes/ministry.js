@@ -1,13 +1,8 @@
-//import express from 'express';
-//import {getMinistryData} from '../controllers/queries.js'
-//import pool from "../db/index.js";
-
+// import dependencies
 const express = require('express');
 const pool = require('../db/index.js');
 
 const router = express.Router();
-
-//router.get('/', db.getData);
 
 router.get('/', async (req, res) =>{
   const queryAll='SELECT * FROM ministry;';
@@ -28,10 +23,6 @@ router.get('/', async (req, res) =>{
     console.log(err)
     res.sendStatus(500)
   }
- 
-  
 });
 
-
-//export default router
 module.exports = router;
