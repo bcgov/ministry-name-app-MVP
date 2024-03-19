@@ -1,8 +1,11 @@
-import pkg from 'pg';
-import { createMinistryTbl, seedDb} from "../controllers/helperfunctions.js";
+//import pkg from 'pg';
+//import { createMinistryTbl, seedDb} from "../controllers/helperfunctions.js";
+
+const {Pool} =require('pg');
+const helperfunctions = require('../controllers/helperfunctions.js')
 
 // database connection:
-const {Pool} = pkg;
+//const {Pool} = pkg;
 const pool = new Pool({
   host: 'postgres',
   user: 'kat' ,
@@ -11,7 +14,8 @@ const pool = new Pool({
 });
 
 // Create and seed ministry table:
-  //createMinistryTbl(pool);
-  //seedDb(pool);
+  //helperfunctions.createMinistryTbl(pool);
+  //helperfunctions.seedDb(pool);
 
-export default pool;
+//export default pool;
+module.exports = pool;

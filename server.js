@@ -1,10 +1,16 @@
-import app from './app.js';
-import http from 'http';
-import "dotenv/config.js";
-import {normalizePort, onError} from "./controllers/helperfunctions.js";
+// import app from './app.js';
+// import http from 'http';
+// import "dotenv/config.js";
+// import {normalizePort, onError} from "./controllers/helperfunctions.js";
+
+const app = require('./app');
+const http = require('http');
+const helperfunctions = require('./controllers/helperfunctions.js')
+require('dotenv').config({path: '../.env'});
+
 
 // get port from .env file and load into expressh
-const port = normalizePort(process.env.PORT || '3000');
+const port = helperfunctions.normalizePort(process.env.PORT || '3000');
 app.set('port', process.env.PORT);
 console.log(process.env.POSTGRES_HOST);
 
@@ -15,4 +21,4 @@ const server = http.createServer(app);
 server.listen(port, ()=> 
   console.log(`App is running on localhost:${port}`)
 );
-server.on('error', onError);
+server.on('error', helperfunctions.onError);

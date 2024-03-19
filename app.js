@@ -1,19 +1,28 @@
 //import dependencies
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import compression from 'compression';
-import morgan from 'morgan';
-import mountRoutes from './routes/index.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
+// import express from 'express';
+// import cookieParser from 'cookie-parser';
+// import compression from 'compression';
+// import morgan from 'morgan';
+// import mountRoutes from './routes/index.js';
+// import path from 'path';
+
+
+// import { fileURLToPath } from 'url';
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const compression = require('compression');
+const logger = require('morgan');
+const createError = require('http-errors');
+const path = require('path');
+const mountRoutes = require('./routes/index.js');
 
 
 //create expres app
 const app= express();
 
 // view engine setup
-const __filename = fileURLToPath(import.meta.url);
-const __dirname =path.dirname(__filename);
+//const __filename = fileURLToPath(import.meta.url);
+//const __dirname =path.dirname(__filename);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -23,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(compression());
-app.use(morgan('dev'));
+app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -49,4 +58,5 @@ app.use((req, res, next)=> {
   //get data:
   //getData();
 //export
-export default app;
+
+module.exports = app;

@@ -11,12 +11,10 @@
   "keywords": [],
   "author": "Katerina Vitik",
   "license": "ISC",
-  "type": "module",
   "devDependencies": {
     "nodemon": "^3.1.0"
   },
   "dependencies": {
-    "@types/pg": "^8.11.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "debug": "^4.3.4",

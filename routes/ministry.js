@@ -1,12 +1,15 @@
-import express from 'express';
+//import express from 'express';
 //import {getMinistryData} from '../controllers/queries.js'
-import pool from "../db/index.js";
+//import pool from "../db/index.js";
+
+const express = require('express');
+const pool = require('../db/index.js');
 
 const router = express.Router();
 
 //router.get('/', db.getData);
 
-router.get('/', async (req, res, next) =>{
+router.get('/', async (req, res) =>{
   const queryAll='SELECT * FROM ministry;';
   try{
     pool.query(queryAll, (error, results) => {
@@ -30,4 +33,5 @@ router.get('/', async (req, res, next) =>{
 });
 
 
-export default router
+//export default router
+module.exports = router;
