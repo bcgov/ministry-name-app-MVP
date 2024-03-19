@@ -1,4 +1,16 @@
 
+// function to create the ministry table:
+export const createMinistryTbl =async(pool) =>{
+  try {
+      const query = `CREATE TABLE IF NOT EXISTS ministry(ministry_id SERIAL,ministry_name VARCHAR(255) NOT NULL, acronym VARCHAR(20),PRIMARY KEY (ministry_id));`;
+      await pool.query(query);
+      console.log('Ministry table created successfully');
+  } catch (err) {
+      console.log(err);
+      console.log('error creating table');
+  }
+};
+
 // Seed the db
 
 export const seedDb =async (pool) =>{
@@ -41,17 +53,9 @@ export const seedDb =async (pool) =>{
       console.log('error seeding table');
   }
 };
-//function to create the ministry table:
-export const createMinistryTbl =async(pool) =>{
-  try {
-      const query = `CREATE TABLE IF NOT EXISTS ministry(ministry_id SERIAL,ministry_name VARCHAR(255) NOT NULL, acronym VARCHAR(20),PRIMARY KEY (ministry_id));`;
-      await pool.query(query);
-      console.log('Ministry table created successfully');
-  } catch (err) {
-      console.log(err);
-      console.log('error creating table');
-  }
-};
+
+
+
 // test function
 
 export const testing = ()=>{
@@ -82,6 +86,7 @@ export const fetchData = ()=>{
 };
 
 // Normalize a port into a number, string, or false.
+
 export const normalizePort = (val) =>{
     const testPort = parseInt(val, 10);
     if (isNaN(testPort)) {
@@ -96,6 +101,7 @@ export const normalizePort = (val) =>{
   };
 
 // Event listener for HTTP server "error" event.
+
 export const onError = (error) => {
     if (error.syscall !== 'listen') {
       throw error;
@@ -103,7 +109,9 @@ export const onError = (error) => {
     const bind = typeof port === 'string'
       ? 'Pipe ' + port
       : 'Port ' + port;
+
     // handle specific listen errors with friendly messages
+
     switch (error.code) {
       case 'EACCES':
         console.error(bind + ' requires elevated privileges');

@@ -7,6 +7,7 @@ import mountRoutes from './routes/index.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+
 //create expres app
 const app= express();
 
@@ -45,5 +46,7 @@ app.use((req, res, next)=> {
     res.render('error');
   });
 
+  //get data:
+  //getData();
 //export
 export default app;

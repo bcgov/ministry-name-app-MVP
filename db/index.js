@@ -11,8 +11,7 @@ const pool = new Pool({
 });
 
 // Create and seed ministry table:
-  console.log("hit pool doc");
-  createMinistryTbl(pool);
-  seedDb(pool);
+  //createMinistryTbl(pool);
+  //seedDb(pool);
 
 export default pool;
