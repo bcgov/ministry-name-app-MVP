@@ -1,13 +1,14 @@
 // import dependencies
 const {Pool} =require('pg');
+require('dotenv').config()
 //const helperfunctions = require('../controllers/helperfunctions.js')
 
 // database connection:
 const pool = new Pool({
-  host: 'postgres',
-  user: 'kat' ,
-  database: 'name-app-db',
-  password: 'mypass'
+  host: process.env.POSTGRES_HOST,
+  user: process.env.POSTGRES_USER ,
+  database: process.env.POSTGRES_DB,
+  password: process.env.POSTGRES_PASSWORD
 });
 
 // Create and seed ministry table:

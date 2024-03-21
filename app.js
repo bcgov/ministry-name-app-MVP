@@ -6,6 +6,7 @@ const logger = require('morgan');
 const createError = require('http-errors');
 const path = require('path');
 const mountRoutes = require('./routes/index.js');
+const bodyParser = require('body-parser');
 
 // create expres app
 const app= express();
@@ -21,6 +22,9 @@ app.use(cookieParser());
 app.use(compression());
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true,}));
+
 
 
 // add routes
