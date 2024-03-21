@@ -1,28 +1,22 @@
 // import dependencies
 const express = require('express');
-const pool = require('../db/index.js');
+const pool = require('../db/dbConnectionConfig.js');
+//const db = require('../controllers/queries.js');
 
 const router = express.Router();
 
-router.get('/', async (req, res) =>{
+router.get("/", async (req, res) => {
   const queryAll='SELECT * FROM ministry;';
-  try{
-    pool.query(queryAll, (error, results) => {
-      if (error) {
-        return res.render('error', { error });
-      }
-      //console.log(results);
-      const intoJson = JSON.stringify(results);
-      console.log(intoJson);
+    try {
+      const result = await pool.query(queryAll);
+      //res.render('index', { title: 'Ministry Names', eventData: results.rows});
+      res.status(200).send({ data: result.rows });
+    } catch (err) {
+      console.error('Error executing query', err.stack);
+      res.status(500).json({error: 'Something went wrong, please try again.' });
+    }
+  });
 
-      res.render('index', { title: 'Ministry Names', eventData: intoJson });
-      
-    });
+        //res.render('index', { title: 'Ministry Names', eventData: results});
  
-  } catch (err) {
-    console.log(err)
-    res.sendStatus(500)
-  }
-});
-
 module.exports = router;
