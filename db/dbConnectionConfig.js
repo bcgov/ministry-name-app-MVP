@@ -1,7 +1,6 @@
 // import dependencies
 const {Pool} =require('pg');
-require('dotenv').config()
-//const helperfunctions = require('../controllers/helperfunctions.js')
+require('dotenv').config();
 
 // database connection:
 const pool = new Pool({
