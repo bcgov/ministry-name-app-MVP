@@ -59,8 +59,10 @@
   };
 
   //fetch data + populate
-  const fetchData = ()=>{
-      fetch("/ministry")
+  const fetchData = async ()=>{
+    const queryAll='SELECT * FROM ministry;';
+    try{
+      await pool.query(queryAll)
       .then((response) => response.json())
       .then((data) => {
           data.forEach((ministry) => {
@@ -78,7 +80,15 @@
           document.body.appendChild(card);
           });
       });
+    }catch (err){
+      console.error('Error executing query', err.stack);
+      res.status(500).json({error: 'Something went wrong, please try again.' });
+    }
   };
+
+
+
+
 
   // Normalize a port into a number, string, or false.
   const normalizePort = (val) =>{
@@ -118,11 +128,13 @@
           throw error;
       }
     };
-    
+
+
 module.exports ={createMinistryTbl, 
   fetchData,
   normalizePort,
   onError,
+
   seedDb, 
   testing
 };

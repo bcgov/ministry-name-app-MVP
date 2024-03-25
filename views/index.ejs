@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
-        <script src="script.js"></script>
-        <title>Name App by Kat</title>
-    </head>
-    <body>
+<%- include('../views/header'); %>       
         <h1><%=title%></h1>
         <div>
             <form>
@@ -20,14 +11,35 @@
             </form>
         </div>
         <div>
+          <%console.log(data); %>
+          
+          <% //for (let i=0; i<data.lenght;i++){ %>
+            <% //= data[i].ministry_name %> <br/>
+
+          <% //} %>
+          
           <table>
             <tr>
+              
+              <!--
               <th>ID</th>
               <th>MINISTRY</th>
               <th>ACRONYM</th>
+              -->
             </tr>
-            <tr><%=eventData%></tr>
+            <tr></tr>
           </table>
         </div>
-    </body>
-</html>
+        <div>
+          <template>
+            <div class="card">
+              <div class="container">
+                <h4>Placeholder</h4>
+                <h3>Placeholder</h3>
+                <h4>    </h4>
+                <h3></h3>
+              </div>
+            </div>
+          </template>
+        </div>
+<%- include('../views/footer'); %>
