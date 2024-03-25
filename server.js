@@ -1,7 +1,7 @@
 //import dependencies
 const app = require('./app');
 const http = require('http');
-const helperfunctions = require('./controllers/helperfunctions.js')
+const helperfunctions = require('./utils/helperfunctions.js')
 require('dotenv').config({path: '../.env'});
 
 // get port from .env file and load into expressh
