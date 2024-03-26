@@ -1,8 +1,14 @@
 body {
-  padding: 50px;
+ padding: 1% 2%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+.navbar{
+  color: #234958;
+}
+a, h1,h2, h3, h4 {
+  color: #234958;
+}
 
-a, h1 {
-  color: #00B7FF;
+#ministryList{
+  color: #234958;
 }
