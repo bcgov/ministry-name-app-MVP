@@ -25,6 +25,7 @@
     "express-async-handler": "^1.2.0",
     "express-promise": "^0.4.0",
     "express-promise-router": "^4.1.1",
+    "express-rate-limit": "^7.2.0",
     "html-express-js": "^2.0.0",
     "http-errors": "^2.0.0",
     "json-schema": "^0.4.0",

@@ -7,6 +7,7 @@ const createError = require('http-errors');
 const path = require('path');
 const mountRoutes = require('./routes/index.js');
 const bodyParser = require('body-parser');
+const rateLimit = require('express-rate-limit')
 
 // create expres app
 const app= express();
@@ -14,6 +15,9 @@ const app= express();
 // view engine setu
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+// rate limit config - for limiting repeated requests
+const limiter = rateLimit();
 
 // middleware
 app.use(express.json());
@@ -24,6 +28,7 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true,}));
+app.use(limiter);
 
 
 
