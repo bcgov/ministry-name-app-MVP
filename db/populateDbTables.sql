@@ -30,7 +30,18 @@ INSERT INTO ministry (ministry_name, m_change_effective_date, is_current)
         ('Social Development and Poverty Reduction','2024-04-03', true),
         ('Tourism, Arts, Culture and Sport','2024-04-03', true),
         ('Minister of State for Trade','2024-04-03', true),
-        ('Water, Land and Resource Stewardship','2024-04-03', true)
+        ('Water, Land and Resource Stewardship','2024-04-03', true),
+       	('Ministry of Supernatural Phenomena and Occult Studies', '1999-04-03', false),
+         -- test data:
+                ('Ministry of Timeless Tales and Folklore Preservation', '1999-04-03', false),
+                ('Ministry of Mystical Medicine and Alchemical Remedies', '1990-08-08', false),
+                ('Ministry of Astral Projections and Dreamworld Exploration', '2001-07-22', false),
+                ('Ministry of Quantum Computing and Virtual Realities', '1990-08-08', false),
+                ('Ministry of Time Travel and Temporal Affairs', '2005-04-03', false),
+                ('Ministry of Magical Creatures and Wizardry', '2018-12-03', false),
+                ('Ministry of Extraordinary Events and Phenomena', '2005-04-03', false),
+                ('Ministry of Enigmatic Enigmas and Conundrums', '1990-08-08', false),
+                ('Ministry of Arcane Arts and Mystical Studies', '2018-11-17', false)
         ;
 
 -- inset into acronym table
@@ -63,20 +74,193 @@ INSERT INTO acronym (acronym, a_change_effective_date)
         ('SDPR','2024-04-03'),
         ('TACS','2024-04-03'),
         ('TRADE','2024-04-03'),
-        ('WLRS','2024-04-03')
+        ('WLRS','2024-04-03'),
+        -- test data:
+                ('spos','1999-04-03'),
+                ('TTFP','1999-04-03'),
+                ('mMAR','1990-08-08'),
+                ('APD','2001-07-22'),
+                ('QPVR','1990-08-08'),
+                ('TTTa','2005-04-03'),
+                ('MCW','2018-12-03'),
+                ('eep','2005-04-03'),
+                ('eec','1990-08-08'),
+                ('aAMS','2018-11-17')
 ;
 
--- insert into ministry_acronym 
+-- insert into ministry_acronym
 INSERT INTO ministry_acronym (ministry_id, acronym_id)
-    values ((select ministry_id 
-                from ministry 
-                where ministry_name = upper('Agriculture and Food');
-             ),
-             (select acronym_id 
-                from acronym 
-                where acronym = upper('AF');
-             )
-            )
-    ;
+VALUES 
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Agriculture and Food')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('AF'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Attorney General')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('AG'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Children and Family Development')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('CFD'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Minister of State for Child Care')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('CHILD'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Citizens Services')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('CITZ'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Education and Child Care')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('ECC'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Emergency Management and Climate Readiness')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('EMCR'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Energy, Mines and Low Carbon Innovation')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('EMLI'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Environment and Climate Change Strategy')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('ENV'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Finance')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('FIN'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Forests')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('FOR'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Minister of State for Sustainable Forestry Innovation')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('SFI'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Health')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('HLTH'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Housing')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('HOUS'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Intergovernmental Relations Secretariat')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('IGRS'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Indigenous Relations and Reconciliation')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('IRR'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Jobs, Economic Development and Innovation')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('JEDI'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Labour')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('LBR'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Mental Health and Addictions')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('MMHA'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Transportation and Infrastructure')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('MOTI'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Minister of State for Infrastructure and Transit')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('INFRA'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Municipal Affairs')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('MUNI'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Office of the Premier')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('PREM'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Post-Secondary Education and Future Skills')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('PSFS'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Public Safety and Solicitor General')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('PSSG'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Social Development and Poverty Reduction')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('SDPR'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Tourism, Arts, Culture and Sport')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('TACS'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Minister of State for Trade')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('TRADE'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Water, Land and Resource Stewardship')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('WLRS'))
+ ),
+ -- test data:
+(   
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Supernatural Phenomena and Occult Studies')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('spos'))
+ ),
+(   
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Timeless Tales and Folklore Preservation')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('TTFP'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Mystical Medicine and Alchemical Remedies')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('MMAR'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Astral Projections and Dreamworld Exploration')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('APD'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Quantum Computing and Virtual Realities')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('QPVR'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Time Travel and Temporal Affairs')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('TTTA'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Magical Creatures and Wizardry')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('MCW'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Extraordinary Events and Phenomena')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('EEP'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Enigmatic Enigmas and Conundrums')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('eec'))
+),
+(
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Arcane Arts and Mystical Studies')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('aAMs'))
+);
 
 
+-- insert into ministry_acronym
+--contains test data only
+INSERT INTO ministry_history (ministry_id, ministry_id_history)
+VALUES 
+    (39,30),  
+	 (27, 39 ), 
+	 (12,35), 
+	 (12, 31), 
+	 (24, 32), 
+	 (37, 33), 
+	 (10, 34), 
+	 (5, 36), 
+	 (36,37), 
+	 (35, 38);
