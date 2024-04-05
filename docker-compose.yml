@@ -11,6 +11,9 @@ services:
       - POSTGRES_DB=name-app-db
     volumes:
       - postgres-volume-test:/var/lib/postgresql/data
+      # run sql start-up scripts to create and populate tables:
+      - ./db/createDbTables.sql:/docker-entrypoint-initdb.d/createDbTables.sql
+      - ./db/populateDbTables.sql:/docker-entrypoint-initdb.d/populateDbTables.sql
 
   ministrynameapp:
     image: ministrynameapp
