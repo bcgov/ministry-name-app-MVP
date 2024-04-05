@@ -31,17 +31,17 @@ INSERT INTO ministry (ministry_name, m_change_effective_date, is_current)
         ('Tourism, Arts, Culture and Sport','2024-04-03', true),
         ('Minister of State for Trade','2024-04-03', true),
         ('Water, Land and Resource Stewardship','2024-04-03', true),
-       	('Ministry of Supernatural Phenomena and Occult Studies', '1999-04-03', false),
-         -- test data:
-                ('Ministry of Timeless Tales and Folklore Preservation', '1999-04-03', false),
-                ('Ministry of Mystical Medicine and Alchemical Remedies', '1990-08-08', false),
-                ('Ministry of Astral Projections and Dreamworld Exploration', '2001-07-22', false),
-                ('Ministry of Quantum Computing and Virtual Realities', '1990-08-08', false),
-                ('Ministry of Time Travel and Temporal Affairs', '2005-04-03', false),
-                ('Ministry of Magical Creatures and Wizardry', '2018-12-03', false),
-                ('Ministry of Extraordinary Events and Phenomena', '2005-04-03', false),
-                ('Ministry of Enigmatic Enigmas and Conundrums', '1990-08-08', false),
-                ('Ministry of Arcane Arts and Mystical Studies', '2018-11-17', false)
+        -- test data:
+       	        ('Test Ministry of Supernatural Phenomena and Occult Studies', '1999-04-03', false),
+                ('Test Ministry of Timeless Tales and Folklore Preservation', '1999-04-03', false),
+                ('Test Ministry of Mystical Medicine and Alchemical Remedies', '1990-08-08', false),
+                ('Test Ministry of Astral Projections and Dreamworld Exploration', '2001-07-22', false),
+                ('Test Ministry of Quantum Computing and Virtual Realities', '1990-08-08', false),
+                ('Test Ministry of Time Travel and Temporal Affairs', '2005-04-03', false),
+                ('Test Ministry of Magical Creatures and Wizardry', '2018-12-03', false),
+                ('Test Ministry of Extraordinary Events and Phenomena', '2005-04-03', false),
+                ('Test Ministry of Enigmatic Enigmas and Conundrums', '1990-08-08', false),
+                ('Test Ministry of Arcane Arts and Mystical Studies', '2018-11-17', false)
         ;
 
 -- inset into acronym table
@@ -209,43 +209,43 @@ VALUES
  ),
  -- test data:
 (   
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Supernatural Phenomena and Occult Studies')),
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Supernatural Phenomena and Occult Studies')),
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('spos'))
  ),
 (   
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Timeless Tales and Folklore Preservation')),
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Timeless Tales and Folklore Preservation')),
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('TTFP'))
 ),
 (
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Mystical Medicine and Alchemical Remedies')),
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Mystical Medicine and Alchemical Remedies')),
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('MMAR'))
 ),
 (
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Astral Projections and Dreamworld Exploration')),
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Astral Projections and Dreamworld Exploration')),
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('APD'))
 ),
 (
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Quantum Computing and Virtual Realities')),
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Quantum Computing and Virtual Realities')),
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('QPVR'))
 ),
 (
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Time Travel and Temporal Affairs')),
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Time Travel and Temporal Affairs')),
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('TTTA'))
 ),
 (
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Magical Creatures and Wizardry')),
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Magical Creatures and Wizardry')),
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('MCW'))
 ),
 (
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Extraordinary Events and Phenomena')),
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Extraordinary Events and Phenomena')),
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('EEP'))
 ),
 (
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Enigmatic Enigmas and Conundrums')),
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Enigmatic Enigmas and Conundrums')),
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('eec'))
 ),
 (
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Ministry of Arcane Arts and Mystical Studies')),
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Arcane Arts and Mystical Studies')),
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('aAMs'))
 );
 

@@ -4,7 +4,6 @@
         <div>
           <h4></h4>
         </div>
-
         <div class="accordion" id="accordionExample">
           <div class="accordion-item">
             <h2 class="accordion-header">
@@ -15,9 +14,17 @@
             <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body" id="ministryList">
                 <%//console.log(data); %>
-                <% for (let i=0; i<data.length;i++){ %>
+
+                <% 
+                for (let i=0; i<data.length;i++){
+                  // only display ministry if current
+                  if(data[i].is_current){
+                %>
                   <%= data[i].ministry_name + ", " + data[i].acronym%> <br/>
-                <% } %>
+                <%
+                  }
+                } 
+                %>
               </div>
             </div>
           </div>
@@ -31,6 +38,7 @@
               <div class="accordion-body">
                 <h4>Please select a ministry to change</h4>
                 <div>
+<% //TODO: update so only currently active ministries display %>
                   <select name="minToChange" id="minToChange" class="form-control">
                     <option value=""></option>
                     <% for (let i=0; i<data.length;i++){ %>

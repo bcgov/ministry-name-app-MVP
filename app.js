@@ -5,7 +5,7 @@ const compression = require('compression');
 const logger = require('morgan');
 const createError = require('http-errors');
 const path = require('path');
-const mountRoutes = require('./routes/index.js');
+const mountRoutes = require('./routes/indexRouter.js');
 const bodyParser = require('body-parser');
 const rateLimit = require('express-rate-limit')
 
