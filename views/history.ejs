@@ -4,6 +4,8 @@
     <% //TODO: update so only currently active ministries display %>
     <%console.log(data); %>
 
+
+
      <!-- <select name="history" id="history" class="form-control">
         <option value=""></option>
             <% //for (let i=0; i<data.length;i++){ %>
@@ -13,4 +15,18 @@
         <% //} %>
     </select>
 </div>  -->
+        <ul>
+            <% data.forEach(data=> { %>
+                <li>
+                    <strong>Ministry ID:</strong>
+                    <%= data.ministry_id %>,
+                        <strong>Ministry Name:</strong>
+                        <%= data.ministry_name %>,
+                            <strong>Historical Ministry ID:</strong>
+                            <%= data.ministry_id_history %>,
+                                <strong>Acronym ID History:</strong>
+                                <%= data.acronym_id_history %>
+                </li>
+                <% }) %>
+        </ul>
 <%- include('../views/footer'); %>

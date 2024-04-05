@@ -42,4 +42,4 @@ CREATE TABLE IF NOT EXISTS ministry_history
     PRIMARY KEY(ministry_id, ministry_id_history)
     );
 
-                
+            
