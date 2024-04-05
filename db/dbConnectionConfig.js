@@ -10,8 +10,4 @@ const pool = new Pool({
   password: process.env.POSTGRES_PASSWORD
 });
 
-// Create and seed ministry table:
-  //helperfunctions.createMinistryTbl(pool);
-  //helperfunctions.seedDb(pool);
-
 module.exports = pool;

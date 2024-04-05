@@ -5,23 +5,39 @@
       console.log('export function working')
   };
 
-  // fetch data for functionality, pass db connection pool and sql query
+  
+  /**
+   * fetch db data based on provided sql query
+   * @param {Pool} pool db connection pool
+   * @param {String} sqlQuery the sql query
+   * @returns {Promise<sqlQueryResults>} query results 
+   * @throws {Error} Error if query fails
+   */
   const fetchData = async (pool, sqlQuery) =>{
+    // get client from db pool
+    const client = await pool.connect(); 
     try{
-        const Result = await pool.query(sqlQuery);
-        return Result;
+        const result = await client.query(sqlQuery);
+        return result;
     }catch (err){
         console.error('Error executing fetchData()', err.stack);
         res.status(500).json({error: 'Something went wrong, please try again.' });
+    }finally{
+      client.release();
     }
   };
 
-  // Normalize port to a number, string, or false.
-  const normalizePort = (val) =>{
-      const testPort = parseInt(val, 10);
+
+  /**
+   * Normalize port value to a number, string, or false
+   * @param {number | string} portValue port value to be normalized
+   * @returns {number | string | false } the normalized port value or false
+   */
+  const normalizePort = (portValue) =>{
+      const testPort = parseInt(portValue, 10);
       if (isNaN(testPort)) {
         // named pipe
-        return val;
+        return portValue;
       }
       if (testPort >= 0) {
         // port number
@@ -30,7 +46,12 @@
       return false;
     };
 
-  // Event listener for HTTP server "error" event.
+
+  /**
+   * Event listener for HTTP server "error" event
+   * @param {Error} error error from server
+   * @throws {Error} if the error is not a server listening error
+   */
   const onError = (error) => {
       if (error.syscall !== 'listen') {
         throw error;
@@ -60,6 +81,5 @@ module.exports ={
   fetchData,
   normalizePort,
   onError,
- 
   testing
 };
