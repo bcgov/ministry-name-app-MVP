@@ -1,32 +1,26 @@
 <%- include('../views/header'); %>
 <h1><%= title%></h1>       
 <div>
-    <% //TODO: update so only currently active ministries display %>
-    <%console.log(data); %>
+    <form id="historyForm">
+        <label for="selectMinistryHist">Select a ministry:</label>
+        <select name="selectMinistryHist" id="selectMinistryHist" class="form-control">
+                <% data.forEach(ministry =>{ %>
+                <option value="<%= ministry.ministry_id %>">
+                <%= ministry.ministry_name %>
+            </option>
+            <% }); %>
+        </select>
+        <button type="submit">Show History</button>
+    </form>
+</div>
+<div id=histDisplay>
+    <p id="noHistory"></p>
+    <table id="historyTable" class="table"></table>
+</div>
 
+<script defer>
+    //pass the history data as variable to use in custom.js file
+    let theHistoryData = '<%- JSON.stringify(data) %>';
+</script>
 
-
-     <!-- <select name="history" id="history" class="form-control">
-        <option value=""></option>
-            <% //for (let i=0; i<data.length;i++){ %>
-        <option value="<%= //data[i].ministry_name%>">
-            <%= //data[i].ministry_name%>
-        </option>
-        <% //} %>
-    </select>
-</div>  -->
-        <ul>
-            <% data.forEach(data=> { %>
-                <li>
-                    <strong>Ministry ID:</strong>
-                    <%= data.ministry_id %>,
-                        <strong>Ministry Name:</strong>
-                        <%= data.ministry_name %>,
-                            <strong>Historical Ministry ID:</strong>
-                            <%= data.ministry_id_history %>,
-                                <strong>Acronym ID History:</strong>
-                                <%= data.acronym_id_history %>
-                </li>
-                <% }) %>
-        </ul>
 <%- include('../views/footer'); %>
