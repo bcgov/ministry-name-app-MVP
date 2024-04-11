@@ -35,10 +35,10 @@ INSERT INTO ministry (ministry_name, m_change_effective_date, is_current)
        	        ('Test Ministry of Supernatural Phenomena and Occult Studies', '1999-04-03', false),
                 ('Test Ministry of Timeless Tales and Folklore Preservation', '1999-04-03', false),
                 ('Test Ministry of Mystical Medicine and Alchemical Remedies', '1990-08-08', false),
-                ('Test Ministry of Astral Projections and Dreamworld Exploration', '2001-07-22', false),
-                ('Test Ministry of Quantum Computing and Virtual Realities', '1990-08-08', false),
+                ('Test Ministry of Astral Projections and Dream Exploration', '2001-07-22', false),
+                ('Test Ministry of Quantum Computing and Virtual Reality', '1990-08-08', false),
                 ('Test Ministry of Time Travel and Temporal Affairs', '2005-04-03', false),
-                ('Test Ministry of Magical Creatures and Wizardry', '2018-12-03', false),
+                ('Test Ministry of Wizardry and Amazing Magic', '2018-12-03', false),
                 ('Test Ministry of Extraordinary Events and Phenomena', '2005-04-03', false),
                 ('Test Ministry of Enigmatic Enigmas and Conundrums', '1990-08-08', false),
                 ('Test Ministry of Arcane Arts and Mystical Studies', '2018-11-17', false)
@@ -82,7 +82,7 @@ INSERT INTO acronym (acronym, a_change_effective_date)
                 ('APD','2001-07-22'),
                 ('QPVR','1990-08-08'),
                 ('TTTa','2005-04-03'),
-                ('MCW','2018-12-03'),
+                ('WAM','2018-12-03'),
                 ('eep','2005-04-03'),
                 ('eec','1990-08-08'),
                 ('aAMS','2018-11-17')
