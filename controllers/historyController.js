@@ -18,8 +18,5 @@ const getHistory = asyncHandler(async (req, res) => {
   }
 });
 
-const createMinistry = asyncHandler(async (req, res)=>{
-    router.get
-});
 
     module.exports = {getHistory};

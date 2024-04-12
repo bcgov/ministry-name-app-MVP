@@ -7,7 +7,7 @@ const createError = require('http-errors');
 const path = require('path');
 const mountRoutes = require('./routes/indexRouter.js');
 const bodyParser = require('body-parser');
-const rateLimit = require('express-rate-limit')
+const rateLimit = require('express-rate-limit');
 
 // create expres app
 const app= express();

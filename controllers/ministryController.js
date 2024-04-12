@@ -35,9 +35,10 @@ const addMinistry = asyncHandler(async (req, res) => {
     } else {
       console.log(`name: ${minName}, date: ${effectiveDate}`);
     }
-    res.redirect('/');
+    res.redirect('/success');
   } catch (err) {
     console.error('Error creating new Ministry:', err);
+// TODO: Change these to redirects:
     res.status(500).json({ error: 'Internal server error' });
   }
 });
