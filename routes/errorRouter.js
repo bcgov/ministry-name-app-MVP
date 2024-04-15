@@ -5,7 +5,7 @@ const {displayError} = require('../controllers/errorController.js');
 
 
 // render success view ejs file to display 
-router.get("/error", displayError);
+router.get("/", displayError);
 
 
 module.exports = router;

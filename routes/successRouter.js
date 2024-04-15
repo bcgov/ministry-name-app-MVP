@@ -5,7 +5,7 @@ const {displaySuccess} = require('../controllers/successController.js');
 
 
 // render success view ejs file to display 
-router.get("/success", displaySuccess);
+router.get("/", displaySuccess);
 
 
 module.exports = router;
