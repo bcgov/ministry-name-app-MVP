@@ -11,7 +11,8 @@ const getHistory = asyncHandler(async (req, res) => {
   try {
     // Call fetchData to retrieve data from the db
     const historicalData = await fetchData(pool, queryHistory);  
-    res.render('history', { title: 'Ministry History', data: historicalData.rows});
+    res.render('history', { title: 'Ministry History', 
+                            data: historicalData.rows}); 
   } catch (err) {
     console.error('Error fetching historical data:', err);
     res.status(500).json({ error: 'Internal server error' });

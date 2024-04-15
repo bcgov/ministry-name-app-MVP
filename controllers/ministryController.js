@@ -12,7 +12,9 @@ const getMinistryData = asyncHandler(async (req, res) => {
   try {
     // Call fetchData to retrieve data from the db
     const theData = await fetchData(pool, queryMinistry);
-    res.render('index', { title: 'Ministry Names', data: theData.rows });
+    res.render('index', { title: 'Ministry Names',
+     data: theData.rows}); 
+    
   } catch (err) {
     console.error('Error fetching ministry data:', err);
     res.status(500).json({ error: 'Internal server error' });

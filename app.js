@@ -14,7 +14,6 @@ const app= express();
 // view engine setu
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
 // rate limit config - for limiting repeated requests
 const limiter = rateLimit({
   windowMs: 10*60*1000, //10 minutes
