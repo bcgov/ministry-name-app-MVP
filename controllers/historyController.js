@@ -15,9 +15,8 @@ const getHistory = asyncHandler(async (req, res) => {
                             data: historicalData.rows}); 
   } catch (err) {
     console.error('Error fetching historical data:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.redirect('/error');
   }
 });
-
 
     module.exports = {getHistory};
