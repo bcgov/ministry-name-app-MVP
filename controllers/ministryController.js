@@ -2,10 +2,10 @@
 const pool = require('../db/dbConnectionConfig.js');
 const { fetchData } = require('../utils/helperfunctions.js');
 const asyncHandler = require("express-async-handler");
-const validator = require("express-validator");
+//const {body, validationResult} = require("express-validator");
 
 // sql query 
-const queryMinistry = 'SELECT m.ministry_id, m.ministry_name, a.acronym, m.m_change_effective_date, m.is_current FROM ministry m JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id JOIN acronym a ON a.acronym_id = ma.acronym_id ORDER BY m.ministry_name ASC;'
+const queryMinistry = 'SELECT m.ministry_id, m.ministry_name,a.acronym_id, a.acronym, m.m_change_effective_date, m.is_current FROM ministry m Left JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id LEFT JOIN acronym a ON a.acronym_id = ma.acronym_id ORDER BY m.ministry_name ASC;'
 
 // get ministry data and render to index view
 const getMinistryData = asyncHandler(async (req, res) => {
@@ -17,34 +17,58 @@ const getMinistryData = asyncHandler(async (req, res) => {
     
   } catch (err) {
     console.error('Error fetching ministry data:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.redirect('/error');
   }
 });
 
 // get ministry data from form and post to DB to create new ministry
 const addMinistry = asyncHandler(async (req, res) => {
   try {
+    //let resultsValidated = validationResult(req);
+    // get form data into variables
     let minName = req.body.ministryName;
     let effectiveDate = req.body.effectiveDate;
     let acronym;
     let acronymDate;
-
-    if (req.body.acronymChoice === "true") {// if yes radio is selected
-      acronym = req.body.acronym;
-      acronymDate = req.body.acronymDate;
-      console.log(`name: ${minName}, date: ${effectiveDate}, acronym: ${acronym}, acronym date: ${acronymDate} `);
-
-    } else {
-      console.log(`name: ${minName}, date: ${effectiveDate}`);
+    // query definitions
+    let queryAddMinistry = `INSERT INTO ministry (ministry_name, m_change_effective_date, is_current) VALUES ('${minName}', '${effectiveDate}', true);`
+   
+    
+    if (req.body.acronymChoice === "true") {// if yes radio is selected - add acronym data
+        acronym = req.body.acronym.toUpperCase();
+        acronymDate = req.body.acronymDate;
+        let queryAddAcronym = `INSERT INTO acronym (acronym, a_change_effective_date) VALUES ('${acronym}','${acronymDate}');`
+        let queryAddMinistryAcronym = `INSERT INTO ministry_acronym (ministry_id, acronym_id) VALUES ((SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('${minName}')),(SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('${acronym}')));`
+        const addMin = await fetchData(pool, queryAddMinistry);
+        const addAcr = await fetchData(pool, queryAddAcronym);
+        const addMinAcr = await fetchData(pool, queryAddMinistryAcronym );
+        console.log(`${addMin}, ${addAcr}, ${addMinAcr}`);
+    }else { 
+        const dbResult= await fetchData(pool, queryAddMinistry);
+        const obj = JSON.stringify(dbResult);
+        console.log(`db result: ${obj}`);
     }
     res.redirect('/success');
+
   } catch (err) {
     console.error('Error creating new Ministry:', err);
     res.redirect('/error');
   }
 });
 
+// delete ministry data - for development only?
+const deleteMinistry = asyncHandler(async (req, res)=>{
+  try{
 
 
+  }catch(err) {
+    console.error('Error deleting ministry data:', err);
+    res.redirect('/error');
+  }
+});
 
-module.exports = { getMinistryData, addMinistry };
+
+module.exports = {addMinistry,
+                    deleteMinistry,
+                    getMinistryData
+                  };

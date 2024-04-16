@@ -1,6 +1,8 @@
 <%- include('../views/header'); %>
-<h1><%= title%></h1>       
-<div>
+<div class="container-fluid title" id="histTitle">
+    <h4><%= title%></h4>  
+</div>
+<div class="container-fluid">
     <form id="historyForm">
         <label for="selectMinistryHist">Select a ministry:</label>
         <select name="selectMinistryHist" id="selectMinistryHist" class="form-control">
@@ -12,7 +14,7 @@
         </select>
     </form>
 </div>
-<div id=histDisplay>
+<div class="container-fluid" id=histDisplay>
     <p id="noHistory"></p>
     <table id="historyTable" class="table"></table>
 </div>

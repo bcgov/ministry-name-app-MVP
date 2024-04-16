@@ -1,8 +1,8 @@
 <%- include('../views/header'); %>       
         
 </br>
-        <div>
-          <h4></h4>
+        <div class="container-fluid title" id="histTitle">
+          <h4><%= title%></h4>  
         </div>
         <div class="accordion" id="accordionExample">
           <div class="accordion-item">
@@ -20,6 +20,7 @@
                   // only display ministry if current
                   if(data[i].is_current){
                 %>
+                <%= //data[i].ministry_id + ", " + data[i].ministry_name + ", " + data[i].acronym_id + ", " + data[i].acronym%> <br/>
                   <%= data[i].ministry_name + ", " + data[i].acronym%> <br/>
                 <%
                   }

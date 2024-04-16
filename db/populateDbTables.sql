@@ -38,7 +38,7 @@ INSERT INTO ministry (ministry_name, m_change_effective_date, is_current)
                 ('Test Ministry of Astral Projections and Dream Exploration', '2001-07-22', false),
                 ('Test Ministry of Quantum Computing and Virtual Reality', '1990-08-08', false),
                 ('Test Ministry of Time Travel and Temporal Affairs', '2005-04-03', false),
-                ('Test Ministry of Wizardry and Amazing Magic', '2018-12-03', false),
+                ('Test Ministry of Wizards and Amazing Magic', '2018-12-03', false),
                 ('Test Ministry of Extraordinary Events and Phenomena', '2005-04-03', false),
                 ('Test Ministry of Enigmatic Enigmas and Conundrums', '1990-08-08', false),
                 ('Test Ministry of Arcane Arts and Mystical Studies', '2018-11-17', false)
@@ -221,11 +221,11 @@ VALUES
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('MMAR'))
 ),
 (
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Astral Projections and Dreamworld Exploration')),
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Astral Projections and Dream Exploration')),
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('APD'))
 ),
 (
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Quantum Computing and Virtual Realities')),
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Quantum Computing and Virtual Reality')),
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('QPVR'))
 ),
 (
@@ -233,8 +233,8 @@ VALUES
     (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('TTTA'))
 ),
 (
-    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Magical Creatures and Wizardry')),
-    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('MCW'))
+    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Wizards and Amazing Magic')),
+    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('WAM'))
 ),
 (
     (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Extraordinary Events and Phenomena')),

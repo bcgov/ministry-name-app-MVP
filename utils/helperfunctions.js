@@ -21,7 +21,8 @@
         return result;
     }catch (err){
         console.error('Error executing fetchData()', err.stack);
-        res.status(500).json({error: 'Something went wrong, please try again.' });
+        //res.status(500).json({error: 'Something went wrong, please try again.' });
+        res.redirect('/error');
     }finally{
       client.release();
     }
@@ -75,7 +76,6 @@
           throw error;
       }
     };
-
 
 module.exports ={
   fetchData,
