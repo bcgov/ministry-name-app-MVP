@@ -1,10 +1,10 @@
 <%- include('../views/header'); %>
-<div class="container-fluid title" id="histTitle">
+<div class="container-fluid title text-center" id="histTitle">
     <h4><%= title%></h4>  
 </div>
-<div class="container-fluid">
+<div class="container-fluid ">
     <form id="historyForm">
-        <label for="selectMinistryHist">Select a ministry:</label>
+        <label class="pt-2 py-2" for="selectMinistryHist">Select a ministry:</label>
         <select name="selectMinistryHist" id="selectMinistryHist" class="form-control">
                 <% data.forEach(ministry =>{ %>
                 <option value="<%= ministry.ministry_id %>">
@@ -14,7 +14,7 @@
         </select>
     </form>
 </div>
-<div class="container-fluid" id=histDisplay>
+<div class="pt-2 py-2 container-fluid" id=histDisplay>
     <p id="noHistory"></p>
     <table id="historyTable" class="table"></table>
 </div>

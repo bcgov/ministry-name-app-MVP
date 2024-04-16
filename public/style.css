@@ -2,8 +2,9 @@ body {
  padding: 1% 2%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-.navbar{
+.navbar, .navbar-link{
   color: #234958;
+  font-size: x-large;
 }
 a, h1,h2, h3, h4, p {
   color: #234958;

@@ -56,19 +56,9 @@ const addMinistry = asyncHandler(async (req, res) => {
   }
 });
 
-// delete ministry data - for development only?
-const deleteMinistry = asyncHandler(async (req, res)=>{
-  try{
 
-
-  }catch(err) {
-    console.error('Error deleting ministry data:', err);
-    res.redirect('/error');
-  }
-});
 
 
 module.exports = {addMinistry,
-                    deleteMinistry,
                     getMinistryData
                   };
