@@ -1,11 +1,4 @@
 
-
-  // test function
-  const testing = ()=>{
-      console.log('export function working')
-  };
-
-  
   /**
    * fetch db data based on provided sql query
    * @param {Pool} pool db connection pool
@@ -45,8 +38,7 @@
         return testPort;
       }
       return false;
-    };
-
+  };
 
   /**
    * Event listener for HTTP server "error" event
@@ -75,11 +67,35 @@
         default:
           throw error;
       }
-    };
+  };
+
+  /**
+   * update a ministries is_current variable in db to false based on provided ministry id
+   * @param {Pool} pool db connection pool
+   * @param {minId} number the ministry_id 
+   * @returns {Promise<sqlQueryResults>} query results 
+   * @throws {Error} Error if query fails
+   */
+  const setIsCurrentFalse = async(pool, minId)=>{
+    let queryRetire = `UPDATE ministry SET is_current = false WHERE ministry_id = '${minId}';`
+          // get client from db pool
+    const client = await pool.connect(); 
+    try{
+      const result = await client.query(queryRetire);
+      return result;
+    }catch (err){
+      console.error('Error executing fetchData()', err.stack);
+      //res.status(500).json({error: 'Something went wrong, please try again.' });
+      res.redirect('/error');
+    }finally{
+      client.release();
+    }
+  };
+    
 
 module.exports ={
   fetchData,
   normalizePort,
   onError,
-  testing
+  setIsCurrentFalse
 };

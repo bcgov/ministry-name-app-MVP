@@ -1,6 +1,6 @@
 // dependecies
 const pool = require('../db/dbConnectionConfig.js');
-const { fetchData } = require('../utils/helperfunctions.js');
+const { fetchData, setIsCurrentFalse } = require('../utils/helperfunctions.js');
 const asyncHandler = require("express-async-handler");
 //const {body, validationResult} = require("express-validator");
 
@@ -12,14 +12,13 @@ const addMinistry = asyncHandler(async (req, res) => {
   try {
     //let resultsValidated = validationResult(req);
     // get form data into variables
-    let minName = req.body.ministryName;
+    let minName = req.body.ministryName.toUpperCase();
     let effectiveDate = req.body.effectiveDate;
     let acronym;
     let acronymDate;
     // query definitions
     let queryAddMinistry = `INSERT INTO ministry (ministry_name, m_change_effective_date, is_current) VALUES ('${minName}', '${effectiveDate}', true);`
    
-    
     if (req.body.acronymChoice === "true") {// if yes radio is selected - add acronym data
         acronym = req.body.acronym.toUpperCase();
         acronymDate = req.body.acronymDate;
@@ -42,7 +41,7 @@ const addMinistry = asyncHandler(async (req, res) => {
   }
 });
 
-// TODO add history data to ministry
+// TODO add history data to a ministry
 const addMinistryHistory = asyncHandler(async (req, res) =>{
 
 });
@@ -68,6 +67,9 @@ const getMinistryData = asyncHandler(async (req, res) => {
 
 // TODO: retire a ministry (set is_current to false)
 const retireMinistry= asyncHandler(async (req, res) =>{
+  let minToRetire = "1";
+ setIsCurrentFalse(pool,minToRetire);
+
 
 });
 
