@@ -7,20 +7,6 @@ const asyncHandler = require("express-async-handler");
 // sql query 
 const queryMinistry = 'SELECT m.ministry_id, m.ministry_name,a.acronym_id, a.acronym, m.m_change_effective_date, m.is_current FROM ministry m Left JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id LEFT JOIN acronym a ON a.acronym_id = ma.acronym_id ORDER BY m.ministry_name ASC;'
 
-// get ministry data and render to index view
-const getMinistryData = asyncHandler(async (req, res) => {
-  try {
-    // Call fetchData to retrieve data from the db
-    const theData = await fetchData(pool, queryMinistry);
-    res.render('index', { title: 'Ministry Names',
-     data: theData.rows}); 
-    
-  } catch (err) {
-    console.error('Error fetching ministry data:', err);
-    res.redirect('/error');
-  }
-});
-
 // get ministry data from form and post to DB to create new ministry
 const addMinistry = asyncHandler(async (req, res) => {
   try {
@@ -56,9 +42,40 @@ const addMinistry = asyncHandler(async (req, res) => {
   }
 });
 
+// TODO add history data to ministry
+const addMinistryHistory = asyncHandler(async (req, res) =>{
+
+});
+
+// TODO: edit ministry data
+const editMinistry= asyncHandler(async (req, res) =>{
+
+});
+
+// get ministry data and render to index view
+const getMinistryData = asyncHandler(async (req, res) => {
+  try {
+    // Call fetchData to retrieve data from the db
+    const theData = await fetchData(pool, queryMinistry);
+    res.render('index', { title: 'Ministry Names',
+     data: theData.rows}); 
+    
+  } catch (err) {
+    console.error('Error fetching ministry data:', err);
+    res.redirect('/error');
+  }
+});
+
+// TODO: retire a ministry (set is_current to false)
+const retireMinistry= asyncHandler(async (req, res) =>{
+
+});
 
 
 
 module.exports = {addMinistry,
-                    getMinistryData
+                  addMinistryHistory,
+                  editMinistry,
+                  getMinistryData,
+                  retireMinistry
                   };
