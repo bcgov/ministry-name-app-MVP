@@ -63,7 +63,7 @@
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <form  action="/" method="POST" class="row g-3 needs-validation" id="newMinistryForm">
+                <form  action="/addMinistry" method="POST" class="row g-3 needs-validation" id="newMinistryForm">
                   <div class="col-md-4">
                     <label for="ministryName" class="form-label">Ministry Name</label>
                     <input type="text" class="form-control" name= "ministryName" id="ministryName" required>
@@ -110,18 +110,23 @@
             <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body">
                 <h4>Please a current ministry to retire</h4>
-                <div>
-<% //TODO: update so only currently active ministries display %>
-                  <select name="minToChange" id="minToChange" class="form-control">
-                    <% for (let i=0; i<data.length;i++){ 
-                          if(data[i].is_current){
-                    %>
-                            <option value="<%= data[i].ministry_id%>">
-                              <%= data[i].ministry_name %>
-                            </option> 
-                    <% }}; %>
-                  </select>
-                </div>
+                <form action="/retireMinistry" method="POST" class="row g-3 needs-validation" id="retireForm">
+                  <div>
+  <% //TODO: update so only currently active ministries display %>
+                    <select name="minToRetire" id="minToRetire" class="form-control">
+                      <% for (let i=0; i<data.length;i++){ 
+                            if(data[i].is_current){
+                      %>
+                              <option value="<%= data[i].ministry_id%>">
+                                <%= data[i].ministry_name %>
+                              </option> 
+                      <% }}; %>
+                    </select>
+                  </div>
+                  <div>
+                      <button class="btn btn-primary" type="submit">Retire</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

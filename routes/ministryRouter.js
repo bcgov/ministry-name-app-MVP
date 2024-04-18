@@ -2,8 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const {addMinistry,
-    addMinistryHistory,
-    editMinistry,
+    //addMinistryHistory,
+    //editMinistry,
     getMinistryData,
     retireMinistry} = require('../controllers/ministryController.js');
 
@@ -12,9 +12,9 @@ const {addMinistry,
 router.get("/", getMinistryData);
 
 // post method to write form data to Db to create new ministry
-router.post("/", addMinistry);
-router.post("/", retireMinistry);
-router.post("/", addMinistryHistory);
-router.post("/", editMinistry);
+router.post("/addMinistry", addMinistry);
+router.post("/retireMinistry", retireMinistry);
+//router.post("/", addMinistryHistory);
+//router.post("/", editMinistry);
 
 module.exports = router;

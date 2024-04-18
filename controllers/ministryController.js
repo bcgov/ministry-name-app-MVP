@@ -59,7 +59,7 @@ const getMinistryData = asyncHandler(async (req, res) => {
     res.render('index', { title: 'Ministry Names',
      data: theData.rows}); 
     
-  } catch (err) {
+  }catch (err) {
     console.error('Error fetching ministry data:', err);
     res.redirect('/error');
   }
@@ -67,10 +67,18 @@ const getMinistryData = asyncHandler(async (req, res) => {
 
 // TODO: retire a ministry (set is_current to false)
 const retireMinistry= asyncHandler(async (req, res) =>{
-  let minToRetire = "1";
- setIsCurrentFalse(pool,minToRetire);
-
-
+  try {
+    // Call fetchData to retrieve data from the db
+    let minToRetire = req.body.minToRetire;
+    console.log(minToRetire);
+    let retireResult = await setIsCurrentFalse(pool,minToRetire);
+    let final = JSON.stringify(retireResult);
+    console.log(`${final}`);
+    res.redirect('/success');
+  }catch (err) {
+    console.error('Error fetching ministry data:', err);
+    res.redirect('/error');
+  }
 });
 
 
