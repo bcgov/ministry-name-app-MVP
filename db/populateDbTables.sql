@@ -250,7 +250,7 @@ VALUES
 );
 
 
--- insert into ministry_acronym
+-- insert into ministry_history
 --contains test data only
 INSERT INTO ministry_history (ministry_id, ministry_id_history)
 VALUES 

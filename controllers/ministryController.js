@@ -1,6 +1,6 @@
 // dependecies
 const pool = require('../db/dbConnectionConfig.js');
-const { fetchData, setIsCurrentFalse } = require('../utils/helperfunctions.js');
+const { fetchData, setIsCurrentFalse, updateHistory } = require('../utils/helperfunctions.js');
 const asyncHandler = require("express-async-handler");
 //const {body, validationResult} = require("express-validator");
 
@@ -43,12 +43,22 @@ const addMinistry = asyncHandler(async (req, res) => {
 
 // TODO add history data to a ministry
 const addMinistryHistory = asyncHandler(async (req, res) =>{
+  try{
 
+  }catch(err){
+    console.error('Error adding history data to ministry_history table:', err);
+    res.redirect('/error');
+  }
 });
 
 // TODO: edit ministry data
 const editMinistry= asyncHandler(async (req, res) =>{
+  try{
 
+  }catch(err){
+    console.error('Error editing a history:', err);
+    res.redirect('/error');
+  }
 });
 
 // get ministry data and render to index view
@@ -70,7 +80,7 @@ const retireMinistry= asyncHandler(async (req, res) =>{
   try {
     // Call fetchData to retrieve data from the db
     let minToRetire = req.body.minToRetire;
-    console.log(minToRetire);
+    console.log(`min id to retire: ${minToRetire}`);
     let retireResult = await setIsCurrentFalse(pool,minToRetire);
     let final = JSON.stringify(retireResult);
     console.log(`${final}`);
@@ -80,7 +90,6 @@ const retireMinistry= asyncHandler(async (req, res) =>{
     res.redirect('/error');
   }
 });
-
 
 
 module.exports = {addMinistry,
