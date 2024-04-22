@@ -43,7 +43,10 @@ const addMinistry = asyncHandler(async (req, res) => {
 
 // TODO add history data to a ministry
 const addMinistryHistory = asyncHandler(async (req, res) =>{
+  let minIdHistory = '';
+  let minIdCurrent='';
   try{
+    const historyUpdated = await updateHistory(pool, minIdCurrent, minIdHistory);
 
   }catch(err){
     console.error('Error adding history data to ministry_history table:', err);
@@ -75,7 +78,17 @@ const getMinistryData = asyncHandler(async (req, res) => {
   }
 });
 
-// TODO: retire a ministry (set is_current to false)
+// TODO: merge 2 ministries
+const mergeMinistry= asyncHandler(async (req, res) =>{
+  try{
+
+  }catch(err){
+    console.error('Error editing a history:', err);
+    res.redirect('/error');
+  }
+});
+
+// retire a ministry (set is_current to false)
 const retireMinistry= asyncHandler(async (req, res) =>{
   try {
     // Call fetchData to retrieve data from the db
@@ -86,15 +99,26 @@ const retireMinistry= asyncHandler(async (req, res) =>{
     console.log(`${final}`);
     res.redirect('/success');
   }catch (err) {
-    console.error('Error fetching ministry data:', err);
+    console.error('Error retiring this ministry:', err);
     res.redirect('/error');
   }
 });
 
+// TODO: split ministry data into 2
+const splitMinistry = asyncHandler(async (req, res) =>{
+  try{
+
+  }catch(err){
+    console.error('Error editing a history:', err);
+    res.redirect('/error');
+  }
+});
 
 module.exports = {addMinistry,
                   addMinistryHistory,
                   editMinistry,
                   getMinistryData,
-                  retireMinistry
+                  mergeMinistry,
+                  retireMinistry,
+                  splitMinistry
                   };
