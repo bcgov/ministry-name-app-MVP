@@ -4,6 +4,7 @@ const router = express.Router();
 const {addMinistry,
     addMinistryHistory,
     editMinistry,
+    getMinistry,
     getMinistryData,
     mergeMinistry,
     retireMinistry,
@@ -13,7 +14,7 @@ const {addMinistry,
 
 // run select query and send render results to ministry view ejs file to display 
 router.get("/", getMinistryData);
-
+router.get("/getMinistry", getMinistry);
 // post method to write form data to Db to create new ministry
 router.post("/addMinistry", addMinistry);
 router.post("/retireMinistry", retireMinistry);

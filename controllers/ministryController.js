@@ -64,6 +64,13 @@ const editMinistry= asyncHandler(async (req, res) =>{
   }
 });
 
+const getMinistry = (req, res) => {
+  pool.query(queryMinistry, (error, results)=>{
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+};
+
 // get ministry data and render to index view
 const getMinistryData = asyncHandler(async (req, res) => {
   try {
@@ -104,10 +111,28 @@ const retireMinistry= asyncHandler(async (req, res) =>{
   }
 });
 
-// TODO: split ministry data into 2
+// TODO: split a ministry into 2 new ones and retire original
 const splitMinistry = asyncHandler(async (req, res) =>{
   try{
+    // request form data:
+    let minIdToSplit = req.body.minToSplit;
+    let newMinA = req.body.splitMinistryNameA;
+    let effectiveDateA = req.body.splitEffectiveDateA;
+    let newMinB = req.body.splitMinistryNameB;
+    let effectiveDateB = req.body.splitEffectiveDateB;
+    console.log(`${minIdToSplit}, ${newMinA}, ${effectiveDateA}, ${newMinB}, ${effectiveDateB},`);
+    // add 2 new ministries
+    let queryAddSplitMinistries = `INSERT INTO ministry (ministry_name, m_change_effective_date, is_current) VALUES ('${newMinA}', '${effectiveDateA}', true),('${newMinB}', '${effectiveDateB}', true);`
+    console.log(`${queryAddSplitMinistries}`);
+    let insertSplitMinistriesResult = await fetchData(pool, queryAddSplitMinistries);
+    // fetch new ministry IDs:
+    let queryNewIds = `SELECT m.ministry_id , m.ministry_name, m.is_current from ministry m WHERE UPPER(m.ministry_name) = UPPER('${newMinA}') OR UPPER(m.ministry_name) = UPPER('${newMinB}') ;`
+    console.log(`${queryNewIds}`);
+    let updateSplitHistoryResult = await fetchData(pool, queryNewIds);
+    //console.log(`${updateSplitHistoryResult.rows}`);
 
+    const objx = JSON.stringify(updateSplitHistoryResult.rows);
+    console.log(`db result: ${objx}`);
   }catch(err){
     console.error('Error editing a history:', err);
     res.redirect('/error');
@@ -117,6 +142,7 @@ const splitMinistry = asyncHandler(async (req, res) =>{
 module.exports = {addMinistry,
                   addMinistryHistory,
                   editMinistry,
+                  getMinistry,
                   getMinistryData,
                   mergeMinistry,
                   retireMinistry,

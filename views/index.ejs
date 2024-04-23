@@ -138,10 +138,10 @@
             </h2>
             <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
               <div class="accordion-body">
-                <h4>Please select a current ministry to split</h4>
                 <form action="/splitMinistry" method="POST" class="row g-3 needs-validation" id="splitForm">
                   <div>
-                    <select name="minToSplit" id="minToSplit" class="form-control">
+                    <label for="minToSplit" class="form-label">Please select a current ministry to split. NOTE: THIS MINISTRY WILL BE RETIRED</label>
+                    <select name="minToSplit" id="minToSplit" class="form-control" required>
                       <% for (let i=0; i<data.length;i++){ 
                             if(data[i].is_current){
                       %>
@@ -150,6 +150,22 @@
                               </option> 
                       <% }}; %>
                     </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="splitMinistryNameA" class="form-label">Ministry A Name</label>
+                    <input type="text" class="form-control" name= "splitMinistryNameA" id="splitMinistryNameA" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="splitEffectiveDateA" class="form-label">Ministry A Effective Date</label>
+                    <input type="date" class="form-control" name="splitEffectiveDateA" id="splitEffectiveDateA" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="splitMinistryNameB" class="form-label">Ministry B Name</label>
+                    <input type="text" class="form-control" name= "splitMinistryNameB" id="splitMinistryNameB" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="splitEffectiveDateB" class="form-label">Ministry B Effective Date</label>
+                    <input type="date" class="form-control" name="splitEffectiveDateB" id="splitEffectiveDateB" required>
                   </div>
                   <div>
                       <button class="btn btn-primary" type="submit">Split</button>
