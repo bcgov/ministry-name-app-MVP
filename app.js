@@ -7,13 +7,17 @@ const logger = require('morgan');
 const createError = require('http-errors');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
+//TODO: future authentication/login features may require:
+ //const bcrypt = require('bcrypt'); // for pw encryption
+ //const session = require('express-session'); // for session variables
 
 // create expres app
 const app= express();
 
-// view engine setu
+// view engine setup
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
 // rate limit config - for limiting repeated requests
 const limiter = rateLimit({
   windowMs: 10*60*1000, //10 minutes

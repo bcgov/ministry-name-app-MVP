@@ -1,46 +1,45 @@
-<%- include('../views/header'); %>       
-        
-</br>
-        <div class="container-fluid title text-center" id="minTitle">
-          <h4><%= title%></h4>  
-        </div>
-        <div class="accordion" id="ministryAccordion">
-<% //See active Ministries %>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                See all active ministries
-              </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
-              <div class="accordion-body" id="ministryList">
-                <%//console.log(data); %>
+<%- include('../views/header'); %>
 
-                <% 
-                for (let i=0; i<data.length;i++){
-                  // only display ministry if current
-                  if(data[i].is_current){
-                %>
-                <%= //data[i].ministry_id + ", " + data[i].ministry_name + ", " + data[i].acronym_id + ", " + data[i].acronym%> <br/>
-                  <%= data[i].ministry_name + ", " + data[i].acronym%> <br/>
-                <%
-                  }
-                } 
-                %>
-              </div>
-            </div>
+  </br>
+  <div class="container-fluid title text-center" id="minTitle">
+    <h4>
+      <%= title%>
+    </h4>
+  </div>
+  <div class="accordion" id="ministryAccordion">
+    <!--See active Ministries--> 
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+            aria-expanded="false" aria-controls="collapseOne">
+            See all active ministries
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
+          <div class="accordion-body" id="ministryList">
+            <% //console.log(data); %>
+
+              <% for (let i=0; i<data.length;i++){ // only display ministry if current %>
+                <% if(data[i].is_current){ %>
+                <%= //data[i].ministry_id + ", " + data[i].ministry_name + ", " + data[i].acronym_id + ", " + data[i].acronym%> 
+                  <br />
+                  <%= data[i].ministry_name + ", " + data[i].acronym%> <br />
+                    <% } } %>
           </div>
-<% //Edit ministry info %>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Edit a current ministries' information
-              </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
-              <div class="accordion-body">
-                <h4>Please select a ministry to edit</h4>
-                <div>
+        </div>
+      </div>
+      <!--Edit ministry info--> 
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Edit a current ministries' information
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
+            <div class="accordion-body">
+              <h4>Please select a ministry to edit</h4>
+              <div>
                 <% //TODO: update so only currently active ministries display %>
                   <select name="minToChange" id="minToChange" class="form-control">
                     <option value=""></option>
@@ -48,25 +47,26 @@
                       <option value="<%= data[i].ministry_name%>">
                         <%= data[i].ministry_name%>
                       </option>
-                    <% } %>
+                      <% } %>
                   </select>
-                </div>
               </div>
             </div>
           </div>
-<% //Add new ministry %>
+        </div>
+        <!--Add new ministry--> 
           <div class="accordion-item">
             <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 Add new
               </button>
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
               <div class="accordion-body">
-                <form  action="/addMinistry" method="POST" class="row g-3 needs-validation" id="newMinistryForm">
+                <form action="/addMinistry" method="POST" class="row g-3 needs-validation" id="newMinistryForm">
                   <div class="col-md-4">
                     <label for="ministryName" class="form-label">Ministry Name</label>
-                    <input type="text" class="form-control" name= "ministryName" id="ministryName" required>
+                    <input type="text" class="form-control" name="ministryName" id="ministryName" required>
                   </div>
                   <div class="col-md-4">
                     <label for="effectiveDate" class="form-label">Ministry Effective Date</label>
@@ -75,18 +75,20 @@
                   <div class="col-md-4">
                     <p>Does this ministry have an assigned acronym?</p>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="acronymChoice" id="acronymYes" value="true" data-toggle-value="revealIfActive" required>
+                      <input class="form-check-input" type="radio" name="acronymChoice" id="acronymYes" value="true"
+                        data-toggle-value="revealIfActive" required>
                       <label class="form-check-label" for="acronymYes">Yes</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="acronymChoice" id="acronymNo" value="false" required>
+                      <input class="form-check-input" type="radio" name="acronymChoice" id="acronymNo" value="false"
+                        required>
                       <label class="form-check-label" for="acronymNo">No</label>
                     </div>
                   </div>
                   <div id="reveal-if-active">
                     <div class="col-md-6">
                       <label for="acronym" class="form-label">Acronym</label>
-                      <input type="text" class="form-control" name= "acronym" id="acronym" required>
+                      <input type="text" class="form-control" name="acronym" id="acronym" required>
                     </div>
                     <div class="col-md-6">
                       <label for="acronymDate" class="form-label">Acronym Effective Date</label>
@@ -100,120 +102,120 @@
               </div>
             </div>
           </div>
-<% //Retire ministry %>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                Retire
-              </button>
-            </h2>
-            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
-              <div class="accordion-body">
-                <h4>Please select a current ministry to retire</h4>
-                <form action="/retireMinistry" method="POST" class="row g-3 needs-validation" id="retireForm">
-                  <div>
-                    <select name="minToRetire" id="minToRetire" class="form-control">
-                      <% for (let i=0; i<data.length;i++){ 
-                            if(data[i].is_current){
-                      %>
-                              <option value="<%= data[i].ministry_id%>">
-                                <%= data[i].ministry_name %>
-                              </option> 
-                      <% }}; %>
-                    </select>
-                  </div>
-                  <div>
+          <!--Retire ministry--> 
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                  Retire
+                </button>
+              </h2>
+              <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
+                <div class="accordion-body">
+                  <h4>Please select a current ministry to retire</h4>
+                  <form action="/retireMinistry" method="POST" class="row g-3 needs-validation" id="retireForm">
+                    <div>
+                      <select name="minToRetire" id="minToRetire" class="form-control">
+                        <% for (let i=0; i<data.length;i++){ if(data[i].is_current){ %>
+                          <option value="<%= data[i].ministry_id%>">
+                            <%= data[i].ministry_name %>
+                          </option>
+                          <% }}; %>
+                      </select>
+                    </div>
+                    <div>
                       <button class="btn btn-primary" type="submit">Retire</button>
-                  </div>
-                </form>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-<% // Split a ministry in 2 %>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                Split
-              </button>
-            </h2>
-            <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
-              <div class="accordion-body">
-                <form action="/splitMinistry" method="POST" class="row g-3 needs-validation" id="splitForm">
-                  <div>
-                    <label for="minToSplit" class="form-label">Please select a current ministry to split. NOTE: THIS MINISTRY WILL BE RETIRED</label>
-                    <select name="minToSplit" id="minToSplit" class="form-control" required>
-                      <% for (let i=0; i<data.length;i++){ 
-                            if(data[i].is_current){
-                      %>
-                              <option value="<%= data[i].ministry_id%>">
-                                <%= data[i].ministry_name %>
-                              </option> 
-                      <% }}; %>
-                    </select>
+            <!--Split a ministry in 2--> 
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    Split
+                  </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
+                  <div class="accordion-body">
+                    <form action="/splitMinistry" method="POST" class="row g-3 needs-validation" id="splitForm">
+                      <div>
+                        <label for="minToSplit" class="form-label">Please select a current ministry to split. NOTE: THIS
+                          MINISTRY WILL BE RETIRED</label>
+                        <select name="minToSplit" id="minToSplit" class="form-control" required>
+                          <% for (let i=0; i<data.length;i++){ if(data[i].is_current){ %>
+                            <option value="<%= data[i].ministry_id%>">
+                              <%= data[i].ministry_name %>
+                            </option>
+                            <% }}; %>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="splitMinistryNameA" class="form-label">Ministry A Name</label>
+                        <input type="text" class="form-control" name="splitMinistryNameA" id="splitMinistryNameA"
+                          required>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="splitEffectiveDateA" class="form-label">Ministry A Effective Date</label>
+                        <input type="date" class="form-control" name="splitEffectiveDateA" id="splitEffectiveDateA"
+                          required>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="splitMinistryNameB" class="form-label">Ministry B Name</label>
+                        <input type="text" class="form-control" name="splitMinistryNameB" id="splitMinistryNameB"
+                          required>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="splitEffectiveDateB" class="form-label">Ministry B Effective Date</label>
+                        <input type="date" class="form-control" name="splitEffectiveDateB" id="splitEffectiveDateB"
+                          required>
+                      </div>
+                      <div>
+                        <button class="btn btn-primary" type="submit">Split</button>
+                      </div>
+                    </form>
                   </div>
-                  <div class="col-md-6">
-                    <label for="splitMinistryNameA" class="form-label">Ministry A Name</label>
-                    <input type="text" class="form-control" name= "splitMinistryNameA" id="splitMinistryNameA" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="splitEffectiveDateA" class="form-label">Ministry A Effective Date</label>
-                    <input type="date" class="form-control" name="splitEffectiveDateA" id="splitEffectiveDateA" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="splitMinistryNameB" class="form-label">Ministry B Name</label>
-                    <input type="text" class="form-control" name= "splitMinistryNameB" id="splitMinistryNameB" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="splitEffectiveDateB" class="form-label">Ministry B Effective Date</label>
-                    <input type="date" class="form-control" name="splitEffectiveDateB" id="splitEffectiveDateB" required>
-                  </div>
-                  <div>
-                      <button class="btn btn-primary" type="submit">Split</button>
-                  </div>
-                </form>
+                </div>
               </div>
-            </div>
-          </div> 
-<% // Merge 2 ministries %>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                Merge
-              </button>
-            </h2>
-            <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
-              <div class="accordion-body">
-                <h4>Please select 2 ministries to merge</h4>
-                <form action="/mergeMinistry" method="POST" class="row g-3 needs-validation" id="mergeForm">
-                  <div>
-                    <select name="minToMerge1" id="minToMerge1" class="form-control">
-                      <% for (let i=0; i<data.length;i++){ 
-                            if(data[i].is_current){
-                      %>
+               <!--Merge 2 ministries--> 
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                      Merge
+                    </button>
+                  </h2>
+                  <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
+                    <div class="accordion-body">
+                      <h4>Please select 2 ministries to merge</h4>
+                      <form action="/mergeMinistry" method="POST" class="row g-3 needs-validation" id="mergeForm">
+                        <div>
+                          <select name="minToMerge1" id="minToMerge1" class="form-control">
+                            <% for (let i=0; i<data.length;i++){ if(data[i].is_current){ %>
                               <option value="<%= data[i].ministry_id%>">
                                 <%= data[i].ministry_name %>
-                              </option> 
-                      <% }}; %>
-                    </select>
-                    <select name="minToMerge2" id="minToMerge2" class="form-control">
-                      <% for (let i=0; i<data.length;i++){ 
-                            if(data[i].is_current){
-                      %>
+                              </option>
+                              <% }}; %>
+                          </select>
+                          <select name="minToMerge2" id="minToMerge2" class="form-control">
+                            <% for (let i=0; i<data.length;i++){ if(data[i].is_current){ %>
                               <option value="<%= data[i].ministry_id%>">
                                 <%= data[i].ministry_name %>
-                              </option> 
-                      <% }}; %>
-                    </select>
+                              </option>
+                              <% }}; %>
+                          </select>
+                        </div>
+                        <div>
+                          <button class="btn btn-primary" type="submit">Merge</button>
+                        </div>
+                      </form>
+                    </div>
                   </div>
-                  <div>
-                      <button class="btn btn-primary" type="submit">Merge</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+                </div>
 
-        </div>
-<%- include('../views/footer'); %>
-<%- include('../views/indexJSScript'); %>
-<%- include('../views/closingTags'); %>
+  </div>
+  <%- include('../views/footer'); %>
+    <%- include('../views/indexJSScript'); %>
+      <%- include('../views/closingTags'); %>

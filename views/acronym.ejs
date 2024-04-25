@@ -1,0 +1,33 @@
+<%- include('../views/header'); %>
+<div class="container-fluid title text-center" id="acronymTitle">
+    <h4><%= title%></h4>  
+</div>
+
+<div class="accordion" id="acronymAccordion">
+    <% //See active Ministries %>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+            aria-expanded="false" aria-controls="collapseOne">
+            See all acronmys
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#acronymAccordion">
+          <div class="accordion-body" id="acronymList">
+            <div class="container-fluid title text-center" id="acronymTest">
+              <table class="table-striped table table-bordered" id="displayAcronymTableTest">
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<script defer>
+    //pass the history data as variable to use in custom.js file
+    //let theAcronymData = '<%- //JSON.stringify(acronymData) %>';
+</script>
+
+<%- include('../views/footer'); %>
+<%- include('../views/acronymJSScript.ejs'); %> <!-- only include this js file script on acronym page: -->
+<%- include('../views/closingTags'); %>
