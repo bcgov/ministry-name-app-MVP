@@ -23,7 +23,8 @@ const displayAcronyms = async () => {
   try {
     //fetch data from api
     const acryData = await fetchAcronymData();
-    //const TEST = JSON.stringify(acryData);
+    const TEST = JSON.stringify(acryData);
+    console.log(TEST);
 
     //diplay the acronym data
     let acronymSetup = `

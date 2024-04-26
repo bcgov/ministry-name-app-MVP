@@ -2,7 +2,7 @@
 const pool = require("../db/dbConnectionConfig.js");
 const { fetchData } = require("../utils/helperfunctions.js");
 const asyncHandler = require("express-async-handler");
-const { queryAcronymsAll } = require("../db/queries.js");
+const { queryAcronymsAll, queryAcronymsAllTEST} = require("../db/queries.js");
 
 // API's for database:
 
