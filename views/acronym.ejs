@@ -81,9 +81,11 @@
         </h2>
         <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#acronymAccordion">
           <div class="accordion-body">
-            <h4>Please select an Unassigned Acronym</h4>
-            <div>
+            
+            <form action="/api/pairMinistryAcronym" method="POST" class="row g-3 needs-validation" id="assignNewAcronymForm">
+              <h4>Please select an Unassigned Acronym</h4>
               <% //Only show unassigned Acronyms %>
+              <div>
                 <select name="AcrToAssign" id="AcrToAssign" class="form-control">
                   <option value=""></option>
                   <% for (let i=0; i<data.length;i++){ %>
@@ -107,6 +109,10 @@
                       <% } }%>
                 </select>
             </div>
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit">Pair</button>
+            </div>
+          </form>
           </div>
         </div>
       </div>
@@ -145,6 +151,9 @@
                 </option>
                 <% } }%>
           </select>
+      </div>
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">Submit form</button>
       </div>
     </div>
   </div>

@@ -124,5 +124,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //______________________Assign New Acronym to Ministry frontend logic_______________
 
+// create new acronym:
+document.addEventListener("DOMContentLoaded", () => {
+  const AssignNewAcronymForm = document.getElementById("AssignNewAcronymForm");
+
+  AssignNewAcronymForm.addEventListener("submit", event => {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Collect form data values (id's)
+    const selectedMinId = parseInt(document.getElementById(MinToAssign).value);
+    const selectedAcrId = parseInt(document.getElementById(AcrToAssign).value);
+    console.log(`MIN ID: ${selectedMinId}, ACR ID:${selectedAcrId}`)
+   
+    // create form object:
+    const formData ={
+      ministry_id: selectedMinId,
+      acronym_id: selectedAcrId
+    }
+    // Send POST request
+    fetch("/acronym/api/pairMinistryAcronym", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.text();
+      })
+      .then(data => {
+        // Handle successful response
+        console.log(data); // Log response from the server
+        console.log("Acronym successfully created.");
+        // Redirect to the success page
+        window.location.href = "/success";
+      })
+      .catch(error => {
+        // Handle errors
+        console.error("Error:", error);
+        window.location.href = "/error";
+      });
+  });
+});
 
 //______________________Reassign an Acronym for a Ministry frontend logic_______________

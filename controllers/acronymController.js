@@ -4,6 +4,7 @@ const { fetchData } = require("../utils/helperfunctions.js");
 const asyncHandler = require("express-async-handler");
 const { queryAcronymsAll, queryAcronymsAllTEST, queryAddAcronym,
   queryAcronymById,
+  queryAddMinistryAcronym,
   queryAcronymExistsCheck, } = require("../db/queries.js");
 
 // API's for database:
@@ -52,6 +53,27 @@ const addNewAcronym = (req, res) => {
     res.status(500).json(err);
   }
 };
+// Add to ministry_acronym table
+const addMinistryAcronym = (req, res) => {
+  try {
+    const { MinToAssign, AcrToAssign } = req.body;
+      pool.query(
+        queryAddMinistryAcronym,
+        [ MinToAssign, AcrToAssign],
+        (error, results) => {
+          if (error) {
+            // Handle query error
+            console.error("Error adding new acronym:", error);
+            return res.status(500).send("Internal Server Error");
+          }
+          res.status(201).send(`Acronym and Ministry successfully paired.`);
+        });
+      }catch (err) {
+    // Handle synchronous error
+    console.error("Synchronous error:", err);
+    res.status(500).json(err);
+  }
+};
 
 // render ejs page:
 const getAcronymAllToRender = asyncHandler(async (req, res) => {
@@ -66,4 +88,4 @@ const getAcronymAllToRender = asyncHandler(async (req, res) => {
 });
 
 
-module.exports = { getAcronymAll, getAcronymAllToRender, addNewAcronym };
+module.exports = { getAcronymAll, getAcronymAllToRender, addNewAcronym, addMinistryAcronym };

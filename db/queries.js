@@ -7,7 +7,7 @@ const queryAcronymsAll = 'SELECT m.ministry_id, m.ministry_name, a.acronym_id, a
 const queryAcronymById = 'SELECT m.ministry_id, m.ministry_name,a.acronym_id, a.acronym, a.a_change_effective_date, m.is_current FROM ministry m RIGHT JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id RIGHT JOIN acronym a ON a.acronym_id = ma.acronym_id WHERE a.acronym_id =$1;';
 const queryAcronymExistsCheck = 'SELECT a from acronym a WHERE UPPER(a.acronym) = UPPER($1);';
 const queryAddAcronym = 'INSERT INTO acronym (acronym, a_change_effective_date) VALUES($1, $2);';
-
+const queryAddMinistryAcronym= 'INSERT INTO ministry_acronym (ministry_id, acronym_id) VALUES($1, $2);';
 // ministry table sql queries 
 const queryMinistry = 'SELECT m.ministry_id, m.ministry_name, a.acronym_id, a.acronym, m.m_change_effective_date, m.is_current FROM ministry m Left JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id LEFT JOIN acronym a ON a.acronym_id = ma.acronym_id ORDER BY m.ministry_name ASC;';
 const queryMinistryById = 'SELECT m.ministry_id, m.ministry_name,a.acronym_id, a.acronym, m.m_change_effective_date, m.is_current FROM ministry m Left JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id LEFT JOIN acronym a ON a.acronym_id = ma.acronym_id WHERE m.ministry_id =$1;';
@@ -35,5 +35,6 @@ module.exports = {
   queryRetireMinistry,
   queryEditMinistry,
   queryAddMinistryHistory,
-  queryAddMinistryReturning
+  queryAddMinistryReturning,
+  queryAddMinistryAcronym
 };
