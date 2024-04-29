@@ -24,6 +24,7 @@ router.post("/api/ministry", addMinistryAPI);
 router.get("/api/ministry/:id", getMinistryByID);
 //router.update("/ministry/:id", editMinistryById);
 router.delete("/api/ministry/retire/:id", retireMinistryById);
+router.post("/api/ministry/addHistory", addMinistryHistory);
 
 // run select query and send render results to ministry view ejs file to display
 router.get("/", getMinistryData);

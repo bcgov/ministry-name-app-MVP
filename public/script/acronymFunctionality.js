@@ -83,7 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
       formDataObject[key] = value;
     });
 
-    console.log("Form data:", formDataObject);
     // Send POST request
     fetch("/acronym/api/addNewAcronym", {
       method: "POST",

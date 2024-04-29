@@ -16,6 +16,9 @@ const queryAddMinistry = 'INSERT INTO ministry (ministry_name, m_change_effectiv
 const queryRetireMinistry = 'UPDATE ministry SET is_current = false WHERE ministry_id = $1;';
 const queryEditMinistry = '';
 const queryMinistryExistsCheckById = 'SELECT m from ministry m WHERE ministry_id = $1;';
+const queryAddMinistryHistory = 'INSERT INTO ministry_history (ministry_id, ministry_id_history) VALUES($1, $2);';
+
+
 module.exports = {
   queryAddAcronym,
   queryAcronymById,
@@ -30,4 +33,5 @@ module.exports = {
   queryMinistryExistsCheckById,
   queryRetireMinistry,
   queryEditMinistry,
+  queryAddMinistryHistory
 };

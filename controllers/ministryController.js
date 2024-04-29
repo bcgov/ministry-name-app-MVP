@@ -56,8 +56,14 @@ const addMinistryAPI = (req, res) => {
       queryAddMinistry,
       [ministry_name, m_change_effective_date],
       (error, results) => {
-        if (error) throw error;
-        res.status(201).send(`${ministry_name} successfully created.`);
+        if (error) {
+          console.error("Error adding new ministry:", error);
+          return res.status(500).send("Internal Server Error");
+        }
+        const newMinistryID = results.rows[0];
+        console.log(newMinistryID);
+
+        res.status(201).send({ ministry_id: newMinistryID, message: `${ministry_name} successfully created.` });
       });
   });
 };
@@ -75,6 +81,25 @@ const retireMinistryById = (req, res) => {
       });
     }
   });
+};
+
+const addMinistryHistory = (req, res) => {
+  try {
+    const { ministry_id, ministry_id_history } = req.body;
+
+    // Perform SQL operation to add ministry history
+    pool.query(queryAddMinistryHistory, [ministry_id, ministry_id_history], (error, results) => {
+      if (error) {
+        console.error("Error adding ministry history:", error);
+        return res.status(500).send("Internal Server Error");
+      }
+
+      res.status(201).send("Ministry history added successfully.");
+    });
+  } catch (error) {
+    console.error("Error adding ministry history:", error);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
 const editMinistryById = (req, res) => { };
@@ -113,7 +138,7 @@ const addMinistry = asyncHandler(async (req, res) => {
 });
 
 // TODO add history data to a ministry
-const addMinistryHistory = asyncHandler(async (req, res) => {
+const addMinistryHistoryTEST = asyncHandler(async (req, res) => {
   let minIdHistory = "";
   let minIdCurrent = "";
   try {
