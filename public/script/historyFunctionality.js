@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${formattedDate}</td>
                     </tr>
                 `;
-                
+
           document
             .querySelector("table")
             .insertAdjacentHTML("beforeend", eachMinistry);

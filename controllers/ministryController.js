@@ -68,7 +68,7 @@ const retireMinistryById = (req, res) => {
     if (!results.rows.length) {
       res.send(`The ministry with id # ${minRetireId} doesn't exist`);
     }
-    else{
+    else {
       pool.query(queryRetireMinistry, [minRetireId], (error, results) => {
         if (error) throw error;
         res.status(200).json(results.rows);
@@ -77,7 +77,7 @@ const retireMinistryById = (req, res) => {
   });
 };
 
-const editMinistryById = (req, res) => {};
+const editMinistryById = (req, res) => { };
 
 const addMinistry = asyncHandler(async (req, res) => {
   try {

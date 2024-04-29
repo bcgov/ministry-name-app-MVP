@@ -85,7 +85,8 @@ INSERT INTO acronym (acronym, a_change_effective_date)
                 ('WAM','2018-12-03'),
                 ('eep','2005-04-03'),
                 ('eec','1990-08-08'),
-                ('aAMS','2018-11-17')
+                ('aAMS','2018-11-17'),
+        -- test data without corresponding Ministry:
 ;
 
 -- insert into ministry_acronym

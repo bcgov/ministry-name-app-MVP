@@ -66,10 +66,64 @@ const displayAcronyms = async () => {
   }
 };
 
-if (document.readyState === "loading") {
-  // Loading hasn't finished yet
-  document.addEventListener("DOMContentLoaded", displayAcronyms);
-} else {
-  // `DOMContentLoaded` has already fired
-  displayAcronyms();
-}
+
+//______________________Add Acronym frontend logic_______________
+
+// create new acronym:
+document.addEventListener("DOMContentLoaded", () => {
+  const newAcronymForm = document.getElementById("newAcronymForm");
+
+  newAcronymForm.addEventListener("submit", event => {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Collect form data
+    const formData = new FormData(newAcronymForm);
+    const formDataObject = {};
+    formData.forEach((value, key) => {
+      formDataObject[key] = value;
+    });
+
+    console.log("Form data:", formDataObject);
+    // Send POST request
+    fetch("/acronym/api/addNewAcronym", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formDataObject)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.text();
+      })
+      .then(data => {
+        // Handle successful response
+        console.log(data); // Log response from the server
+        console.log("Acronym successfully created.");
+        // Redirect to the success page
+        window.location.href = "/success";
+      })
+      .catch(error => {
+        // Handle errors
+        console.error("Error:", error);
+        window.location.href = "/error";
+      });
+  });
+});
+
+//______________________Display Acronym frontend logic_______________
+
+//if (document.readyState === "loading") {
+// Loading hasn't finished yet
+//document.addEventListener("DOMContentLoaded", displayAcronyms);
+//} else {
+// `DOMContentLoaded` has already fired
+//displayAcronyms();
+//}
+
+//______________________Assign New Acronym to Ministry frontend logic_______________
+
+
+//______________________Reassign an Acronym for a Ministry frontend logic_______________

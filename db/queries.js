@@ -1,9 +1,12 @@
 // for testing sql queries 
-const queryMinistryAll ='Select * from ministry;';
+const queryMinistryAll = 'Select * from ministry;';
 
 // Acronym table sql queries
 const queryAcronymsAllTEST = 'SELECT m.ministry_id, m.ministry_name, a.acronym_id, a.acronym, a.a_change_effective_date, m.is_current FROM ministry m JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id Right JOIN acronym a ON a.acronym_id = ma.acronym_id ORDER BY a.acronym ASC;';
-const queryAcronymsAll = 'SELECT m.ministry_id, m.ministry_name, a.acronym_id, a.acronym, a.a_change_effective_date, m.is_current FROM ministry m LEFT JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id LEFT JOIN acronym a ON a.acronym_id = ma.acronym_id WHERE m.ministry_name IS NOT NULL AND m.is_current = true ORDER BY a.acronym ASC;';
+const queryAcronymsAll = 'SELECT m.ministry_id, m.ministry_name, a.acronym_id, a.acronym, a.a_change_effective_date, m.is_current FROM ministry m fULL OUTER JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id fULL OUTER JOIN acronym a ON a.acronym_id = ma.acronym_id ORDER BY a.acronym ASC;';
+const queryAcronymById = 'SELECT m.ministry_id, m.ministry_name,a.acronym_id, a.acronym, a.a_change_effective_date, m.is_current FROM ministry m RIGHT JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id RIGHT JOIN acronym a ON a.acronym_id = ma.acronym_id WHERE a.acronym_id =$1;';
+const queryAcronymExistsCheck = 'SELECT a from acronym a WHERE UPPER(a.acronym) = UPPER($1);';
+const queryAddAcronym = 'INSERT INTO acronym (acronym, a_change_effective_date) VALUES($1, $2);';
 
 // ministry table sql queries 
 const queryMinistry = 'SELECT m.ministry_id, m.ministry_name, a.acronym_id, a.acronym, m.m_change_effective_date, m.is_current FROM ministry m Left JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id LEFT JOIN acronym a ON a.acronym_id = ma.acronym_id ORDER BY m.ministry_name ASC;';
@@ -14,9 +17,12 @@ const queryRetireMinistry = 'UPDATE ministry SET is_current = false WHERE minist
 const queryEditMinistry = '';
 const queryMinistryExistsCheckById = 'SELECT m from ministry m WHERE ministry_id = $1;';
 module.exports = {
+  queryAddAcronym,
+  queryAcronymById,
+  queryAcronymExistsCheck,
   queryAcronymsAllTEST,
   queryAcronymsAll,
-  queryMinistryAll, 
+  queryMinistryAll,
   queryAddMinistry,
   queryMinistry,
   queryMinistryById,
