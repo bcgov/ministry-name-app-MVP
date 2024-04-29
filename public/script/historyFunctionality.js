@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("selectMinistryHist")
     .addEventListener("change", async (event) => {
       //stop the page from reloading when form is submitted:
-      event.preventDefault();
+      //event.preventDefault();
 
       // get ministry_id selected:
       const minId = document.getElementById("selectMinistryHist").value;

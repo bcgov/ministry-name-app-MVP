@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(data => {
                 const ministryAId = data.ministry_id; // Extract the ministry ID from the response
+                console.log(`NEW MIN ID B: ${ministryAId}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
 
                 // Next, add new ministry B
                 return fetch("/api/ministry", {
@@ -87,10 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     })
                     .then(data => {
                         const ministryBId = data.ministry_id; // Extract the ministry ID from the response
+                        console.log(`NEW MIN ID B: ${ministryBId}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
 
                         // Then, retire the original ministry
                         return fetch(`/api/ministry/retire/${formDataObject.minToSplit}`, {
-                            method: "POST",
+                            method: "DELETE",
                             headers: {
                                 "Content-Type": "application/json"
                             }
@@ -139,12 +141,12 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(message => {
                 // Handle successful response
                 console.log(message); // Log success message
-                // Optionally, perform any additional actions after successful splitting
+                window.location.href = "/success";
             })
             .catch(error => {
                 // Handle errors
                 console.error("Error:", error);
-                // Optionally, display an error message to the user
+                //window.location.href = "/error";
             });
     });
 });

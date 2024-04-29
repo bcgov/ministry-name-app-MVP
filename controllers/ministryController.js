@@ -15,6 +15,8 @@ const {
   queryMinistryExistsCheckById,
   queryAddMinistry,
   queryRetireMinistry,
+  queryAddMinistryHistory,
+  queryAddMinistryReturning,
   queryEditMinistry,
 } = require("../db/queries.js");
 
@@ -53,14 +55,14 @@ const addMinistryAPI = (req, res) => {
     }
     // add new ministry (without acronym)
     pool.query(
-      queryAddMinistry,
+      queryAddMinistryReturning,
       [ministry_name, m_change_effective_date],
       (error, results) => {
         if (error) {
           console.error("Error adding new ministry:", error);
           return res.status(500).send("Internal Server Error");
         }
-        const newMinistryID = results.rows[0];
+        const newMinistryID = results.rows[0].ministry_id;
         console.log(newMinistryID);
 
         res.status(201).send({ ministry_id: newMinistryID, message: `${ministry_name} successfully created.` });
