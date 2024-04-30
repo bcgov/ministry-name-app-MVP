@@ -132,12 +132,12 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault(); // Prevent the default form submission
 
     // Collect form data values (id's)
-    const selectedMinId = parseInt(document.getElementById(MinToAssign).value);
-    const selectedAcrId = parseInt(document.getElementById(AcrToAssign).value);
+    const selectedMinId = parseInt(document.getElementById("MinToAssign").value);
+    const selectedAcrId = parseInt(document.getElementById("AcrToAssign").value);
     console.log(`MIN ID: ${selectedMinId}, ACR ID:${selectedAcrId}`)
-   
+
     // create form object:
-    const formData ={
+    const formData = {
       ministry_id: selectedMinId,
       acronym_id: selectedAcrId
     }

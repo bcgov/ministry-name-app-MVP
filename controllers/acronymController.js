@@ -57,18 +57,19 @@ const addNewAcronym = (req, res) => {
 const addMinistryAcronym = (req, res) => {
   try {
     const { MinToAssign, AcrToAssign } = req.body;
-      pool.query(
-        queryAddMinistryAcronym,
-        [ MinToAssign, AcrToAssign],
-        (error, results) => {
-          if (error) {
-            // Handle query error
-            console.error("Error adding new acronym:", error);
-            return res.status(500).send("Internal Server Error");
-          }
-          res.status(201).send(`Acronym and Ministry successfully paired.`);
-        });
-      }catch (err) {
+    pool.query(
+      queryAddMinistryAcronym,
+      [MinToAssign, AcrToAssign],
+      (error, results) => {
+        if (error) {
+          // Handle query error
+          console.error("Error adding new acronym:", error);
+          return res.status(500).send("Internal Server Error");
+        }
+        //res.status(201).send(`Acronym and Ministry successfully paired.`);
+        res.redirect("/success");
+      });
+  } catch (err) {
     // Handle synchronous error
     console.error("Synchronous error:", err);
     res.status(500).json(err);
