@@ -66,14 +66,13 @@ const displayAcronyms = async () => {
   }
 };
 
-
 //______________________Add Acronym frontend logic_______________
 
 // create new acronym:
 document.addEventListener("DOMContentLoaded", () => {
   const newAcronymForm = document.getElementById("newAcronymForm");
 
-  newAcronymForm.addEventListener("submit", event => {
+  newAcronymForm.addEventListener("submit", (event) => {
     event.preventDefault(); // Prevent the default form submission
 
     // Collect form data
@@ -87,24 +86,24 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("/acronym/api/addNewAcronym", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formDataObject)
+      body: JSON.stringify(formDataObject),
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         return response.text();
       })
-      .then(data => {
+      .then((data) => {
         // Handle successful response
         console.log(data); // Log response from the server
         console.log("Acronym successfully created.");
         // Redirect to the success page
         window.location.href = "/success";
       })
-      .catch(error => {
+      .catch((error) => {
         // Handle errors
         console.error("Error:", error);
         window.location.href = "/error";
@@ -128,41 +127,45 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const AssignNewAcronymForm = document.getElementById("AssignNewAcronymForm");
 
-  AssignNewAcronymForm.addEventListener("submit", event => {
+  AssignNewAcronymForm.addEventListener("submit", (event) => {
     event.preventDefault(); // Prevent the default form submission
 
     // Collect form data values (id's)
-    const selectedMinId = parseInt(document.getElementById("MinToAssign").value);
-    const selectedAcrId = parseInt(document.getElementById("AcrToAssign").value);
-    console.log(`MIN ID: ${selectedMinId}, ACR ID:${selectedAcrId}`)
+    const selectedMinId = parseInt(
+      document.getElementById("MinToAssign").value
+    );
+    const selectedAcrId = parseInt(
+      document.getElementById("AcrToAssign").value
+    );
+    console.log(`MIN ID: ${selectedMinId}, ACR ID:${selectedAcrId}`);
 
     // create form object:
     const formData = {
       ministry_id: selectedMinId,
-      acronym_id: selectedAcrId
-    }
-    // Send POST request
+      acronym_id: selectedAcrId,
+    };
+    // Get current ministry acronym:
     fetch("/acronym/api/pairMinistryAcronym", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(formData),
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         return response.text();
       })
-      .then(data => {
+      .then((data) => {
         // Handle successful response
         console.log(data); // Log response from the server
         console.log("Acronym successfully created.");
         // Redirect to the success page
         window.location.href = "/success";
       })
-      .catch(error => {
+      .catch((error) => {
         // Handle errors
         console.error("Error:", error);
         window.location.href = "/error";
@@ -170,4 +173,84 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-//______________________Reassign an Acronym for a Ministry frontend logic_______________
+//______________________Reassign an Acronym for a Ministry frontend logic_______________]
+
+document.addEventListener("DOMContentLoaded", () => {
+  const changeAcronymForm = document.getElementById("changeAcronymForm");
+
+  changeAcronymForm.addEventListener("submit", (event) => {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Collect form data values (id's)
+    const selectedMinId = parseInt(
+      document.getElementById("MinToReAssign").value
+    );
+    const selectedAcrId = parseInt(
+      document.getElementById("AcrToReAssign").value
+    );
+    console.log(`MIN ID: ${selectedMinId}, ACR ID:${selectedAcrId}`);
+  });
+  // create form object:
+  const changeAcrFormData = {
+    ministry_id: selectedMinId,
+    acronym_id: selectedAcrId,
+  };
+  fetch(`/acronym/api/ByMinId/${changeAcrFormData.ministry_id}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to get acronym ID");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const oldAcrId = data.acronym_id;
+      console.log(oldAcrId);
+
+      // Then add the old acronym to ministry_history:
+      return fetch("/acronym/api/addAcrHistory", {
+        methode: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ministry_id: changeAcrFormData.ministry_id, // same because the ministry is not changing
+          ministry_id_history: changeAcrFormData.ministry_id, // same because the ministry is not changing
+          acronym_id: oldAcrId,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to retire original ministry");
+          }
+          return response.text();
+        })
+        .then(() => {
+          return fetch("/acronym/api/updateAcr", {
+            methode: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              acronym_id: changeAcrFormData.acronym_id,
+              ministry_id: changeAcrFormData.ministry_id,
+            }),
+          });
+        })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to update Acronym");
+          }
+          return response.text();
+        })
+        .then((message) => {
+          // Handle successful response
+          console.log(message); // Log success message
+          window.location.href = "/success";
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error("Error:", error);
+          //window.location.href = "/error";
+        });
+    });
+});
