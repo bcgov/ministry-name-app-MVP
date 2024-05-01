@@ -1,0 +1,171 @@
+<%- include('../views/header'); %>
+<div class="container-fluid title text-center" id="acronymTitle">
+    <h4><%= title%></h4>  
+</div>
+
+<div class="accordion" id="acronymAccordion">
+<!--See active Acronyms -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+            aria-expanded="false" aria-controls="collapseOne">
+            See all acronmys
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#acronymAccordion">
+          <div class="accordion-body" id="acronymList">
+            <div class="container-fluid title text-center" id="acronymTest">
+              <table class="table-striped table table-bordered" id="displayAcronymTableTest">
+                <tr>
+                  <th>Aconym ID</th>
+                  <th>Aconym</th>
+                  <!-- <th>Acronym Effective Date</th> -->
+                  <th>Assigned Ministry ID</th>
+                  <th>Assigned Ministry </th>
+                </tr>
+                <% for (let i=0; i<data.length;i++){ // only display ministry if current %>
+                  <% if((data[i].is_current) && (data[i].acronym_id != null)){ %>
+                  
+                    <%= //let date = new Date(data[i].a_change_effective_date);%>
+                    <%= //let year = date.getFullYear();%>
+                    <%= //let month = date.getMonth();%>
+                    <%= //let day = date.getDay();%>
+                    <%= //let formattedAcronymDate = `${year}-${month}-${day}`;%>
+                
+                    <tr>
+                      <td><%= data[i].acronym_id%></td>
+                      <td><%= data[i].acronym%></td>
+                      <!-- <td><%= //data[i].a_change_effective_date//formattedAcronymDate%></td> -->
+                      <td><%= data[i].ministry_id%></td>
+                      <td><%= data[i].ministry_name%></td>
+                    </tr>
+                  <% } } %>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--Add new Acronym-->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+              aria-expanded="false" aria-controls="collapseTwo">
+              Create New Acronym
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#acronymAccordion">
+            <div class="accordion-body">
+              <form action="/acronym/api/addNewAcronym" method="POST" class="row g-3 needs-validation" id="newAcronymForm">
+                <div class="col-md-4">
+                  <label for="acronymNew" class="form-label">Acronym</label>
+                  <input type="text" class="form-control" name="acronymNew" id="acronymNew" required>
+                </div>
+                <div class="col-md-4">
+                  <label for="effectiveDateAcronym" class="form-label">Acronym Effective Date</label>
+                  <input type="date" class="form-control" name="effectiveDateAcronym" id="effectiveDateAcronym" required>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" type="submit">Submit form</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+<!--Assign Acronym to New Ministry-->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+            aria-expanded="false" aria-controls="collapseThree">
+            Assign an Acroym to Active Ministry
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#acronymAccordion">
+          <div class="accordion-body">
+            
+            <form action="/acronym/api/pairMinistryAcronym" method="POST" class="row g-3 needs-validation" id="assignNewAcronymForm">
+              <h4>Please select an Unassigned Acronym</h4>
+              <% //Only show unassigned Acronyms %>
+              <div>
+                <select name="AcrToAssign" id="AcrToAssign" class="form-control">
+                  <option value=""></option>
+                  <% for (let i=0; i<data.length;i++){ %>
+                    <% if (!data[i].ministry_id){ %>
+                    <option value="<%= data[i].acronym_id%>">
+                      <%= data[i].acronym%>
+                    </option>
+                    <% } }%>
+                </select>
+            </div>
+            <h4>Please select a current Ministry without an Assigned Acronym</h4>
+            <div>
+              <% //Only show active ministries without acronyms %>
+                <select name="MinToAssign" id="MinToAssign" class="form-control">
+                  <option value=""></option>
+                  <% for (let i=0; i<data.length;i++){ %>
+                    <% if ((data[i].is_current) && (data[i].acronym == null)){ %>
+                      <option value="<%= data[i].ministry_id%>">
+                        <%= data[i].ministry_name%>
+                      </option>
+                      <% } }%>
+                </select>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit">Pair</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+<!--Change Assigned Acronym of a Ministry-->
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+      aria-expanded="false" aria-controls="collapseFour">
+      ReAssign an Acronym
+    </button>
+  </h2>
+  <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#acronymAccordion">
+    <div class="accordion-body">
+      <form action="" method="" class="row g-3 needs-validation" id="changeAcronymForm">
+        <h4>Please select a ministry to edit</h4>
+        <div>
+            <select name="MinToReAssign" id="MinToReAssign" class="form-control">
+              <option value=""></option>
+              <% for (let i=0; i<data.length;i++){ %>
+                <% if ((data[i].is_current)&& data[i].acronym_id !=null){ %>
+                <option value="<%= data[i].ministry_id%>">
+                  <%= data[i].ministry_name%>
+                </option>
+                <% } }%>
+            </select>
+        </div>
+        <h4>Please Select an Acronym to Add</h4>
+        <div>
+            <select name="AcrToReAssign" id="AcrToReAssign" class="form-control">
+              <option value=""></option>
+              <% for (let i=0; i<data.length;i++){ %>
+                <% if ((data[i].ministry_id == null)){ %>
+                  <option value="<%= data[i].acronym_id%>">
+                    <%= data[i].acronym%>
+                  </option>
+                  <% } }%>
+            </select>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit">Submit form</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script defer>
+    //pass the  data as variable to use in custom.js file
+    //let theAcronymData = '<%- //JSON.stringify(acronymData) %>';
+</script>
+
+<%- include('../views/footer'); %>
+<%- include('../views/acronymJSScript.ejs'); %> <!-- only include this js file script on acronym page: -->
+<%- include('../views/closingTags'); %>
