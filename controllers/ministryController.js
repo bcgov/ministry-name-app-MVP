@@ -13,11 +13,10 @@ const {
   queryMinistryById,
   queryMinistryExistsCheck,
   queryMinistryExistsCheckById,
-  queryAddMinistry,
   queryRetireMinistry,
   queryAddMinistryHistory,
   queryAddMinistryReturning,
-  queryEditMinistry,
+  queryUpdateMinistryName
 } = require("../db/queries.js");
 
 // API's for database:
@@ -104,7 +103,28 @@ const addMinistryHistory = (req, res) => {
   }
 };
 
-const editMinistryById = (req, res) => { };
+const editMinistryNameById = (req, res) => {
+  try {
+    const { ministry_name, ministry_id } = req.body;
+    pool.query(
+      queryUpdateMinistryName,
+      [ministry_name, ministry_id],
+      (error, results) => {
+        if (error) {
+          // Handle query error
+          console.error("Error adding new acronym:", error);
+          return res.status(500).send("Internal Server Error");
+        }
+        //res.status(201).send(`Ministry name successfully edited.`);
+        res.redirect("/success");
+      });
+  } catch (err) {
+    // Handle synchronous error
+    console.error("Synchronous error:", err);
+    res.status(500).json(err);
+  }
+};
+
 
 const addMinistry = asyncHandler(async (req, res) => {
   try {
@@ -139,31 +159,6 @@ const addMinistry = asyncHandler(async (req, res) => {
   }
 });
 
-// TODO add history data to a ministry
-const addMinistryHistoryTEST = asyncHandler(async (req, res) => {
-  let minIdHistory = "";
-  let minIdCurrent = "";
-  try {
-    const historyUpdated = await updateHistory(
-      pool,
-      minIdCurrent,
-      minIdHistory
-    );
-  } catch (err) {
-    console.error("Error adding history data to ministry_history table:", err);
-    res.redirect("/error");
-  }
-});
-
-// TODO: edit ministry data
-const editMinistry = asyncHandler(async (req, res) => {
-  try {
-  } catch (err) {
-    console.error("Error editing a history:", err);
-    res.redirect("/error");
-  }
-});
-
 // get ministry data and render to index view
 const getMinistryData = asyncHandler(async (req, res) => {
   try {
@@ -176,14 +171,6 @@ const getMinistryData = asyncHandler(async (req, res) => {
   }
 });
 
-// TODO: merge 2 ministries
-const mergeMinistry = asyncHandler(async (req, res) => {
-  try {
-  } catch (err) {
-    console.error("Error editing a history:", err);
-    res.redirect("/error");
-  }
-});
 
 // retire a ministry (set is_current to false)
 const retireMinistry = asyncHandler(async (req, res) => {
@@ -238,14 +225,13 @@ module.exports = {
   getMinistryTEST,
   addMinistry,
   addMinistryHistory,
-  editMinistry,
   getMinistry,
   getMinistryByID,
   addMinistryAPI,
   retireMinistryById,
-  editMinistryById,
   getMinistryData,
-  mergeMinistry,
+  //mergeMinistry,
   retireMinistry,
   splitMinistry,
+  editMinistryNameById
 };

@@ -40,30 +40,41 @@
         </div>
       </div>
       <!--Edit ministry info--> 
+      <!--
       <div class="accordion-item">
           <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Edit a current ministries' information
+              Edit a current ministries' name
             </button>
           </h2>
           <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#ministryAccordion">
             <div class="accordion-body">
+              <form action="/api/ministry/updateName" method="POST" class="row g-3 needs-validation" id="editMinistryNameForm">
               <h4>Please select a ministry to edit</h4>
-              <div>
-                <% //TODO: update so only currently active ministries display %>
-                  <select name="minToChange" id="minToChange" class="form-control">
-                    <option value=""></option>
-                    <% for (let i=0; i<data.length;i++){ %>
-                      <option value="<%= data[i].ministry_name%>">
-                        <%= data[i].ministry_name%>
-                      </option>
-                      <% } %>
-                  </select>
-              </div>
+                <div>
+                  <% //TODO: update so only currently active ministries display %>
+                    <select name="minToChange" id="minToChange" class="form-control">
+                      <option value=""></option>
+                      <% //for (let i=0; i<data.length;i++){ %>
+                        <option value="<%= //data[i].ministry_name%>">
+                          <%= //data[i].ministry_name%>
+                        </option>
+                        <% //} %>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="ministryNameToEdit" class="form-label">Ministry Edited Name</label>
+                  <input type="text" class="form-control" name="ministryNameToEdit" id="ministryNameToEdit" required>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" type="submit">Edit Name</button>
+                </div>
+              </form>
             </div>
           </div>
       </div>
+      -->
         <!--Add new ministry--> 
           <div class="accordion-item">
             <h2 class="accordion-header">

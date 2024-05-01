@@ -126,10 +126,9 @@
   </h2>
   <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#acronymAccordion">
     <div class="accordion-body">
-      <form action="/acronym/api/" method="POST" class="row g-3 needs-validation" id="changeAcronymForm">
+      <form action="" method="" class="row g-3 needs-validation" id="changeAcronymForm">
         <h4>Please select a ministry to edit</h4>
         <div>
-          <% //TODO: update so only currently active ministries display %>
             <select name="MinToReAssign" id="MinToReAssign" class="form-control">
               <option value=""></option>
               <% for (let i=0; i<data.length;i++){ %>
@@ -142,7 +141,6 @@
         </div>
         <h4>Please Select an Acronym to Add</h4>
         <div>
-          <% //TODO: update so only currently active ministries display %>
             <select name="AcrToReAssign" id="AcrToReAssign" class="form-control">
               <option value=""></option>
               <% for (let i=0; i<data.length;i++){ %>

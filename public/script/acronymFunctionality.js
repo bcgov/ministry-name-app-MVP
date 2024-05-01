@@ -189,68 +189,70 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("AcrToReAssign").value
     );
     console.log(`MIN ID: ${selectedMinId}, ACR ID:${selectedAcrId}`);
-  });
-  // create form object:
-  const changeAcrFormData = {
-    ministry_id: selectedMinId,
-    acronym_id: selectedAcrId,
-  };
-  fetch(`/acronym/api/ByMinId/${changeAcrFormData.ministry_id}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to get acronym ID");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      const oldAcrId = data.acronym_id;
-      console.log(oldAcrId);
 
-      // Then add the old acronym to ministry_history:
-      return fetch("/acronym/api/addAcrHistory", {
-        methode: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ministry_id: changeAcrFormData.ministry_id, // same because the ministry is not changing
-          ministry_id_history: changeAcrFormData.ministry_id, // same because the ministry is not changing
-          acronym_id: oldAcrId,
-        }),
+    // Create form object:
+    const changeAcrFormData = {
+      ministry_id: selectedMinId,
+      acronym_id: selectedAcrId,
+    };
+
+    fetch(`/acronym/api/ByMinId/${changeAcrFormData.ministry_id}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to get acronym ID");
+        }
+        return response.json();
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to retire original ministry");
-          }
-          return response.text();
+      .then((data) => {
+        const oldAcrId = parseInt(data[0].acronym_id);
+        console.log(`OLDACR =============${oldAcrId}`);
+
+        // Then add the old acronym to ministry_history:
+        return fetch("/acronym/api/addAcrHistory", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ministry_id: changeAcrFormData.ministry_id, // same because the ministry is not changing
+            ministry_id_history: changeAcrFormData.ministry_id, // same because the ministry is not changing
+            acronym_id: oldAcrId,
+          }),
         })
-        .then(() => {
-          return fetch("/acronym/api/updateAcr", {
-            methode: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              acronym_id: changeAcrFormData.acronym_id,
-              ministry_id: changeAcrFormData.ministry_id,
-            }),
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to retire original ministry");
+            }
+            return response.text();
+          })
+          .then(() => {
+            return fetch("/acronym/api/updateAcr", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                acronym_id: changeAcrFormData.acronym_id,
+                ministry_id: changeAcrFormData.ministry_id,
+              }),
+            });
+          })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to update Acronym");
+            }
+            return response.text();
+          })
+          .then((message) => {
+            // Handle successful response
+            console.log(message); // Log success message
+            window.location.href = "/success";
+          })
+          .catch((error) => {
+            // Handle errors
+            console.error("Error:", error);
+            window.location.href = "/error";
           });
-        })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to update Acronym");
-          }
-          return response.text();
-        })
-        .then((message) => {
-          // Handle successful response
-          console.log(message); // Log success message
-          window.location.href = "/success";
-        })
-        .catch((error) => {
-          // Handle errors
-          console.error("Error:", error);
-          //window.location.href = "/error";
-        });
-    });
+      });
+  });
 });

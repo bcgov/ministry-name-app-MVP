@@ -5,12 +5,12 @@ const queryMinistryAll = 'Select * from ministry;';
 const queryAcronymsAllTEST = 'SELECT m.ministry_id, m.ministry_name, a.acronym_id, a.acronym, a.a_change_effective_date, m.is_current FROM ministry m JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id Right JOIN acronym a ON a.acronym_id = ma.acronym_id ORDER BY a.acronym ASC;';
 const queryAcronymsAll = 'SELECT m.ministry_id, m.ministry_name, a.acronym_id, a.acronym, a.a_change_effective_date, m.is_current FROM ministry m fULL OUTER JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id fULL OUTER JOIN acronym a ON a.acronym_id = ma.acronym_id ORDER BY a.acronym ASC;';
 const queryAcronymById = 'SELECT m.ministry_id, m.ministry_name,a.acronym_id, a.acronym, a.a_change_effective_date, m.is_current FROM ministry m JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id JOIN acronym a ON a.acronym_id = ma.acronym_id WHERE a.acronym_id =($1);';
-const queryAcronymIdByMinistryId='SELECT a.acronym_id FROM acronym a JOIN ministry_acronym ma ON a.acronym_id =ma.acronym_id JOIN ministry m ON m.ministry_id = ma.ministry_id WHERE m.ministry_id =($1);';
+const queryAcronymIdByMinistryId = 'SELECT a.acronym_id FROM acronym a JOIN ministry_acronym ma ON a.acronym_id =ma.acronym_id JOIN ministry m ON m.ministry_id = ma.ministry_id WHERE m.ministry_id =($1);';
 const queryAcronymExistsCheck = 'SELECT a from acronym a WHERE UPPER(a.acronym) = UPPER($1);';
 const queryAddAcronym = 'INSERT INTO acronym (acronym, a_change_effective_date) VALUES($1, $2);';
-const queryAddMinistryAcronym= 'INSERT INTO ministry_acronym (ministry_id, acronym_id) VALUES($1, $2);';
-const queryUpdateMinistryAcronym ='UPDATE ministry_acronym SET acronym_id = ($1) WHERE ministry_id= ($2);';
-const queryUpdateMinistryAcronymHistory='INSERT INTO ministry_history (ministry_id, ministry_id_history, acronym_id) VALUES ($1, $2, $3)';
+const queryAddMinistryAcronym = 'INSERT INTO ministry_acronym (ministry_id, acronym_id) VALUES($1, $2);';
+const queryUpdateMinistryAcronym = 'UPDATE ministry_acronym SET acronym_id = ($1) WHERE ministry_id= ($2);';
+const queryUpdateMinistryAcronymHistory = 'INSERT INTO ministry_history (ministry_id, ministry_id_history, acronym_id_history) VALUES ($1, $2, $3)';
 // ministry table sql queries 
 const queryMinistry = 'SELECT m.ministry_id, m.ministry_name, a.acronym_id, a.acronym, m.m_change_effective_date, m.is_current FROM ministry m Left JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id LEFT JOIN acronym a ON a.acronym_id = ma.acronym_id ORDER BY m.ministry_name ASC;';
 const queryMinistryById = 'SELECT m.ministry_id, m.ministry_name,a.acronym_id, a.acronym, m.m_change_effective_date, m.is_current FROM ministry m Left JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id LEFT JOIN acronym a ON a.acronym_id = ma.acronym_id WHERE m.ministry_id =$1;';
@@ -21,6 +21,7 @@ const queryRetireMinistry = 'UPDATE ministry SET is_current = false WHERE minist
 const queryEditMinistry = '';
 const queryMinistryExistsCheckById = 'SELECT m from ministry m WHERE ministry_id = $1;';
 const queryAddMinistryHistory = 'INSERT INTO ministry_history (ministry_id, ministry_id_history) VALUES($1, $2);';
+const queryUpdateMinistryName = 'UPDATE ministry SET ministry_name =($1) WHERE ministry_id=($2);';
 
 
 module.exports = {
@@ -42,5 +43,6 @@ module.exports = {
   queryAddMinistryAcronym,
   queryUpdateMinistryAcronym,
   queryUpdateMinistryAcronymHistory,
-  queryAcronymIdByMinistryId
+  queryAcronymIdByMinistryId,
+  queryUpdateMinistryName
 };

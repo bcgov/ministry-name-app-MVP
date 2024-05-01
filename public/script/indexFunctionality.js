@@ -39,6 +39,57 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleAcronymSection();
 });
 
+//______________________Edit Ministry Name Logic_______________
+// create new acronym:
+document.addEventListener("DOMContentLoaded", () => {
+  const editMinistryNameForm = document.getElementById("editMinistryNameForm");
+
+  editMinistryNameForm.addEventListener("submit", (event) => {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Collect form data values (id's)
+    const selectedMinId = parseInt(
+      document.getElementById("minToChange").value
+    );
+    const selectedMinName = document.getElementById("ministryNameToEdit").value;
+
+    console.log(`MIN ID: ${selectedMinId}, ACR ID:${selectedMinName}`);
+
+    // create form object:
+    const formData = {
+      ministry_id: selectedMinId,
+      ministry_name: selectedMinName,
+    };
+    // Get current ministry acronym:
+    fetch("/acronym/api/pairMinistryAcronym", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.text();
+      })
+      .then((data) => {
+        // Handle successful response
+        console.log(data); // Log response from the server
+        console.log("Acronym successfully created.");
+        // Redirect to the success page
+        window.location.href = "/success";
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error("Error:", error);
+        window.location.href = "/error";
+      });
+  });
+});
+
+
 //______________________Split Ministry Logic_______________
 
 document.addEventListener("DOMContentLoaded", () => {

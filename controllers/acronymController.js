@@ -14,29 +14,29 @@ const { queryAcronymsAll, queryAcronymsAllTEST, queryAddAcronym,
 
 // get all acronym data
 const getAcronymAll = (req, res) => {
-    pool.query(queryAcronymsAll, (error, results) => {
-      if (error) throw error;
-      res.status(200).json(results.rows);
-    });
+  pool.query(queryAcronymsAll, (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
 };
 
 // get acronym data by acronym ID
 const getAcronymById = (req, res) => {
-    const acrId = parseInt(req.params.id);
-    pool.query(queryAcronymById, [acrId],(error, results) => {
-      if (error) throw error;
-      res.status(200).json(results.rows);
-    });
+  const acrId = parseInt(req.params.id);
+  pool.query(queryAcronymById, [acrId], (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
 };
 
 // get all acronym data
 const getAcronymIdByMinistryId = (req, res) => {
   const minId = parseInt(req.params.id);
- 
-    pool.query(queryAcronymIdByMinistryId, [minId],(error, results) => {
-      if (error) throw error;
-      res.status(200).json(results.rows);
-    });
+
+  pool.query(queryAcronymIdByMinistryId, [minId], (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
 
 };
 
@@ -100,10 +100,10 @@ const addMinistryAcronym = (req, res) => {
 // Reassign acronym to ministry_acronym table
 const updateMinistryAcronym = (req, res) => {
   try {
-    const {AcrToReAssign, MinToReAssign  } = req.body;
+    const { acronym_id, ministry_id } = req.body;
     pool.query(
       queryUpdateMinistryAcronym,
-      [ AcrToReAssign, MinToReAssign],
+      [acronym_id, ministry_id],
       (error, results) => {
         if (error) {
           // Handle query error
@@ -123,10 +123,10 @@ const updateMinistryAcronym = (req, res) => {
 // Update acronym to ministry_history table
 const updateMinistryAcronymHistory = (req, res) => {
   try {
-    const {AcrToReAssign, MinToReAssign  } = req.body;
+    const { ministry_id, ministry_id_history, acronym_id_history } = req.body;
     pool.query(
       queryUpdateMinistryAcronymHistory,
-      [ AcrToReAssign, MinToReAssign],
+      [ministry_id, ministry_id_history, acronym_id_history],
       (error, results) => {
         if (error) {
           // Handle query error
@@ -160,12 +160,13 @@ const getAcronymAllToRender = asyncHandler(async (req, res) => {
 });
 
 
-module.exports = { getAcronymAll, 
-  getAcronymAllToRender, 
-  addNewAcronym, 
-  addMinistryAcronym, 
+module.exports = {
+  getAcronymAll,
+  getAcronymAllToRender,
+  addNewAcronym,
+  addMinistryAcronym,
   updateMinistryAcronym,
   updateMinistryAcronymHistory,
   getAcronymById,
   getAcronymIdByMinistryId
- };
+};
