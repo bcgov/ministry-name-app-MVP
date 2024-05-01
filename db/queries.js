@@ -5,7 +5,7 @@ const queryMinistryAll = 'Select * from ministry;';
 const queryAcronymsAllTEST = 'SELECT m.ministry_id, m.ministry_name, a.acronym_id, a.acronym, a.a_change_effective_date, m.is_current FROM ministry m JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id Right JOIN acronym a ON a.acronym_id = ma.acronym_id ORDER BY a.acronym ASC;';
 const queryAcronymsAll = 'SELECT m.ministry_id, m.ministry_name, a.acronym_id, a.acronym, a.a_change_effective_date, m.is_current FROM ministry m fULL OUTER JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id fULL OUTER JOIN acronym a ON a.acronym_id = ma.acronym_id ORDER BY a.acronym ASC;';
 const queryAcronymById = 'SELECT m.ministry_id, m.ministry_name,a.acronym_id, a.acronym, a.a_change_effective_date, m.is_current FROM ministry m JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id JOIN acronym a ON a.acronym_id = ma.acronym_id WHERE a.acronym_id =($1);';
-const queryAcronymIdByMinistryId = 'SELECT a.acronym_id FROM acronym a JOIN ministry_acronym ma ON a.acronym_id =ma.acronym_id JOIN ministry m ON m.ministry_id = ma.ministry_id WHERE m.ministry_id =($1);';
+const queryAcronymIdByMinistryId = 'SELECT a.acronym_id, a.acronym FROM acronym a JOIN ministry_acronym ma ON a.acronym_id =ma.acronym_id JOIN ministry m ON m.ministry_id = ma.ministry_id WHERE m.ministry_id =($1);';
 const queryAcronymExistsCheck = 'SELECT a from acronym a WHERE UPPER(a.acronym) = UPPER($1);';
 const queryAddAcronym = 'INSERT INTO acronym (acronym, a_change_effective_date) VALUES($1, $2);';
 const queryAddMinistryAcronym = 'INSERT INTO ministry_acronym (ministry_id, acronym_id) VALUES($1, $2);';
