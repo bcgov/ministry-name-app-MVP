@@ -2,9 +2,28 @@
 const pool = require('../db/dbConnectionConfig.js');
 const {fetchData} = require('../utils/helperfunctions.js');
 const asyncHandler = require("express-async-handler");
-
+const {
+  queryHistory,
+  queryHistoryByMinId
+} = require("../db/queries.js");
 // sql query 
-const queryHistory ='Select m.ministry_id, m.ministry_name, m.m_change_effective_date, m.m_change_user, m.is_current, a.acronym, a.a_change_effective_date, mh.ministry_id_history FROM ministry m JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id JOIN acronym a ON a.acronym_id = ma.acronym_id LEFT JOIN ministry_history mh ON m.ministry_id = mh.ministry_id ORDER BY m.ministry_name asc;';
+
+// get all history data
+const getHistoryAllApi = (req, res) => {
+  pool.query(queryHistory, (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+};
+
+// get direct history data by id
+const getHistoryById = (req, res) => {
+  const minId = parseInt(req.params.id);
+  pool.query(queryHistoryByMinId, [minId], (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+};
 
 // get history data and render to history view
 const getHistory = asyncHandler(async (req, res) => {
@@ -19,4 +38,4 @@ const getHistory = asyncHandler(async (req, res) => {
   }
 });
 
-    module.exports = {getHistory};
+    module.exports = {getHistory, getHistoryAllApi, getHistoryById};

@@ -22,8 +22,9 @@ const queryEditMinistry = '';
 const queryMinistryExistsCheckById = 'SELECT m from ministry m WHERE ministry_id = $1;';
 const queryAddMinistryHistory = 'INSERT INTO ministry_history (ministry_id, ministry_id_history) VALUES($1, $2);';
 const queryUpdateMinistryName = 'UPDATE ministry SET ministry_name =($1) WHERE ministry_id=($2);';
-
-
+// history sql queries
+const queryHistory ='Select m.ministry_id, m.ministry_name, m.m_change_effective_date, m.m_change_user, m.is_current, a.acronym, a.a_change_effective_date, mh.ministry_id_history FROM ministry m JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id JOIN acronym a ON a.acronym_id = ma.acronym_id LEFT JOIN ministry_history mh ON m.ministry_id = mh.ministry_id ORDER BY m.ministry_name asc;';
+const queryHistoryByMinId='Select m.ministry_id, m.ministry_name, m.is_current, a.acronym, a.a_change_effective_date, mh.ministry_id_history FROM ministry m JOIN ministry_acronym ma ON m.ministry_id = ma.ministry_id JOIN acronym a ON a.acronym_id = ma.acronym_id LEFT JOIN ministry_history mh ON m.ministry_id = mh.ministry_id WHERE m.ministry_id=($1);';
 module.exports = {
   queryAddAcronym,
   queryAcronymById,
@@ -44,5 +45,7 @@ module.exports = {
   queryUpdateMinistryAcronym,
   queryUpdateMinistryAcronymHistory,
   queryAcronymIdByMinistryId,
-  queryUpdateMinistryName
+  queryUpdateMinistryName,
+  queryHistory,
+  queryHistoryByMinId
 };

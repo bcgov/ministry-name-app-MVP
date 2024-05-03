@@ -16,30 +16,6 @@
           <div class="accordion-body" id="acronymList">
             <div class="container-fluid title text-center" id="acronymTest">
               <table class="table-striped table table-bordered" id="displayAcronymTableTest">
-                <tr>
-                  <th>Aconym ID</th>
-                  <th>Aconym</th>
-                  <!-- <th>Acronym Effective Date</th> -->
-                  <th>Assigned Ministry ID</th>
-                  <th>Assigned Ministry </th>
-                </tr>
-                <% for (let i=0; i<data.length;i++){ // only display ministry if current %>
-                  <% if((data[i].is_current) && (data[i].acronym_id != null)){ %>
-                  
-                    <%= //let date = new Date(data[i].a_change_effective_date);%>
-                    <%= //let year = date.getFullYear();%>
-                    <%= //let month = date.getMonth();%>
-                    <%= //let day = date.getDay();%>
-                    <%= //let formattedAcronymDate = `${year}-${month}-${day}`;%>
-                
-                    <tr>
-                      <td><%= data[i].acronym_id%></td>
-                      <td><%= data[i].acronym%></td>
-                      <!-- <td><%= //data[i].a_change_effective_date//formattedAcronymDate%></td> -->
-                      <td><%= data[i].ministry_id%></td>
-                      <td><%= data[i].ministry_name%></td>
-                    </tr>
-                  <% } } %>
               </table>
             </div>
           </div>

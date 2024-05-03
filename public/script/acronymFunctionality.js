@@ -7,6 +7,14 @@ const wholeURL = "http://localhost:3000/acronym/api";
 
 //______________________Function Definitions_______________
 
+// Handles json null values by returning "---" as a string; if !null, returns original value
+const handleNullValue = (jsonValue) =>{
+  if (jsonValue === null){
+    return "---";
+  }
+  return jsonValue;
+}
+
 const fetchAcronymData = async () => {
   try {
     const response = await fetch(getAcronymDataUrl);
@@ -24,7 +32,7 @@ const displayAcronyms = async () => {
     //fetch data from api
     const acryData = await fetchAcronymData();
     const TEST = JSON.stringify(acryData);
-    console.log(TEST);
+    //console.log(TEST);
 
     //diplay the acronym data
     let acronymSetup = `
@@ -41,19 +49,25 @@ const displayAcronyms = async () => {
       .insertAdjacentHTML("beforeend", acronymSetup);
 
     acryData.forEach((element) => {
-      //format date correctly
-      let date = new Date(element.a_change_effective_date);
-      let year = date.getFullYear();
-      let month = date.getMonth();
-      let day = date.getDay();
-      let formattedAcronymDate = `${year}-${month}-${day}`;
+      let formattedAcronymDate;
+      // format date correctly if !null
+      if (element.a_change_effective_date !==null){
+        let date = new Date(element.a_change_effective_date);
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let day = date.getDay();
+        formattedAcronymDate = `${year}-${month}-${day}`;
+      }
+      else{
+        formattedAcronymDate ="---";
+      }
 
       let eachAcronym = ` <tr>
-                    <td>${element.acronym_id}</td>
-                    <td>${element.acronym.toUpperCase()}</td>
+                    <td>${handleNullValue(element.acronym_id)}</td>
+                    <td>${handleNullValue(element.acronym).toUpperCase()}</td>
                     <td>${formattedAcronymDate}</td>
-                    <td>${element.ministry_id}</td>
-                    <td>${element.ministry_name.toUpperCase()}</td>
+                    <td>${handleNullValue(element.ministry_id)}</td>
+                    <td>${handleNullValue(element.ministry_name).toUpperCase()}</td>
                     </tr>
                 `;
 
@@ -113,13 +127,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //______________________Display Acronym frontend logic_______________
 
-//if (document.readyState === "loading") {
-// Loading hasn't finished yet
-//document.addEventListener("DOMContentLoaded", displayAcronyms);
-//} else {
+if (document.readyState === "loading") {
+ //Loading hasn't finished yet
+document.addEventListener("DOMContentLoaded", displayAcronyms);
+} else {
 // `DOMContentLoaded` has already fired
-//displayAcronyms();
-//}
+displayAcronyms();
+}
 
 //______________________Assign New Acronym to Ministry frontend logic_______________
 
