@@ -50,63 +50,63 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleAcronymSection();
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const newMinistryForm = document.getElementById("newMinistryForm");
+// document.addEventListener("DOMContentLoaded", () => {
+//   const newMinistryForm = document.getElementById("newMinistryForm");
 
-  newMinistryForm.addEventListener("submit", (event) => {
+//   newMinistryForm.addEventListener("submit", (event) => {
 
-    event.preventDefault(); // Prevent the default form submission
-    // get input from form:
-    const newMinistry = document.getElementById("ministryName").textContent;
-    const newMinistryDate = document.getElementById("effectiveDate").value;
-    const newAcronym =document.getElementById("acronym").textContent;
-    const newAcronymDate = document.getElementById("acronymDate").value;
-    console.log(`${newMinistry}, the date ${newMinistryDate}-----------------------------------`);
+//     event.preventDefault(); // Prevent the default form submission
+//     // get input from form:
+//     const newMinistry = document.getElementById("ministryName").textContent;
+//     const newMinistryDate = document.getElementById("effectiveDate").value;
+//     const newAcronym =document.getElementById("acronym").textContent;
+//     const newAcronymDate = document.getElementById("acronymDate").value;
+//     console.log(`${newMinistry}, the date ${newMinistryDate}-----------------------------------`);
     
-    //create form object
-    const addJustMinistryData ={
-      ministry_name: newMinistry,
-      m_change_effective_date: newMinistryDate,
-      acronym: newAcronym,
-      a_change_effective_date: newAcronymDate
-    }
+//     //create form object
+//     const addJustMinistryData ={
+//       ministry_name: newMinistry,
+//       m_change_effective_date: newMinistryDate,
+//       acronym: newAcronym,
+//       a_change_effective_date: newAcronymDate
+//     }
 
-  //   const isAcronymNo = document.getElementById("acronymNo").checked;
-  //   // if no acronym is selected add just the ministry:
-  //   if (isAcronymNo){
-  //     fetch("/api/ministry", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         ministry_name: addJustMinistryData.ministry_name,
-  //         m_change_effective_date: addJustMinistryData.newMinistryDate
-  //       })
-  //     })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error("Failed add new Ministry with no acronym");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((message) => {
-  //       // Handle successful response
-  //       console.log(message); // Log success message
-  //       window.location.href = "/success";
-  //     })
-  //     .catch((error) => {
-  //       // Handle errors
-  //       console.error("Error:", error);
-  //       window.location.href = "/error";
-  //     });
-  //   }
-  //   // if yes acronym is selected, add ministry, add acronym and add link in ministry_acronym table:
-  //   else{
-  //     console.log(`not done yet`);
-  //   }
-   });
-});
+//   //   const isAcronymNo = document.getElementById("acronymNo").checked;
+//   //   // if no acronym is selected add just the ministry:
+//   //   if (isAcronymNo){
+//   //     fetch("/api/ministry", {
+//   //       method: "POST",
+//   //       headers: {
+//   //         "Content-Type": "application/json",
+//   //       },
+//   //       body: JSON.stringify({
+//   //         ministry_name: addJustMinistryData.ministry_name,
+//   //         m_change_effective_date: addJustMinistryData.newMinistryDate
+//   //       })
+//   //     })
+//   //     .then((response) => {
+//   //       if (!response.ok) {
+//   //         throw new Error("Failed add new Ministry with no acronym");
+//   //       }
+//   //       return response.json();
+//   //     })
+//   //     .then((message) => {
+//   //       // Handle successful response
+//   //       console.log(message); // Log success message
+//   //       window.location.href = "/success";
+//   //     })
+//   //     .catch((error) => {
+//   //       // Handle errors
+//   //       console.error("Error:", error);
+//   //       window.location.href = "/error";
+//   //     });
+//   //   }
+//   //   // if yes acronym is selected, add ministry, add acronym and add link in ministry_acronym table:
+//   //   else{
+//   //     console.log(`not done yet`);
+//   //   }
+//    });
+// });
 
 //______________________Edit Ministry Name Logic_______________
 document.addEventListener("DOMContentLoaded", () => {
