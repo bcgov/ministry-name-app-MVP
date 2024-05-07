@@ -4,6 +4,8 @@ const history = require('./historyRouter.js');
 const success = require('./successRouter.js');
 const error = require('./errorRouter.js');
 const acronym = require('./acronymRouter.js');
+const apiAcronym = require('./apiAcronymRouter.js');
+const apiMinistry = require('./apiMinistryRouter.js');
 
 const mountRoutes = (app) => {
   app.use('/', ministry);
@@ -11,6 +13,8 @@ const mountRoutes = (app) => {
   app.use('/success', success);
   app.use('/error', error);
   app.use('/acronym', acronym);
+  app.use('/acronym/api', apiAcronym);
+  app.use('/api/ministry', apiMinistry);
 }
 
 module.exports = mountRoutes;

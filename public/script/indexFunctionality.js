@@ -1,16 +1,17 @@
-console.log(`hit indexFunctionality.js file`);
+//_____________________________API url:___________________
+
+const getMinistryDataUrl = "/api/ministry";
+//const wholeURL = "http://localhost:3000/api/ministry";
 
 //______________________Function Definitions_______________
 
+// require acronym inputs if toggle Yes is selected.
 const toggleAcronymSection = () => {
   // Dom elements into variables
   const isAcronymYes = document.getElementById("acronymYes").checked;
   const acronymDiv = document.getElementById("reveal-if-active");
   const acronymInput = document.getElementById("acronym");
   const acronymDateInput = document.getElementById("acronymDate");
-  console.log(
-    `The stuff: ${isAcronymYes}, ${acronymDiv}, ${acronymInput}, ${acronymDateInput}`
-  );
 
   // if 'yes' radio selected, Acronym and acronym date inputs are required
   if (isAcronymYes) {
@@ -24,7 +25,17 @@ const toggleAcronymSection = () => {
   }
 };
 
-//______________________Acronym display based on radio selection functionality_______________
+// Handles json null values by returning "---" as a string; if !null, returns original value
+const handleNullValue = (jsonValue) =>{
+  if (jsonValue === null){
+    return "---";
+  }
+  return jsonValue;
+}
+
+// ______________________________Display Active Ministries Functionality____________________________
+
+//___________Add New Ministry - Acronym display based on radio selection functionality_______________
 
 document.addEventListener("DOMContentLoaded", () => {
   //When radio button selection changes, show or hide Acronym section
@@ -39,8 +50,65 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleAcronymSection();
 });
 
+// document.addEventListener("DOMContentLoaded", () => {
+//   const newMinistryForm = document.getElementById("newMinistryForm");
+
+//   newMinistryForm.addEventListener("submit", (event) => {
+
+//     event.preventDefault(); // Prevent the default form submission
+//     // get input from form:
+//     const newMinistry = document.getElementById("ministryName").textContent;
+//     const newMinistryDate = document.getElementById("effectiveDate").value;
+//     const newAcronym =document.getElementById("acronym").textContent;
+//     const newAcronymDate = document.getElementById("acronymDate").value;
+//     console.log(`${newMinistry}, the date ${newMinistryDate}-----------------------------------`);
+    
+//     //create form object
+//     const addJustMinistryData ={
+//       ministry_name: newMinistry,
+//       m_change_effective_date: newMinistryDate,
+//       acronym: newAcronym,
+//       a_change_effective_date: newAcronymDate
+//     }
+
+//   //   const isAcronymNo = document.getElementById("acronymNo").checked;
+//   //   // if no acronym is selected add just the ministry:
+//   //   if (isAcronymNo){
+//   //     fetch("/api/ministry", {
+//   //       method: "POST",
+//   //       headers: {
+//   //         "Content-Type": "application/json",
+//   //       },
+//   //       body: JSON.stringify({
+//   //         ministry_name: addJustMinistryData.ministry_name,
+//   //         m_change_effective_date: addJustMinistryData.newMinistryDate
+//   //       })
+//   //     })
+//   //     .then((response) => {
+//   //       if (!response.ok) {
+//   //         throw new Error("Failed add new Ministry with no acronym");
+//   //       }
+//   //       return response.json();
+//   //     })
+//   //     .then((message) => {
+//   //       // Handle successful response
+//   //       console.log(message); // Log success message
+//   //       window.location.href = "/success";
+//   //     })
+//   //     .catch((error) => {
+//   //       // Handle errors
+//   //       console.error("Error:", error);
+//   //       window.location.href = "/error";
+//   //     });
+//   //   }
+//   //   // if yes acronym is selected, add ministry, add acronym and add link in ministry_acronym table:
+//   //   else{
+//   //     console.log(`not done yet`);
+//   //   }
+//    });
+// });
+
 //______________________Edit Ministry Name Logic_______________
-// create new acronym:
 document.addEventListener("DOMContentLoaded", () => {
   const editMinistryNameForm = document.getElementById("editMinistryNameForm");
 
@@ -124,9 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then((data) => {
         const ministryAId = data.ministry_id; // Extract the ministry ID from the response
-        console.log(
-          `NEW MIN ID B: ${ministryAId}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`
-        );
 
         // Next, add new ministry B
         return fetch("/api/ministry", {
@@ -147,9 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
           })
           .then((data) => {
             const ministryBId = data.ministry_id; // Extract the ministry ID from the response
-            console.log(
-              `NEW MIN ID B: ${ministryBId}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`
-            );
 
             // Then, retire the original ministry
             return fetch(`/api/ministry/retire/${formDataObject.minToSplit}`, {
