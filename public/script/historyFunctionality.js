@@ -16,7 +16,7 @@ const getHistory = (jsonObj, id) => {
   let ministry = jsonObj.find((myMinistry) => myMinistry.ministry_id == idNum);
 
   // recursivly find the previous ministry history until the ministry_id_history # is null
-  if (ministry.ministry_id_history === null) {
+  if ((ministry.ministry_id_history === null)) {
     theHistory.push(ministry); // adds itself to the array
     return history;
   } else {
