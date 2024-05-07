@@ -1,7 +1,7 @@
 //_____________________________API url:___________________
 
-const getAcronymDataUrl = "/acronym/api";
-//const wholeURL = "http://localhost:3000/acronym/api";
+const getMinistryDataUrl = "/api/ministry";
+//const wholeURL = "http://localhost:3000/api/ministry";
 
 //______________________Function Definitions_______________
 
