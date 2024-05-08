@@ -14,7 +14,7 @@ const mountRoutes = (app) => {
   app.use('/success', success);
   app.use('/error', error);
   app.use('/acronym', acronym);
-  app.use('/acronym/api', apiAcronym);
+  app.use('/api/acronym', apiAcronym);
   app.use('/api/ministry', apiMinistry);
   app.use('/api/history', apiHistory);
 }

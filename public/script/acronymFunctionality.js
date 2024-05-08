@@ -2,8 +2,13 @@
 
 //_____________________________API url:___________________
 
-const getAcronymDataUrl = "/acronym/api";
-const wholeURL = "http://localhost:3000/acronym/api";
+const getAcronymDataUrl = "/api/acronym";
+const getAcronymIdByMinistryId = "";
+const addNewAcronym ="/api/acronym/addNewAcronym";
+const pairMinistryAcronym ="/api/acronym/pairMinistryAcronym";
+const updateMinistryAcronym ="/api/acronym/updateMinistryAcronym";
+const addAcronymHistory="/api/acronym/addAcronymHistory";
+const wholeURL = "http://localhost:3000/api/acronym";
 
 //______________________Function Definitions_______________
 
@@ -97,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Send POST request
-    fetch("/acronym/api/addNewAcronym", {
+    fetch( addNewAcronym, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -159,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
       acronym_id: selectedAcrId,
     };
     // Get current ministry acronym:
-    fetch("/acronym/api/pairMinistryAcronym", {
+    fetch( pairMinistryAcronym, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -210,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
       acronym_id: selectedAcrId,
     };
 
-    fetch(`/acronym/api/ByMinId/${changeAcrFormData.ministry_id}`)
+    fetch(`/api/acronym/ByMinistryId/${changeAcrFormData.ministry_id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to get acronym ID");
@@ -222,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(`OLDACR =============${oldAcrId}`);
 
         // Then add the old acronym to ministry_history:
-        return fetch("/acronym/api/addAcrHistory", {
+        return fetch("/api/acronym/addAcronymHistory", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -240,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.text();
           })
           .then(() => {
-            return fetch("/acronym/api/updateAcr", {
+            return fetch(updateMinistryAcronym, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

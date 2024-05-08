@@ -37,10 +37,14 @@ app.use(limiter);
 // add routes
 mountRoutes(app);
 
-// catch 404 and forward to error handler
-app.use((req, res, next)=> {
-    next(createError(404));
-  });
+// catch 404 for incorrect routes and forward to error handler
+app.use('*', (req, res, next)=> {
+  res.status(404).json({
+  status: 'fail',
+  message: 'This route was not found'
+  })
+  next(createError(404));
+});
   
   // error handler
   app.use((err, req, res) => {
