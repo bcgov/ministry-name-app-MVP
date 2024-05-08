@@ -31,7 +31,7 @@
           </h2>
           <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#acronymAccordion">
             <div class="accordion-body">
-              <form action="/acronym/api/addNewAcronym" method="POST" class="row g-3 needs-validation" id="newAcronymForm">
+              <form action="/api/acronym/addNewAcronym" method="POST" class="row g-3 needs-validation" id="newAcronymForm">
                 <div class="col-md-4">
                   <label for="acronymNew" class="form-label">Acronym</label>
                   <input type="text" class="form-control" name="acronymNew" id="acronymNew" required>
@@ -58,7 +58,7 @@
         <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#acronymAccordion">
           <div class="accordion-body">
             
-            <form action="/acronym/api/pairMinistryAcronym" method="POST" class="row g-3 needs-validation" id="assignNewAcronymForm">
+            <form action="/api/acronym/pairMinistryAcronym" method="POST" class="row g-3 needs-validation" id="assignNewAcronymForm">
               <h4>Please select an Unassigned Acronym</h4>
               <% //Only show unassigned Acronyms %>
               <div>

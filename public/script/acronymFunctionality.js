@@ -4,17 +4,17 @@
 
 const getAcronymDataUrl = "/api/acronym";
 const getAcronymIdByMinistryId = "";
-const addNewAcronym ="/api/acronym/addNewAcronym";
-const pairMinistryAcronym ="/api/acronym/pairMinistryAcronym";
-const updateMinistryAcronym ="/api/acronym/updateMinistryAcronym";
-const addAcronymHistory="/api/acronym/addAcronymHistory";
+const addNewAcronym = "/api/acronym/addNewAcronym";
+const pairMinistryAcronym = "/api/acronym/pairMinistryAcronym";
+const updateMinistryAcronym = "/api/acronym/updateMinistryAcronym";
+const addAcronymHistory = "/api/acronym/addAcronymHistory";
 const wholeURL = "http://localhost:3000/api/acronym";
 
 //______________________Function Definitions_______________
 
 // Handles json null values by returning "---" as a string; if !null, returns original value
-const handleNullValue = (jsonValue) =>{
-  if (jsonValue === null){
+const handleNullValue = (jsonValue) => {
+  if (jsonValue === null) {
     return "---";
   }
   return jsonValue;
@@ -56,15 +56,15 @@ const displayAcronyms = async () => {
     acryData.forEach((element) => {
       let formattedAcronymDate;
       // format date correctly if !null
-      if (element.a_change_effective_date !==null){
+      if (element.a_change_effective_date !== null) {
         let date = new Date(element.a_change_effective_date);
         let year = date.getFullYear();
         let month = date.getMonth();
         let day = date.getDay();
         formattedAcronymDate = `${year}-${month}-${day}`;
       }
-      else{
-        formattedAcronymDate ="---";
+      else {
+        formattedAcronymDate = "---";
       }
 
       let eachAcronym = ` <tr>
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Send POST request
-    fetch( addNewAcronym, {
+    fetch(addNewAcronym, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -133,11 +133,11 @@ document.addEventListener("DOMContentLoaded", () => {
 //______________________Display Acronym frontend logic_______________
 
 if (document.readyState === "loading") {
- //Loading hasn't finished yet
-document.addEventListener("DOMContentLoaded", displayAcronyms);
+  //Loading hasn't finished yet
+  document.addEventListener("DOMContentLoaded", displayAcronyms);
 } else {
-// `DOMContentLoaded` has already fired
-displayAcronyms();
+  // `DOMContentLoaded` has already fired
+  displayAcronyms();
 }
 
 //______________________Assign New Acronym to Ministry frontend logic_______________
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
       acronym_id: selectedAcrId,
     };
     // Get current ministry acronym:
-    fetch( pairMinistryAcronym, {
+    fetch(pairMinistryAcronym, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(`OLDACR =============${oldAcrId}`);
 
         // Then add the old acronym to ministry_history:
-        return fetch("/api/acronym/addAcronymHistory", {
+        return fetch(addAcronymHistory, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
