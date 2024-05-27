@@ -132,7 +132,7 @@ jobs:
         echo "APP_NAME=$(basename $PWD)" | tee -a $GITHUB_ENV
 
     - name: Determine image tags
-      if: env.IMAGE_TAGS == ''
+      if: env.IMAGE_TAGS == 'ghcr.io/vitik-k:latest'
       run: |
         echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
 
@@ -148,7 +148,6 @@ jobs:
           echo "POSTGRES_DB=${{secrets.POSTGRES_DB}}" >> .env
           echo "PORT=${{secrets.PORT}}" >> .env
 
-    # https://github.com/redhat-actions/buildah-build#readme
     - name: Build and push images using Docker-compose
       run: |
           docker-compose -f docker-compose.yml build
