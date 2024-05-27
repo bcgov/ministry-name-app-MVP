@@ -50,7 +50,7 @@ env:
   IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
-  IMAGE_TAGS: latest
+  IMAGE_TAGS: ghcr.io/vitik-k:latest
 
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
