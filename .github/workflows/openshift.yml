@@ -51,6 +51,12 @@ env:
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
   IMAGE_TAGS: ghcr.io/vitik-k:latest
+  # DB config
+  POSTGRES_HOST: postgres
+  POSTGRES_USER: kat
+  POSTGRES_PASSWORD: mypass
+  POSTGRES_DB: nameapp
+
 
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
@@ -142,11 +148,11 @@ jobs:
 
     - name: Create new .env file for Docker Compose using github secrets
       run: |
-          echo "POSTGRES_USER=${{secrets.POSTGRES_HOST}}" >> .env
-          echo "POSTGRES_USER=${{secrets.POSTGRES_USER}}" >> .env
-          echo "POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}" >> .env
-          echo "POSTGRES_DB=${{secrets.POSTGRES_DB}}" >> .env
-          echo "PORT=${{secrets.PORT}}" >> .env
+          echo "POSTGRES_USER=${{env.POSTGRES_HOST}}" >> .env
+          echo "POSTGRES_USER=${{env.POSTGRES_USER}}" >> .env
+          echo "POSTGRES_PASSWORD=${{env.POSTGRES_PASSWORD}}" >> .env
+          echo "POSTGRES_DB=${{env.POSTGRES_DB}}" >> .env
+          echo "PORT=${{env.APP_PORT}}" >> .env
 
     - name: Build and push images using Docker-compose
       run: |

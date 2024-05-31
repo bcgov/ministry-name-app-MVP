@@ -5,6 +5,9 @@ services:
     image: 'postgres'
     restart: always
     env_file: ./.env
+    build:
+      context: .
+      dockerfile: db/Dockerfile
     environment:
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -13,8 +16,12 @@ services:
     volumes:
       - postgres-volume-test:/var/lib/postgresql/data
       # run sql start-up scripts to create and populate tables:
-      - ./db/createDbTables.sql:/docker-entrypoint-initdb.d/createDbTables.sql
-      - ./db/populateDbTables.sql:/docker-entrypoint-initdb.d/populateDbTables.sql
+      #- ./db/createDbTables.sql:/docker-entrypoint-initdb.d/createDbTables.sql
+      #- ./db/populateDbTables.sql:/docker-entrypoint-initdb.d/populateDbTables.sql
+    ports:
+      - '5432:5432'
+    networks:
+      - name-app
 
   ministrynameapp:
     image: ministrynameapp
@@ -28,8 +35,14 @@ services:
     tty: true
     ports:
       - '3000:3000'
+    networks:
+      - name-app
 
 volumes:
   postgres-volume-test:
     name: postgres-volume-test
+
+networks:
+  name-app: 
+    driver: bridge
 
