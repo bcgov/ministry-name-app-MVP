@@ -47,7 +47,7 @@ env:
   # Registries such as GHCR, Quay.io, and Docker Hub are supported.
   IMAGE_REGISTRY: ghcr.io/vitik-k
   IMAGE_REGISTRY_USER: vitik-k
-  IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
+  IMAGE_REGISTRY_PASSWORD: ${{ github.TOKEN }}
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
   IMAGE_TAGS: ghcr.io/vitik-k:latest
@@ -154,10 +154,17 @@ jobs:
           echo "POSTGRES_DB=${{env.POSTGRES_DB}}" >> .env
           echo "PORT=${{env.APP_PORT}}" >> .env
 
-    - name: Build and push images using Docker-compose
-      run: |
-          docker-compose -f docker-compose.yml build
-          docker-compose -f docker-compose.yml push
+    #- name: Build and push images using Docker-compose
+      #run: |
+          #docker-compose -f docker-compose.yml build
+          #docker-compose -f docker-compose.yml push
+    
+    - name: publish
+      uses: soltys/publish-docker-compose@v1.0.0
+      with:
+        version: 'latest'
+        docker_compose: 'docker-compose.yml'
+        repo_token: "${{ secrets.TOKEN }}"
 
     - name: Install oc
       uses: redhat-actions/openshift-tools-installer@v1
