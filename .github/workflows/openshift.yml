@@ -27,30 +27,20 @@
 name: OpenShift
 
 env:
-  # 🖊️ EDIT your repository secrets to log into your OpenShift cluster and set up the context.
-  # See https://github.com/redhat-actions/oc-login#readme for how to retrieve these values.
   # To get a permanent token, refer to https://github.com/redhat-actions/oc-login/wiki/Using-a-Service-Account-for-GitHub-Actions
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-  # 🖊️ EDIT to set the kube context's namespace after login. Leave blank to use your user's default namespace.
   OPENSHIFT_NAMESPACE: fe6594-dev
 
-  # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
   APP_NAME: ministry-name-app
-
-  # 🖊️ EDIT with the port your application should be accessible on.
-  # If the container image exposes *exactly one* port, this can be left blank.
-  # Refer to the 'port' input of https://github.com/redhat-actions/oc-new-app
   APP_PORT: 8080
 
-  # 🖊️ EDIT to change the image registry settings.
-  # Registries such as GHCR, Quay.io, and Docker Hub are supported.
-  IMAGE_REGISTRY: ghcr.io/Vitik-K
-  IMAGE_REGISTRY_USER: Vitik-K
+  IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
+  IMAGE_REGISTRY_USER: ${{ github.actor }}
   IMAGE_REGISTRY_PASSWORD: ${{ github.TOKEN }}
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
-  IMAGE_TAGS: ghcr.io/${{ github.repository_owner }}/minnameapp:latest
+  IMAGE_TAGS: ghcr.io/${{ github.repository_owner }}/minnameapp:latest latest ${{ github.sha }}
   # DB config
   POSTGRES_HOST: postgres
   POSTGRES_USER: kat
@@ -59,10 +49,8 @@ env:
 
 
 on:
-  # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
   workflow_dispatch:
   push:
-    # Edit to the branch(es) you want to build and deploy on each push.
     branches: [ "master" ]
 
 jobs:
@@ -106,7 +94,7 @@ jobs:
           }
           else {
             core.info("A registry password is required");
-            secrets["IMAGE_REGISTRY_PASSWORD"] = `${{ secrets.IMAGE_REGISTRY_PASSWORD }}`;
+            secrets["IMAGE_REGISTRY_PASSWORD"] = `${{ env.IMAGE_REGISTRY_PASSWORD }}`;
           }
 
           const missingSecrets = Object.entries(secrets).filter(([ name, value ]) => {
@@ -167,10 +155,22 @@ jobs:
         dockerfiles: |
           ./Dockerfile   
 
-    - name: GHCR login        
-      run: |
-        docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
+    #- name: GHCR login        
+      #run: |
+        #docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
    
+    - name: Push To GHCR
+      uses: redhat-actions/push-to-registry@v2
+      with:
+        image: ${{ steps.build-image.outputs.image }}
+        tags: ${{ steps.build-image.outputs.tags }}
+        registry: ${{ env.IMAGE_REGISTRY }} 
+        username: ${{ env.IMAGE_REGISTRY_USER }} 
+        password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
+
+    - name: Print image url
+      run: echo "Image pushed to ${{ steps.push-image.outputs.registry-paths }} & ${{ toJSON(steps.push.outputs) }}"
+            
 
     - name: Install oc
       uses: redhat-actions/openshift-tools-installer@v1
