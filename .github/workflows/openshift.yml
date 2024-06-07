@@ -41,7 +41,7 @@ env:
   # 🖊️ EDIT with the port your application should be accessible on.
   # If the container image exposes *exactly one* port, this can be left blank.
   # Refer to the 'port' input of https://github.com/redhat-actions/oc-new-app
-  APP_PORT: 3000
+  APP_PORT: 8080
 
   # 🖊️ EDIT to change the image registry settings.
   # Registries such as GHCR, Quay.io, and Docker Hub are supported.
@@ -153,15 +153,16 @@ jobs:
           echo "POSTGRES_PASSWORD=${{env.POSTGRES_PASSWORD}}" >> .env
           echo "POSTGRES_DB=${{env.POSTGRES_DB}}" >> .env
           echo "PORT=${{env.APP_PORT}}" >> .env
+
     - name: GHCR login        
       run: |
         docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
    
     - name: Build and push images using Docker-compose
       run: |
-          docker-compose -f docker-compose.yml build
-          docker-compose -f docker-compose.yml push
-    
+         docker-compose -f docker-compose.yml build && docker-compose -f docker-compose.yml push
+       
+  
     #- name: publish
       #uses: soltys/publish-docker-compose@v1.0.0
       #with:
