@@ -162,7 +162,7 @@ jobs:
     - name: Push To GHCR
       uses: redhat-actions/push-to-registry@v2
       with:
-        image: ${{ steps.build-image.outputs.image }}
+        image: ${{ env.APP_NAME }}
         tags: ${{ steps.build-image.outputs.tags }}
         registry: ${{ env.IMAGE_REGISTRY }} 
         username: ${{ env.IMAGE_REGISTRY_USER }} 
