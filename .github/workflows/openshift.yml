@@ -45,8 +45,8 @@ env:
 
   # 🖊️ EDIT to change the image registry settings.
   # Registries such as GHCR, Quay.io, and Docker Hub are supported.
-  IMAGE_REGISTRY: ghcr.io/vitik-k
-  IMAGE_REGISTRY_USER: vitik-k
+  IMAGE_REGISTRY: ghcr.io/Vitik-K
+  IMAGE_REGISTRY_USER: Vitik-K
   IMAGE_REGISTRY_PASSWORD: ${{ github.TOKEN }}
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
@@ -153,14 +153,27 @@ jobs:
           echo "POSTGRES_PASSWORD=${{env.POSTGRES_PASSWORD}}" >> .env
           echo "POSTGRES_DB=${{env.POSTGRES_DB}}" >> .env
           echo "PORT=${{env.APP_PORT}}" >> .env
-
-    - name: GHCR login        
-      run: |
-        docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
+          
+    - name: Build from Dockerfile
+      id: build-image
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: ${{ env.APP_NAME }}
+        tags: ${{ env.IMAGE_TAGS }}
+    
+    # If you don't have a Dockerfile/Containerfile, refer to https://github.com/redhat-actions/buildah-build#scratch-build-inputs
+    # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
+     # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
+        dockerfiles: |
+          ./Dockerfile   
+           
+    #- name: GHCR login        
+      #run: |
+        #docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
    
-    - name: Build and push images using Docker-compose
-      run: |
-         docker-compose -f docker-compose.yml build && docker-compose -f docker-compose.yml push
+    #- name: Build and push images using Docker-compose
+      #run: |
+         #docker-compose -f docker-compose.yml build && docker-compose -f docker-compose.yml push
        
   
     #- name: publish
