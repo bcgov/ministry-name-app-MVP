@@ -40,7 +40,7 @@ env:
   IMAGE_REGISTRY_PASSWORD: ${{ github.TOKEN }}
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
-  IMAGE_TAGS: ghcr.io/${{ github.repository_owner }}/minnameapp:latest latest ${{ github.sha }}
+  IMAGE_TAGS: ghcr.io/${{ github.repository_owner }}/minnameapp:latest
   # DB config
   POSTGRES_HOST: postgres
   POSTGRES_USER: kat
