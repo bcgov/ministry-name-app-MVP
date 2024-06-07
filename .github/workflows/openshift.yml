@@ -158,7 +158,7 @@ jobs:
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
-        image: ${{ env.APP_NAME }}-git
+        image: ${{ env.APP_NAME }}
         tags: ${{ env.IMAGE_TAGS }}
     
     # If you don't have a Dockerfile/Containerfile, refer to https://github.com/redhat-actions/buildah-build#scratch-build-inputs
@@ -167,21 +167,10 @@ jobs:
         dockerfiles: |
           ./Dockerfile   
 
-    #- name: GHCR login        
-      #run: |
-        #docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
+    - name: GHCR login        
+      run: |
+        docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
    
-    #- name: Build and push images using Docker-compose
-      #run: |
-         #docker-compose -f docker-compose.yml build && docker-compose -f docker-compose.yml push
-       
-  
-    #- name: publish
-      #uses: soltys/publish-docker-compose@v1.0.0
-      #with:
-        #version: 'latest'
-        #docker_compose: 'docker-compose.yml'
-        #repo_token: "${{ secrets.TOKEN }}"
 
     - name: Install oc
       uses: redhat-actions/openshift-tools-installer@v1
