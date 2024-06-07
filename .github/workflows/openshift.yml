@@ -32,7 +32,7 @@ env:
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
   OPENSHIFT_NAMESPACE: fe6594-dev
 
-  APP_NAME: ministry-name-app
+  APP_NAME: ministry-name-application
   APP_PORT: 8080
 
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
