@@ -214,11 +214,7 @@ jobs:
           image: ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-app:latest
           namespace: ${{ env.OPENSHIFT_NAMESPACE }}
           port: ${{ env.APP_PORT }}
-          env:
-            POSTGRES_HOST: postgresql
-            POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-            POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-            POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          env: POSTGRES_HOST=postgresql POSTGRES_USER=${{ secrets.POSTGRES_USER }} POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} POSTGRES_DB=${{ secrets.POSTGRES_DB }}
 
       - name: Print application URL
         env:
