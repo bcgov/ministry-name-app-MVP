@@ -164,7 +164,7 @@ jobs:
         run: |
           IMAGE_NAME=${{ env.IMAGE_REGISTRY }}/${{ env.APP_NAME }}
           IMAGE_SHA=${{ github.sha }}
-          TAGS="ghcr.io/${{ github.repository_owner }}/ministry-name-app:latest ghcr.io/${{ github.repository_owner }}/ministry-name-app:${IMAGE_SHA}"
+          TAGS="ghcr.io/vitik-k/ministry-name-app:latest ghcr.io/vitik-k/ministry-name-app:${IMAGE_SHA}"
           for TAG in $TAGS; do
             docker tag $IMAGE_NAME:latest $TAG
             docker push $TAG
