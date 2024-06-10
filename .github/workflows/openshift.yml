@@ -40,10 +40,11 @@ env:
   IMAGE_REGISTRY_PASSWORD: ${{ github.TOKEN }}
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
-  IMAGE_TAGS: ghcr.io/${{ github.repository_owner }}/ministry-name-app:latest
-    #ghcr.io/${{ github.repository_owner }}/ministry-name-app:latest
-    #ghcr.io/${{ github.repository_owner }}/ministry-name-app:${{ github.sha }}
-    #ghcr.io/${{ github.repository_owner }}/ministry-name-app:${{ github.ref }}
+  IMAGE_TAGS: |
+    ghcr.io/${{ github.repository_owner }}/ministry-name-app:latest
+    ghcr.io/${{ github.repository_owner }}/ministry-name-app:${{ github.sha }}
+  
+  #ghcr.io/${{ github.repository_owner }}/ministry-name-app:${{ github.ref }}
   # DB config
   POSTGRES_HOST: postgres
   POSTGRES_USER: kat
@@ -150,7 +151,9 @@ jobs:
       uses: redhat-actions/buildah-build@v2
       with:
         image: ${{ env.APP_NAME }}
-        tags: ${{ env.IMAGE_TAGS }}
+        tags: |
+          ghcr.io/${{ github.repository_owner }}/ministry-name-app:latest
+          ghcr.io/${{ github.repository_owner }}/ministry-name-app:${{ github.sha }}
     
     # If you don't have a Dockerfile/Containerfile, refer to https://github.com/redhat-actions/buildah-build#scratch-build-inputs
     # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
@@ -171,11 +174,11 @@ jobs:
         #username: ${{ env.IMAGE_REGISTRY_USER }} 
         #password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
       run: |
-          docker tag ${{ env.IMAGE_TAGS }}
-          docker push ${{ env.IMAGE_TAGS }}
+          IFS=' ' read -r -a TAGS <<< ${{ env.IMAGE_TAGS }}
+          for TAGS in "${TAGS[@]}"; do  
+            docker push $TAG
+          done
           
-  
-
     - name: Print image url
       run: echo "Image pushed as ${{ env.IMAGE_TAGS }}"
             
