@@ -154,10 +154,6 @@ jobs:
         tags: |
           ghcr.io/${{ github.repository_owner }}/ministry-name-app:latest
           ghcr.io/${{ github.repository_owner }}/ministry-name-app:${{ github.sha }}
-    
-    # If you don't have a Dockerfile/Containerfile, refer to https://github.com/redhat-actions/buildah-build#scratch-build-inputs
-    # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
-     # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
           ./Dockerfile   
 
@@ -166,15 +162,9 @@ jobs:
         docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
    
     - name: Push To GHCR
-      #uses: redhat-actions/push-to-registry@v2
-      #with:
-        #image: ${{ steps.build-image.outputs.image }}
-        #tags: ${{ steps.build-image.outputs.tags }}
-        #registry: ${{ env.IMAGE_REGISTRY }} 
-        #username: ${{ env.IMAGE_REGISTRY_USER }} 
-        #password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
       run: |
           for TAG in ${{ env.IMAGE_TAGS}}; do  
+            docker tag ${{ env.IMAGE_TAGS  }} $TAG
             docker push $TAG
           done
           
