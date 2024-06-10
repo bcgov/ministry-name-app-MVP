@@ -128,17 +128,17 @@ jobs:
         run: |
           echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
 
-      -  #name: Remove any existing .env file
-        #run: |
-        #if [ -f .env]; then rm .env; fi
+      #-  name: Remove any existing .env file
+      #run: |
+      #if [ -f .env]; then rm .env; fi
 
-      -  #name: Create new .env file for Docker Compose using github secrets
-        #run: |
-        #echo "POSTGRES_USER=${{env.POSTGRES_HOST}}" >> .env
-        #echo "POSTGRES_USER=${{env.POSTGRES_USER}}" >> .env
-        #echo "POSTGRES_PASSWORD=${{env.POSTGRES_PASSWORD}}" >> .env
-        #echo "POSTGRES_DB=${{env.POSTGRES_DB}}" >> .env
-        #echo "PORT=${{env.APP_PORT}}" >> .env
+      #-  name: Create new .env file for Docker Compose using github secrets
+      #run: |
+      #echo "POSTGRES_USER=${{env.POSTGRES_HOST}}" >> .env
+      #echo "POSTGRES_USER=${{env.POSTGRES_USER}}" >> .env
+      #echo "POSTGRES_PASSWORD=${{env.POSTGRES_PASSWORD}}" >> .env
+      #echo "POSTGRES_DB=${{env.POSTGRES_DB}}" >> .env
+      #echo "PORT=${{env.APP_PORT}}" >> .env
 
       - name: Build express app image
         run: |
