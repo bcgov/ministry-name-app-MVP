@@ -174,8 +174,7 @@ jobs:
         #username: ${{ env.IMAGE_REGISTRY_USER }} 
         #password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
       run: |
-          IFS=' ' read -r -a TAGS <<< ${{ env.IMAGE_TAGS }}
-          for TAGS in "${TAGS[@]}"; do  
+          for TAG in ${{ env.IMAGE_TAGS}}; do  
             docker push $TAG
           done
           
