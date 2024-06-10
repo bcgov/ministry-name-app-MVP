@@ -146,23 +146,15 @@ jobs:
           echo "POSTGRES_PASSWORD=${{env.POSTGRES_PASSWORD}}" >> .env
           echo "POSTGRES_DB=${{env.POSTGRES_DB}}" >> .env
           echo "PORT=${{env.APP_PORT}}" >> .env
-
-      - name: Build from Dockerfile
-        id: build-image
-        uses: redhat-actions/buildah-build@v2
-        with:
-          image: ${{ env.APP_NAME }}
-          tags: |
-            ghcr.io/${{ env.GITHUB_OWNER}}/ministry-name-app:latest
-            ghcr.io/${{ env.GITHUB_OWNER}}/ministry-name-app:${{ github.sha }}
-          dockerfiles: |
-            ./Dockerfile
+ - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-app:latest .
+          docker tag ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-app:latest ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-app:${{ github.sha }}
 
       - name: GHCR login
-        run: echo "${{ secrets.TOKEN }}" | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-
-      #docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
-
+        run: |
+          docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
+          
       - name: Push To GHCR
         run: |
           IMAGE_NAME=ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-app:latest
