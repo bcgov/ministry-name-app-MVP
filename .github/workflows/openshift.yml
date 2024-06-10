@@ -162,7 +162,7 @@ jobs:
       - name: Print image url
         run: echo "Image pushed as ${{ env.IMAGE_TAGS }}"
 
-      - name: Build PostgreSQL image
+      - name: Build Postgres image
         run: |
           docker build -t ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:latest -f ./db/Dockerfile .
           docker tag ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:latest ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:${{ github.sha }}
@@ -191,7 +191,7 @@ jobs:
           insecure_skip_tls_verify: true
           namespace: ${{ env.OPENSHIFT_NAMESPACE }}
 
-      - name: Deploy PostgreSQL container
+      - name: Deploy Postgres container
         run: |
           oc new-app --name=postgresql \
           --image=ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:latest \
