@@ -159,8 +159,9 @@ jobs:
             ./Dockerfile
 
       - name: GHCR login
-        run: |
-          docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
+        run: echo "${{ secrets.TOKEN }}" | docker login ghcr.io --username ${{ github.actor }} --password-stdin
+
+      #docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
 
       - name: Push To GHCR
         run: |
