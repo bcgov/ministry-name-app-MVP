@@ -177,19 +177,6 @@ jobs:
             docker push $TAG
           done
 
-      - name: Deploy PostgreSQL container
-        run: |
-          oc new-app --name=postgresql \
-          --docker-image=ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:latest \
-          -e POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
-          -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
-          -e POSTGRES_DB=${{ secrets.POSTGRES_DB }}
-          -e POSTGRES_HOST=postgresql
-
-      - name: Expose PostgreSQL service
-        run: |
-          oc expose svc/postgresql --port=5432
-
       - name: Install oc
         uses: redhat-actions/openshift-tools-installer@v1
         with:
@@ -204,8 +191,19 @@ jobs:
           insecure_skip_tls_verify: true
           namespace: ${{ env.OPENSHIFT_NAMESPACE }}
 
-      # This step should create a deployment, service, and route to run your app and expose it to the internet.
-      # https://github.com/redhat-actions/oc-new-app#readme
+      - name: Deploy PostgreSQL container
+        run: |
+          oc new-app --name=postgresql \
+          --docker-image=ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:latest \
+          -e POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
+          -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
+          -e POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+          -e POSTGRES_HOST=postgresql
+
+      - name: Expose PostgreSQL service
+        run: |
+          oc expose svc/postgresql --port=5432
+
       - name: Create and expose app
         id: deploy-and-expose
         uses: redhat-actions/oc-new-app@v1
