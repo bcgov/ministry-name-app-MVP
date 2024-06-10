@@ -32,7 +32,7 @@ env:
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
   OPENSHIFT_NAMESPACE: fe6594-dev
 
-  APP_NAME: ministry-name-application
+  APP_NAME: ministry-name-app
   APP_PORT: 8080
 
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
@@ -40,7 +40,7 @@ env:
   IMAGE_REGISTRY_PASSWORD: ${{ github.TOKEN }}
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
-  IMAGE_TAGS: ghcr.io/${{ github.repository_owner }}/minnameapp:latest
+  IMAGE_TAGS: ghcr.io/${{ github.repository_owner }}/minnameapp:latest latest ${{ github.sha }}
   # DB config
   POSTGRES_HOST: postgres
   POSTGRES_USER: kat
@@ -155,21 +155,24 @@ jobs:
         dockerfiles: |
           ./Dockerfile   
 
-    #- name: GHCR login        
-      #run: |
-        #docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
+    - name: GHCR login        
+      run: |
+        docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} --password-stdin ghcr.io
    
     - name: Push To GHCR
-      uses: redhat-actions/push-to-registry@v2
-      with:
-        image: ${{ env.APP_NAME }}
-        tags: ${{ steps.build-image.outputs.tags }}
-        registry: ${{ env.IMAGE_REGISTRY }} 
-        username: ${{ env.IMAGE_REGISTRY_USER }} 
-        password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
+      #uses: redhat-actions/push-to-registry@v2
+      #with:
+        #image: ${{ steps.build-image.outputs.image }}
+        #tags: ${{ steps.build-image.outputs.tags }}
+        #registry: ${{ env.IMAGE_REGISTRY }} 
+        #username: ${{ env.IMAGE_REGISTRY_USER }} 
+        #password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
+      run: |
+        docker tag ${{ env.APP_NAME }}:${{ github.sha }} ${{ env.IMAGE_TAGS}}
+        docker push ${{ env.IMAGE_TAGS}}
 
     - name: Print image url
-      run: echo "Image pushed to ${{ steps.push-image.outputs.registry-paths }} & ${{ toJSON(steps.push.outputs) }}"
+      run: echo "Image pushed as ${{ env.IMAGE_TAGS }}"
             
 
     - name: Install oc
@@ -193,7 +196,7 @@ jobs:
       uses: redhat-actions/oc-new-app@v1
       with:
         app_name: ${{ env.APP_NAME }}
-        image: ${{ steps.push-image.outputs.registry-path }}
+        image: ${{ env.IMAGE_TAGS }}
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
         port: ${{ env.APP_PORT }}
 
