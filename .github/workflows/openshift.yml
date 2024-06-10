@@ -157,7 +157,7 @@ jobs:
 
     - name: GHCR login        
       run: |
-        docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password-stdin ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
+        docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
    
     - name: Push To GHCR
       #uses: redhat-actions/push-to-registry@v2
