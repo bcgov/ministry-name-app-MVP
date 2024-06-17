@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: seed-db-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: seed-db
+          image: appropriate/curl:latest
+          command: ["sh", "-c"]
+          args:
+            - |
+              apk add --no-cache postgresql-client;
+              PGPASSWORD="${POSTGRES_PASSWORD}" psql -h ${POSTGRES_HOST} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -f /scripts/createDbTables.sql;
+              PGPASSWORD="${POSTGRES_PASSWORD}" psql -h ${POSTGRES_HOST} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -f /scripts/populateDbTables.sql;
+          env:
+            - name: POSTGRES_HOST
+              value: "postgresql"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: database-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: database-password
+            - name: POSTGRES_DB
+              value: "name-app-db"
+          volumeMounts:
+            - name: sql-scripts
+              mountPath: /scripts
+      restartPolicy: OnFailure
+      volumes:
+        - name: sql-scripts
+          configMap:
+            name: sql-scripts-configmap
