@@ -16,7 +16,7 @@ COPY ./db/createDbTables.sql /docker-entrypoint-initdb.d/
 COPY ./db/populateDbTables.sql /docker-entrypoint-initdb.d/
 
 # Ensure scripts are executable
-RUN chmod +x /usr/local/bin/db_entrypoint.sh
+#RUN chmod +x /usr/local/bin/db_entrypoint.sh
 
 # Expose postgres port
 EXPOSE 5432
