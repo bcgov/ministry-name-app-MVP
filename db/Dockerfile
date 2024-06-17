@@ -9,7 +9,7 @@ ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 ENV POSTGRES_DB=${POSTGRES_DB}
 
 # entrypoint script
-COPY ./db/db_entrypoint.sh /usr/local/bin/
+#COPY ./db/db_entrypoint.sh /usr/local/bin/
 
 # db seed init scripts
 COPY ./db/createDbTables.sql /docker-entrypoint-initdb.d/
