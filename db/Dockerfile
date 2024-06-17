@@ -22,5 +22,5 @@ COPY ./db/populateDbTables.sql /docker-entrypoint-initdb.d/
 EXPOSE 5432
 
 # entrypoint to the custom script
-ENTRYPOINT ["/usr/local/bin/db_entrypoint.sh"]
+#ENTRYPOINT ["/usr/local/bin/db_entrypoint.sh"]
 CMD ["postgres"]
