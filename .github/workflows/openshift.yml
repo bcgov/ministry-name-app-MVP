@@ -33,7 +33,7 @@ env:
   OPENSHIFT_NAMESPACE: fe6594-dev
 
   APP_NAME: ministry-name-app
-  APP_PORT: 8080
+  APP_PORT: "8080"
 
   GITHUB_OWNER: vitik-k
 
@@ -77,43 +77,43 @@ jobs:
       SELECTOR: ${{ steps.deploy-and-expose.outputs.selector }}
 
     steps:
-      # - name: Check for required secrets
-      #   uses: actions/github-script@v6
-      #   with:
-      #     script: |
-      #       const secrets = {
-      #         OPENSHIFT_SERVER: `${{ secrets.OPENSHIFT_SERVER }}`,
-      #         OPENSHIFT_TOKEN: `${{ secrets.OPENSHIFT_TOKEN }}`,
-      #       };
+      - name: Check for required secrets
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const secrets = {
+              OPENSHIFT_SERVER: `${{ env.OPENSHIFT_SERVER }}`,
+              OPENSHIFT_TOKEN: `${{ env.OPENSHIFT_TOKEN }}`,
+            };
 
-      #       const GHCR = "ghcr.io";
-      #       if (`ghcr.io/${{ github.repository_owner }}`.startsWith(GHCR)) {
-      #         core.info(`Image registry is ${GHCR} - no registry password required`);
-      #       }
-      #       else {
-      #         core.info("A registry password is required");
-      #         secrets["IMAGE_REGISTRY_PASSWORD"] = `${{ github.TOKEN }};
-      #       }
+            const GHCR = "ghcr.io";
+            if (`${{ env.IMAGE_REGISTRY }}`.startsWith(GHCR)) {
+              core.info(`Image registry is ${GHCR} - no registry password required`);
+            }
+            else {
+              core.info("A registry password is required");
+              secrets["IMAGE_REGISTRY_PASSWORD"] = `${{ env.IMAGE_REGISTRY_PASSWORD }}`;
+            }
 
-      #       const missingSecrets = Object.entries(secrets).filter(([ name, value ]) => {
-      #         if (value.length === 0) {
-      #           core.error(`Secret "${name}" is not set`);
-      #           return true;
-      #         }
-      #         core.info(`✔️ Secret "${name}" is set`);
-      #         return false;
-      #       });
+            const missingSecrets = Object.entries(secrets).filter(([ name, value ]) => {
+              if (value.length === 0) {
+                core.error(`Secret "${name}" is not set`);
+                return true;
+              }
+              core.info(`✔️ Secret "${name}" is set`);
+              return false;
+            });
 
-      #       if (missingSecrets.length > 0) {
-      #         core.setFailed(`❌ At least one required secret is not set in the repository. \n` +
-      #           "You can add it using:\n" +
-      #           "GitHub UI: https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository \n" +
-      #           "GitHub CLI: https://cli.github.com/manual/gh_secret_set \n" +
-      #           "Also, refer to https://github.com/redhat-actions/oc-login#getting-started-with-the-action-or-see-example");
-      #       }
-      #       else {
-      #         core.info(`✅ All the required secrets are set`);
-      #       }
+            if (missingSecrets.length > 0) {
+              core.setFailed(`❌ At least one required secret is not set in the repository. \n` +
+                "You can add it using:\n" +
+                "GitHub UI: https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository \n" +
+                "GitHub CLI: https://cli.github.com/manual/gh_secret_set \n" +
+                "Also, refer to https://github.com/redhat-actions/oc-login#getting-started-with-the-action-or-see-example");
+            }
+            else {
+              core.info(`✅ All the required secrets are set`);
+            }
 
       - name: Check out repository
         uses: actions/checkout@v4
@@ -124,24 +124,24 @@ jobs:
           echo "APP_NAME=$(basename $PWD)" | tee -a $GITHUB_ENV
 
       - name: Determine image tags
-        if: env.IMAGE_TAGS == 'ghcr.io/vitik-k/minnameapp:latest'
+        if: env.IMAGE_TAGS == 'ghcr.io/${{ github.repository_owner }}/minnameapp:latest'
         run: |
           echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
 
       - name: Build express app image
         run: |
-          docker build -t ghcr.io/vitik-k/ministry-name-app:latest .
-          docker tag ghcr.io/vitik-k/ministry-name-app:latest ghcr.io/vitik-k/ministry-name-app:${{ github.sha }}
+          docker build -t ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-app:latest .
+          docker tag ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-app:latest ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-app:${{ github.sha }}
 
       - name: GHCR login
         run: |
-          docker login --username vitik-k --password ${{ github.TOKEN }} ghcr.io
+          docker login --username ${{ env.IMAGE_REGISTRY_USER }} --password ${{ env.IMAGE_REGISTRY_PASSWORD }} ghcr.io
 
       - name: Push To GHCR
         run: |
-          IMAGE_NAME=ghcr.io/vitik-k/ministry-name-app:latest
+          IMAGE_NAME=ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-app:latest
           IMAGE_SHA=${{ github.sha }}
-          TAGS="ghcr.io/vitik-k/ministry-name-app:latest ghcr.io/vitik-k/ministry-name-app:${IMAGE_SHA}"
+          TAGS="ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-app:latest ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-app:${IMAGE_SHA}"
           for TAG in $TAGS; do
             echo "pushing $TAG"
             docker push $TAG
@@ -152,14 +152,14 @@ jobs:
 
       - name: Build Postgres image
         run: |
-           docker build -t ghcr.io/vitik-k/ministry-name-db:latest -f ./db/Dockerfile .
-           docker tag ghcr.io/vitik-k/ministry-name-db:latest ghcr.io/vitik-k/ministry-name-db:${{ github.sha }}
+           docker build -t ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:latest -f ./db/Dockerfile .
+           docker tag ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:latest ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:${{ github.sha }}
 
       - name: Push PostgreSQL image to GHCR
         run: |
-           IMAGE_NAME=ghcr.io/vitik-k/ministry-name-db
+           IMAGE_NAME=ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db
            IMAGE_SHA=${{ github.sha }}
-           TAGS="ghcr.io/vitik-k/ministry-name-db:latest ghcr.io/vitik-k/ministry-name-db:${IMAGE_SHA}"
+           TAGS="ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:latest ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:${IMAGE_SHA}"
            for TAG in $TAGS; do
              echo "Pushing $TAG"
              docker push $TAG
@@ -174,15 +174,15 @@ jobs:
       - name: Log in to OpenShift
         uses: redhat-actions/oc-login@v1
         with:
-          openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
-          openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
+          openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
+          openshift_token: ${{ env.OPENSHIFT_TOKEN }}
           insecure_skip_tls_verify: true
           namespace: fe6594-dev
 
       - name: Deploy Postgres container
         run: |
            oc new-app --name=postgresql \
-           --image=ghcr.io/vitik-k/ministry-name-db:latest \
+           --image=ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:latest \
            -e POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
            -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
            -e POSTGRES_DB=${{ secrets.POSTGRES_DB }} \
@@ -196,10 +196,10 @@ jobs:
         id: deploy-and-expose
         uses: redhat-actions/oc-new-app@v1
         with:
-          app_name: ministry-name-app
-          image: ghcr.io/vitik-k/ministry-name-app:latest
-          namespace: fe6594-dev
-          port: '8080'
+          app_name: ${{ env.APP_NAME }}
+          image: ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-app:latest
+          namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+          port: ${{ env.APP_PORT }}
           #env: POSTGRES_HOST=postgresql POSTGRES_USER=${{ secrets.POSTGRES_USER }} POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} POSTGRES_DB=${{ secrets.POSTGRES_DB }}
 
       - name: Print application URL
@@ -207,10 +207,10 @@ jobs:
           ROUTE: ${{ steps.deploy-and-expose.outputs.route }}
           SELECTOR: ${{ steps.deploy-and-expose.outputs.selector }}
         run: |
-          [[ -n ${{ steps.deploy-and-expose.outputs.route }} ]] || (echo "Determining application route failed in previous step"; exit 1)
+          [[ -n ${{ env.ROUTE }} ]] || (echo "Determining application route failed in previous step"; exit 1)
           echo
           echo "======================== Your application is available at: ========================"
-          echo ${{ steps.deploy-and-expose.outputs.route }}
+          echo ${{ env.ROUTE }}
           echo "==================================================================================="
           echo
-          echo "Your app can be taken down with: \"oc delete all --selector='${{ steps.deploy-and-expose.outputs.selector }}'\""
+          echo "Your app can be taken down with: \"oc delete all --selector='${{ env.SELECTOR }}'\""
