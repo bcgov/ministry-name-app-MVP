@@ -19,7 +19,7 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
-    "ejs": "^3.1.9",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
     "express-promise": "^0.4.0",
