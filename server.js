@@ -14,6 +14,6 @@ console.log(process.env.POSTGRES_HOST);
 
 // Listen on provided port
 app.listen(port, ()=> 
-  console.log(`App is running on localhost:${port}`)
+  console.log(`App is listening on port: ${port}`)
 );
 app.on('error', helperfunctions.onError);
