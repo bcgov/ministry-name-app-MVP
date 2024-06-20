@@ -1,12 +1,8 @@
 FROM postgres:alpine
 # DB credentials
-ARG POSTGRES_USER=kat 
-ARG POSTGRES_PASSWORD=mypass 
-ARG POSTGRES_DB=nameapp
-
-ENV POSTGRES_USER=${POSTGRES_USER} 
-ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD} 
-ENV POSTGRES_DB=${POSTGRES_DB}
+ENV POSTGRES_USER=kat 
+ENV POSTGRES_PASSWORD=mypass 
+ENV POSTGRES_DB=nameapp
 
 # db seed init scripts
 COPY ./db/createDbTables.sql /docker-entrypoint-initdb.d/

@@ -38,9 +38,9 @@ services:
     networks:
       - name-app
 
-volumes:
-  postgres-volume-test:
-    name: postgres-volume-test
+#volumes:
+  #postgres-volume-test:
+    #name: postgres-volume-test
 
 networks:
   name-app: 

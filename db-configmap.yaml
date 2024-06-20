@@ -1,0 +1,227 @@
+apiVersion: v1
+data:
+  createDbTables.sql: "-- Create tables and corresponding relationships for ministry
+    names, acronyms and histories\r\nCREATE USER kat WITH PASSWORD 'mypass';\r\nGRANT
+    ALL PRIVILEGES ON DATABASE postgres TO kat;\r\n--if exists, drop all tables first
+    to avoid foreign/primary key constrait errors\r\nDROP TABLE IF EXISTS ministry_history;\r\nDROP
+    TABLE IF EXISTS ministry_acronym;\r\nDROP TABLE IF EXISTS acronym;\r\nDROP TABLE
+    IF EXISTS ministry;\r\n\r\n-- create ministry table\r\nCREATE TABLE IF NOT EXISTS
+    ministry\r\n    (ministry_id SERIAL NOT NULL, \r\n    ministry_name VARCHAR(255)
+    NOT NULL, \r\n    m_change_effective_date DATE,\r\n    m_change_user VARCHAR(255)
+    NOT NULL DEFAULT CURRENT_USER, -- will automatically input current user\r\n    m_datestamp
+    DATE NOT NULL DEFAULT CURRENT_DATE, -- will automatically input current date\r\n
+    \   is_current BOOLEAN NOT NULL,\r\n    PRIMARY KEY (ministry_id)\r\n    );\r\n\r\n--
+    create acronym table\r\nCREATE TABLE IF NOT EXISTS acronym\r\n    (acronym_id
+    SERIAL NOT NULL,\r\n    acronym VARCHAR(10) NOT NULL,\r\n    a_change_effective_date
+    DATE,\r\n    a_change_user VARCHAR(255) NOT NULL DEFAULT CURRENT_USER, -- will
+    automatically input current user\r\n    a_datestamp DATE NOT NULL DEFAULT CURRENT_DATE,
+    -- will automatically input current date\r\n    PRIMARY KEY (acronym_id)\r\n    );\r\n\r\n--
+    create ministry_acronym table which will keep track of a ministrys' associated
+    acronym\r\nCREATE TABLE IF NOT EXISTS ministry_acronym\r\n    (ministry_id integer
+    references ministry(ministry_id),\r\n    acronym_id integer references acronym(acronym_id),\r\n
+    \   PRIMARY KEY(ministry_id, acronym_id)\r\n    );\r\n\r\n-- create ministry_history
+    table to keep track of historical ministry data\r\nCREATE TABLE IF NOT EXISTS
+    ministry_history\r\n    (ministry_id integer references ministry(ministry_id),\r\n
+    \   ministry_id_history integer references ministry(ministry_id),\r\n    acronym_id_history
+    integer references acronym(acronym_id),\r\n    PRIMARY KEY(ministry_id, ministry_id_history)\r\n
+    \   );\r\n\r\n-- add descriptive comment for the ministry table:\r\nCOMMENT ON
+    TABLE ministry IS 'Stores ministry name data';\r\n-- add descriptive comment for
+    each column in ministry table:\r\nCOMMENT ON COLUMN ministry.ministry_id IS 'An
+    auto-generated unique id number that functions as the primary key and the ministrys
+    id number. e.g. 22';\r\nCOMMENT ON COLUMN ministry.ministry_name IS 'The official
+    name of a ministry, e.g. CITIZENS SERVICES';\r\nCOMMENT ON COLUMN ministry.m_change_effective_date
+    IS 'The date of when the ministry change is effective as yyyy-mm-dd, e.g., 2015-11-22';\r\nCOMMENT
+    ON COLUMN ministry.m_change_user IS 'The database user who made the change. Current
+    database user will be automatically inserted here';\r\nCOMMENT ON COLUMN ministry.m_datestamp
+    IS 'The date and time the record was created or last changed. The current date
+    and time will automatically be inserted here.';\r\nCOMMENT ON COLUMN ministry.is_current
+    IS 'A boolean value showing if the ministry is currently active. Is currently
+    active = true, no longer active = false';\r\n\r\n-- add descriptive comment for
+    the acronym table:\r\nCOMMENT ON TABLE acronym IS 'Stores ministry acronym data';\r\n--
+    add descriptive comment for each column in acronym table:\r\nCOMMENT ON COLUMN
+    acronym.acronym_id IS 'An auto-generated unique id number that functions as the
+    primary key and the acronym id number. e.g. 16';\r\nCOMMENT ON COLUMN acronym.acronym
+    IS '3-6 letters that signify the official acronym of a ministry. , e.g. CITZ';\r\nCOMMENT
+    ON COLUMN acronym.a_change_effective_date IS 'The date of when the acronym change
+    is effective as yyyy-mm-dd, e.g., 2015-11-22';\r\nCOMMENT ON COLUMN acronym.a_change_user
+    IS 'The database user who made the change. Current database user will be automatically
+    inserted here';\r\nCOMMENT ON COLUMN acronym.a_datestamp IS 'The date and time
+    the record was created or last changed. The current date and time will automatically
+    be inserted here.';\r\n\r\n-- add descriptive comment for the ministry_acronym
+    table:\r\nCOMMENT ON TABLE ministry_acronym IS 'Utility table used for joining
+    ministries to their assigned acronyms via ministry.ministry_id and acronym.acronym_id
+    ';\r\n-- add descriptive comment for each column in ministry_acronym table:\r\nCOMMENT
+    ON COLUMN ministry_acronym.ministry_id IS 'The ministry_id, a unique numeric value
+    referencing the ministry_id in the ministry table. Functions as one half of a
+    composite primary key along with ministry_acronym.acronym_id';\r\nCOMMENT ON COLUMN
+    ministry_acronym.acronym_id IS 'The acronym_id, a unique numeric value referencing
+    the acronym_id in the acronym table. Functions as one half of a composite primary
+    key along with ministry_acronym.ministry_id';\r\n\r\n-- add descriptive comment
+    for the ministry_history table:\r\nCOMMENT ON TABLE ministry_history IS 'Utility
+    table used to attach ministries to their historical ministries using a self join
+    on ministry_id. Functions as many-to-many relationship.';\r\n-- add descriptive
+    comment for each column in ministry_history table:\r\nCOMMENT ON COLUMN ministry_history.ministry_id
+    IS 'The ministry_id, a unique numeric value referencing the ministry_id in the
+    ministry table. Functions as one half of a composite primary key along with ministry_history.ministry_id_history';\r\nCOMMENT
+    ON COLUMN ministry_history.ministry_id_history IS 'The ministry_id of the ministry
+    that is a parent of the corresponding ministry_history.ministry_id , a unique
+    numeric value referencing the ministry_id in the ministry table. Functions as
+    one half of a composite primary key along with ministry_history.ministry_id';\r\nCOMMENT
+    ON COLUMN ministry_history.acronym_id_history IS 'The most recent acronym_id of
+    the historical (parent) ministry';\r\n            "
+  populateDbTables.sql: "-- populate the tables - based on ministry information as
+    of April 3, 2024 ('2024-04-03')\r\n\r\n-- ministry table\r\nINSERT INTO ministry
+    (ministry_name, m_change_effective_date, is_current) \r\n        VALUES ('Agriculture
+    and Food', '2024-04-03', true),\r\n        ('Attorney General','2024-04-03', true),\r\n
+    \       ('Children and Family Development','2024-04-03', true),\r\n        ('Minister
+    of State for Child Care','2024-04-03', true),\r\n        ('Citizens Services','2024-04-03',
+    true),\r\n        ('Education and Child Care','2024-04-03', true),\r\n        ('Emergency
+    Management and Climate Readiness','2024-04-03', true),\r\n        ('Energy, Mines
+    and Low Carbon Innovation','2024-04-03', true),\r\n        ('Environment and Climate
+    Change Strategy','2024-04-03', true),\r\n        ('Finance','2024-04-03', true),\r\n
+    \       ('Forests','2024-04-03', true),\r\n        ('Minister of State for Sustainable
+    Forestry Innovation','2024-04-03', true),\r\n        ('Health','2024-04-03', true),\r\n
+    \       ('Housing','2024-04-03', true),\r\n        ('Intergovernmental Relations
+    Secretariat','2024-04-03', true),\r\n        ('Indigenous Relations and Reconciliation','2024-04-03',
+    true),\r\n        ('Jobs, Economic Development and Innovation','2024-04-03', true),\r\n
+    \       ('Labour','2024-04-03', true),\r\n        ('Mental Health and Addictions','2024-04-03',
+    true),\r\n        ('Transportation and Infrastructure','2024-04-03', true),\r\n
+    \       ('Minister of State for Infrastructure and Transit','2024-04-03', true),\r\n
+    \       ('Municipal Affairs','2024-04-03', true),\r\n        ('Office of the Premier','2024-04-03',
+    true),\r\n        ('Post-Secondary Education and Future Skills','2024-04-03',
+    true),\r\n        ('Public Safety and Solicitor General','2024-04-03', true),\r\n
+    \       ('Social Development and Poverty Reduction','2024-04-03', true),\r\n        ('Tourism,
+    Arts, Culture and Sport','2024-04-03', true),\r\n        ('Minister of State for
+    Trade','2024-04-03', true),\r\n        ('Water, Land and Resource Stewardship','2024-04-03',
+    true),\r\n        -- test data:\r\n       \t        ('Test Ministry of Supernatural
+    Phenomena and Occult Studies', '1999-04-03', false),\r\n                ('Test
+    Ministry of Timeless Tales and Folklore Preservation', '1999-04-03', false),\r\n
+    \               ('Test Ministry of Mystical Medicine and Alchemical Remedies',
+    '1990-08-08', false),\r\n                ('Test Ministry of Astral Projections
+    and Dream Exploration', '2001-07-22', false),\r\n                ('Test Ministry
+    of Quantum Computing and Virtual Reality', '1990-08-08', false),\r\n                ('Test
+    Ministry of Time Travel and Temporal Affairs', '2005-04-03', false),\r\n                ('Test
+    Ministry of Wizards and Amazing Magic', '2018-12-03', false),\r\n                ('Test
+    Ministry of Extraordinary Events and Phenomena', '2005-04-03', false),\r\n                ('Test
+    Ministry of Enigmatic Enigmas and Conundrums', '1990-08-08', false),\r\n                ('Test
+    Ministry of Arcane Arts and Mystical Studies', '2018-11-17', false)\r\n        ;\r\n\r\n--
+    inset into acronym table\r\nINSERT INTO acronym (acronym, a_change_effective_date)
+    \r\n        VALUES ('AF','2024-04-03'),\r\n        ('AG','2024-04-03'),\r\n        ('CFD','2024-04-03'),\r\n
+    \       ('CHILD','2024-04-03'),\r\n        ('CITZ','2024-04-03'),\r\n        ('ECC','2024-04-03'),\r\n
+    \       ('EMCR','2024-04-03'),\r\n        ('EMLI','2024-04-03'),\r\n        ('ENV','2024-04-03'),\r\n
+    \       ('FIN','2024-04-03'),\r\n        ('FOR','2024-04-03'),\r\n        ('SFI','2024-04-03'),\r\n
+    \       ('HLTH','2024-04-03'),\r\n        ('HOUS','2024-04-03'),\r\n        ('IGRS','2024-04-03'),\r\n
+    \       ('IRR','2024-04-03'),\r\n        ('JEDI','2024-04-03'),\r\n        ('LBR','2024-04-03'),\r\n
+    \       ('MMHA','2024-04-03'),\r\n        ('MOTI','2024-04-03'),\r\n        ('INFRA','2024-04-03'),\r\n
+    \       ('MUNI','2024-04-03'),\r\n        ('PREM','2024-04-03'),\r\n        ('PSFS','2024-04-03'),\r\n
+    \       ('PSSG','2024-04-03'),\r\n        ('SDPR','2024-04-03'),\r\n        ('TACS','2024-04-03'),\r\n
+    \       ('TRADE','2024-04-03'),\r\n        ('WLRS','2024-04-03'),\r\n        --
+    test data:\r\n                ('spos','1999-04-03'),\r\n                ('TTFP','1999-04-03'),\r\n
+    \               ('mMAR','1990-08-08'),\r\n                ('APD','2001-07-22'),\r\n
+    \               ('QPVR','1990-08-08'),\r\n                ('TTTa','2005-04-03'),\r\n
+    \               ('WAM','2018-12-03'),\r\n                ('eep','2005-04-03'),\r\n
+    \               ('eec','1990-08-08'),\r\n                ('aAMS','2018-11-17'),\r\n
+    \       -- test data without corresponding Ministry:\r\n        ('NoMin','1999-04-03')\r\n;\r\n\r\n--
+    insert into ministry_acronym\r\nINSERT INTO ministry_acronym (ministry_id, acronym_id)\r\nVALUES
+    \r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Agriculture
+    and Food')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('AF'))\r\n),\r\n(\r\n
+    \   (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Attorney
+    General')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('AG'))\r\n),\r\n(\r\n
+    \   (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Children
+    and Family Development')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym)
+    = UPPER('CFD'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Minister of State for Child Care')),\r\n    (SELECT acronym_id FROM acronym
+    WHERE UPPER(acronym) = UPPER('CHILD'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM
+    ministry WHERE UPPER(ministry_name) = UPPER('Citizens Services')),\r\n    (SELECT
+    acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('CITZ'))\r\n),\r\n(\r\n    (SELECT
+    ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Education and Child
+    Care')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('ECC'))\r\n),\r\n(\r\n
+    \   (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Emergency
+    Management and Climate Readiness')),\r\n    (SELECT acronym_id FROM acronym WHERE
+    UPPER(acronym) = UPPER('EMCR'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry
+    WHERE UPPER(ministry_name) = UPPER('Energy, Mines and Low Carbon Innovation')),\r\n
+    \   (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('EMLI'))\r\n),\r\n(\r\n
+    \   (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Environment
+    and Climate Change Strategy')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym)
+    = UPPER('ENV'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Finance')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym)
+    = UPPER('FIN'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Forests')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym)
+    = UPPER('FOR'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Minister of State for Sustainable Forestry Innovation')),\r\n    (SELECT
+    acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('SFI'))\r\n),\r\n(\r\n    (SELECT
+    ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Health')),\r\n    (SELECT
+    acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('HLTH'))\r\n),\r\n(\r\n    (SELECT
+    ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Housing')),\r\n
+    \   (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('HOUS'))\r\n),\r\n(\r\n
+    \   (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Intergovernmental
+    Relations Secretariat')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym)
+    = UPPER('IGRS'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Indigenous Relations and Reconciliation')),\r\n    (SELECT acronym_id
+    FROM acronym WHERE UPPER(acronym) = UPPER('IRR'))\r\n),\r\n(\r\n    (SELECT ministry_id
+    FROM ministry WHERE UPPER(ministry_name) = UPPER('Jobs, Economic Development and
+    Innovation')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('JEDI'))\r\n),\r\n(\r\n
+    \   (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Labour')),\r\n
+    \   (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('LBR'))\r\n),\r\n(\r\n
+    \   (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Mental
+    Health and Addictions')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym)
+    = UPPER('MMHA'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Transportation and Infrastructure')),\r\n    (SELECT acronym_id FROM
+    acronym WHERE UPPER(acronym) = UPPER('MOTI'))\r\n),\r\n(\r\n    (SELECT ministry_id
+    FROM ministry WHERE UPPER(ministry_name) = UPPER('Minister of State for Infrastructure
+    and Transit')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym) =
+    UPPER('INFRA'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Municipal Affairs')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym)
+    = UPPER('MUNI'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Office of the Premier')),\r\n    (SELECT acronym_id FROM acronym WHERE
+    UPPER(acronym) = UPPER('PREM'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry
+    WHERE UPPER(ministry_name) = UPPER('Post-Secondary Education and Future Skills')),\r\n
+    \   (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('PSFS'))\r\n),\r\n(\r\n
+    \   (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Public
+    Safety and Solicitor General')),\r\n    (SELECT acronym_id FROM acronym WHERE
+    UPPER(acronym) = UPPER('PSSG'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry
+    WHERE UPPER(ministry_name) = UPPER('Social Development and Poverty Reduction')),\r\n
+    \   (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('SDPR'))\r\n),\r\n(\r\n
+    \   (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Tourism,
+    Arts, Culture and Sport')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym)
+    = UPPER('TACS'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Minister of State for Trade')),\r\n    (SELECT acronym_id FROM acronym
+    WHERE UPPER(acronym) = UPPER('TRADE'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM
+    ministry WHERE UPPER(ministry_name) = UPPER('Water, Land and Resource Stewardship')),\r\n
+    \   (SELECT acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('WLRS'))\r\n
+    ),\r\n -- test data:\r\n(   \r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Test Ministry of Supernatural Phenomena and Occult Studies')),\r\n    (SELECT
+    acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('spos'))\r\n ),\r\n(   \r\n
+    \   (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test
+    Ministry of Timeless Tales and Folklore Preservation')),\r\n    (SELECT acronym_id
+    FROM acronym WHERE UPPER(acronym) = UPPER('TTFP'))\r\n),\r\n(\r\n    (SELECT ministry_id
+    FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Mystical Medicine
+    and Alchemical Remedies')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym)
+    = UPPER('MMAR'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Test Ministry of Astral Projections and Dream Exploration')),\r\n    (SELECT
+    acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('APD'))\r\n),\r\n(\r\n    (SELECT
+    ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of
+    Quantum Computing and Virtual Reality')),\r\n    (SELECT acronym_id FROM acronym
+    WHERE UPPER(acronym) = UPPER('QPVR'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM
+    ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Time Travel and
+    Temporal Affairs')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym)
+    = UPPER('TTTA'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Test Ministry of Wizards and Amazing Magic')),\r\n    (SELECT acronym_id
+    FROM acronym WHERE UPPER(acronym) = UPPER('WAM'))\r\n),\r\n(\r\n    (SELECT ministry_id
+    FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of Extraordinary
+    Events and Phenomena')),\r\n    (SELECT acronym_id FROM acronym WHERE UPPER(acronym)
+    = UPPER('EEP'))\r\n),\r\n(\r\n    (SELECT ministry_id FROM ministry WHERE UPPER(ministry_name)
+    = UPPER('Test Ministry of Enigmatic Enigmas and Conundrums')),\r\n    (SELECT
+    acronym_id FROM acronym WHERE UPPER(acronym) = UPPER('eec'))\r\n),\r\n(\r\n    (SELECT
+    ministry_id FROM ministry WHERE UPPER(ministry_name) = UPPER('Test Ministry of
+    Arcane Arts and Mystical Studies')),\r\n    (SELECT acronym_id FROM acronym WHERE
+    UPPER(acronym) = UPPER('aAMs'))\r\n);\r\n\r\n\r\n-- insert into ministry_history\r\n--contains
+    test data only\r\nINSERT INTO ministry_history (ministry_id, ministry_id_history)\r\nVALUES
+    \r\n    (39,30),  \r\n\t (27, 39 ), \r\n\t (12,35), \r\n\t (12, 31), \r\n\t (24,
+    32), \r\n\t (37, 33), \r\n\t (10, 34), \r\n\t (5, 36), \r\n\t (36,37), \r\n\t
+    (35, 38);"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: db-config
+oc

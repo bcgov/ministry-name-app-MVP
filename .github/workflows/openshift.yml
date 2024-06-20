@@ -181,12 +181,12 @@ jobs:
 
       - name: Deploy Postgres container
         run: |
-           oc new-app --name=postgresql \
+           oc new-app --name=postgres \
            --image=ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:latest \
            -e POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
            -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
            -e POSTGRES_DB=${{ secrets.POSTGRES_DB }} \
-           -e POSTGRES_HOST=postgresql
+           -e POSTGRES_HOST=postgres
 
       - name: Expose PostgreSQL service
         run: |
