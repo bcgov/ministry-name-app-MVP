@@ -40,7 +40,7 @@ services:
 
 volumes:
   postgres-volume-test:
-    name: postgres-volume-test
+    #name: postgres-volume-test
 
 networks:
   name-app: 

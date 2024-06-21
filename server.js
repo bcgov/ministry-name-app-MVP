@@ -1,6 +1,6 @@
 //import dependencies
 const app = require('./app');
-//const http = require('http');
+const http = require('http');
 const helperfunctions = require('./utils/helperfunctions.js')
 require('dotenv').config({path: '../.env'});
 
@@ -10,10 +10,10 @@ app.set('port', process.env.PORT);
 console.log(process.env.POSTGRES_HOST);
 
 // Create HTTP server.
-//const server = http.createServer(app);
+const server = http.createServer(app);
 
 // Listen on provided port
-app.listen(port, ()=> 
+server.listen(port, '0.0.0.0', ()=> 
   console.log(`App is listening on port: ${port}`)
 );
-app.on('error', helperfunctions.onError);
+server.on('error', helperfunctions.onError);

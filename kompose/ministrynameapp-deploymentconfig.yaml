@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    kompose.cmd: /snap/kompose/19/kompose-linux-amd64 --provider openshift --file
+      docker-compose.yaml convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ministrynameapp
+  name: ministrynameapp
+spec:
+  replicas: 1
+  selector:
+    io.kompose.service: ministrynameapp
+  strategy:
+    resources: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.network/name-app: "true"
+        io.kompose.service: ministrynameapp
+    spec:
+      containers:
+      - env:
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: DB_PORT
+              name: env
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              key: PORT
+              name: env
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_DB
+              name: env
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_HOST
+              name: env
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_PASSWORD
+              name: env
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_USER
+              name: env
+        image: ' '
+        name: ministrynameapp
+        ports:
+        - containerPort: 8080
+        resources: {}
+        stdin: true
+        tty: true
+      restartPolicy: Always
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - ministrynameapp
+      from:
+        kind: ImageStreamTag
+        name: ministrynameapp:latest
+    type: ImageChange
+status: {}
