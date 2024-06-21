@@ -190,7 +190,7 @@ jobs:
 
       - name: Expose PostgreSQL service
         run: |
-           oc expose svc/postgresql --port=5432
+           oc expose svc/postgres --port=5432
 
       - name: Create and expose app
         id: deploy-and-expose
