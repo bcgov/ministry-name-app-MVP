@@ -1,12 +1,13 @@
 apiVersion: v1
 data:
-  createDbTables.sql: "-- Create tables and corresponding relationships for ministry
-    names, acronyms and histories\r\nCREATE USER kat WITH PASSWORD 'mypass';\r\nGRANT
-    ALL PRIVILEGES ON DATABASE postgres TO kat;\r\n--if exists, drop all tables first
-    to avoid foreign/primary key constrait errors\r\nDROP TABLE IF EXISTS ministry_history;\r\nDROP
-    TABLE IF EXISTS ministry_acronym;\r\nDROP TABLE IF EXISTS acronym;\r\nDROP TABLE
-    IF EXISTS ministry;\r\n\r\n-- create ministry table\r\nCREATE TABLE IF NOT EXISTS
-    ministry\r\n    (ministry_id SERIAL NOT NULL, \r\n    ministry_name VARCHAR(255)
+  createDbTables.sql: "--Create the database and user with password:\r\nCREATE DATABASE
+    nameapp;\r\nCREATE USER kat WITH PASSWORD 'mypass';\r\nGRANT ALL PRIVILEGES ON
+    DATABASE nameapp TO kat;\r\n--if exists, drop all tables first to avoid foreign/primary
+    key constrait errors\r\nDROP TABLE IF EXISTS ministry_history;\r\nDROP TABLE IF
+    EXISTS ministry_acronym;\r\nDROP TABLE IF EXISTS acronym;\r\nDROP TABLE IF EXISTS
+    ministry;\r\n\r\n-- Create tables and corresponding relationships for ministry
+    names, acronyms and histories\r\n-- create ministry table\r\nCREATE TABLE IF NOT
+    EXISTS ministry\r\n    (ministry_id SERIAL NOT NULL, \r\n    ministry_name VARCHAR(255)
     NOT NULL, \r\n    m_change_effective_date DATE,\r\n    m_change_user VARCHAR(255)
     NOT NULL DEFAULT CURRENT_USER, -- will automatically input current user\r\n    m_datestamp
     DATE NOT NULL DEFAULT CURRENT_DATE, -- will automatically input current date\r\n
@@ -223,5 +224,4 @@ data:
 kind: ConfigMap
 metadata:
   creationTimestamp: null
-  name: db-config
-oc
+  name: db-config-1

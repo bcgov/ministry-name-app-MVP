@@ -22,7 +22,8 @@ app.set('views', path.join(__dirname, 'views'));
 const limiter = rateLimit({
   windowMs: 10*60*1000, //10 minutes
   max: 100,
-  message: "Rate limit of 100 requests in 10 minutes has been exceeded."
+  message: "Rate limit of 100 requests in 10 minutes has been exceeded.",
+  validate: {xForwardedForHeader: false}
 });
 
 // middleware

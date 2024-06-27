@@ -179,19 +179,6 @@ jobs:
           insecure_skip_tls_verify: true
           namespace: fe6594-dev
 
-      - name: Deploy Postgres container
-        run: |
-           oc new-app --name=postgres \
-           --image=ghcr.io/${{ env.GITHUB_OWNER }}/ministry-name-db:latest \
-           -e POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
-           -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
-           -e POSTGRES_DB=${{ secrets.POSTGRES_DB }} \
-           -e POSTGRES_HOST=postgres
-
-      - name: Expose PostgreSQL service
-        run: |
-           oc expose svc/postgres --port=5432
-
       - name: Create and expose app
         id: deploy-and-expose
         uses: redhat-actions/oc-new-app@v1

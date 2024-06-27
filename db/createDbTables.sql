@@ -1,12 +1,14 @@
--- Create tables and corresponding relationships for ministry names, acronyms and histories
---CREATE USER kat WITH PASSWORD 'mypass';
---GRANT ALL PRIVILEGES ON DATABASE postgres TO kat;
+--Create the database and user with password:
+CREATE DATABASE nameapp;
+CREATE USER kat WITH PASSWORD 'mypass';
+GRANT ALL PRIVILEGES ON DATABASE nameapp TO kat;
 --if exists, drop all tables first to avoid foreign/primary key constrait errors
 DROP TABLE IF EXISTS ministry_history;
 DROP TABLE IF EXISTS ministry_acronym;
 DROP TABLE IF EXISTS acronym;
 DROP TABLE IF EXISTS ministry;
 
+-- Create tables and corresponding relationships for ministry names, acronyms and histories
 -- create ministry table
 CREATE TABLE IF NOT EXISTS ministry
     (ministry_id SERIAL NOT NULL, 
