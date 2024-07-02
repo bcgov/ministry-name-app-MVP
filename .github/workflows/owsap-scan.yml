@@ -10,7 +10,7 @@ jobs:
       ZAP_TARGET_URL: http://www.itsecgames.com
       ZAP_DURATION: '2'
       ZAP_MAX_DURATION: '5'
-      ZAP_GCP_PUBLISH: true
+      ZAP_GCP_PUBLISH: false
       ZAP_GCP_PROJECT: phronesis-310405  # Only required if ZAP_GCP_PUBLISH is TRUE
       ZAP_GCP_BUCKET: 'zap-scan-results' # Only required if ZAP_GCP_PUBLISH is TRUE
     secrets:
