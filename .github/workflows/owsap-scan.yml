@@ -4,9 +4,9 @@ on:
   push:
 jobs:
   zap-owasp:
-    uses: bcgov/pipeline-templates/.github/workflows/owasp-scan.yaml@main
+    uses: Vitik-K/ministry-name-app/.github/workflows/owasp-scan-update.yml@master
     with:
-      ZAP_SCAN_TYPE: 'full' # Accepted values are base and full.
+      ZAP_SCAN_TYPE: 'base' # Accepted values are base and full.
       ZAP_TARGET_URL: http://www.itsecgames.com
       ZAP_DURATION: '2'
       ZAP_MAX_DURATION: '5'
