@@ -4,7 +4,8 @@ on:
   push:
 jobs:
   zap-owasp:
-    uses: Vitik-K/ministry-name-app/.github/workflows/owasp-scan-update.yml@master
+    uses: Vitik-K/ministry-name-app/.github/workflows/oswap-scan-update.yml@master
+    
     with:
       ZAP_SCAN_TYPE: 'base' # Accepted values are base and full.
       ZAP_TARGET_URL: http://www.itsecgames.com
