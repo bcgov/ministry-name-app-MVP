@@ -14,7 +14,7 @@ const {
 // Acronym API routes:
 router.get("/", getAcronymAll);
 router.get("/ByAcronymId/:id", getAcronymById);
-router.get("/ByMininistryId/:id", getAcronymIdByMinistryId);
+router.get("/ByMinistryId/:id", getAcronymIdByMinistryId);
 router.post("/addNewAcronym", addNewAcronym);
 router.post("/pairMinistryAcronym", addMinistryAcronym);
 router.post("/updateMinistryAcronym", updateMinistryAcronym);

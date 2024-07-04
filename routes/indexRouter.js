@@ -1,4 +1,6 @@
 // import dependencies
+var cache = require('express-cache-ctrl');
+// import router file dependencies
 const ministry = require('./ministryRouter.js');
 const history = require('./historyRouter.js');
 const success = require('./successRouter.js');
@@ -9,14 +11,14 @@ const apiMinistry = require('./apiMinistryRouter.js');
 const apiHistory = require('./apiHistoryRouter.js');
 
 const mountRoutes = (app) => {
-  app.use('/', ministry);
-  app.use('/history', history);
-  app.use('/success', success);
-  app.use('/error', error);
-  app.use('/acronym', acronym);
-  app.use('/api/acronym', apiAcronym);
-  app.use('/api/ministry', apiMinistry);
-  app.use('/api/history', apiHistory);
+  app.use('/', cache.secure(), ministry);
+  app.use('/history', cache.secure(), history);
+  app.use('/success', cache.public(), success);
+  app.use('/error',cache.secure(), error);
+  app.use('/acronym',cache.secure(), acronym);
+  app.use('/api/acronym',cache.secure(), apiAcronym);
+  app.use('/api/ministry',cache.secure(), apiMinistry);
+  app.use('/api/history',cache.secure(), apiHistory);
 }
 
 module.exports = mountRoutes;

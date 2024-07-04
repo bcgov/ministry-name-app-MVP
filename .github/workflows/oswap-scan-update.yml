@@ -1,4 +1,4 @@
-name: owasp-scan
+name: owasp-scan-update
 on:
   workflow_call:
     inputs:
