@@ -13,7 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.1.0",
-    "nodeshift": "^11.3.0"
+    "nodeshift": "^2.1.1"
   },
   "dependencies": {
     "compression": "^1.7.4",
@@ -27,6 +27,7 @@
     "express-promise-router": "^4.1.1",
     "express-rate-limit": "^7.2.0",
     "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
     "html-express-js": "^3.1.0",
     "http-errors": "^2.0.0",
     "json-schema": "^0.4.0",
