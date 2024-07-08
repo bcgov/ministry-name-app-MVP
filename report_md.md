@@ -9,8 +9,8 @@ ZAP is supported by the [Crash Override Open Source Fellowship](https://crashove
 | --- | --- |
 | High | 0 |
 | Medium | 3 |
-| Low | 8 |
-| Informational | 12 |
+| Low | 7 |
+| Informational | 11 |
 
 
 
@@ -20,27 +20,25 @@ ZAP is supported by the [Crash Override Open Source Fellowship](https://crashove
 | Name | Risk Level | Number of Instances |
 | --- | --- | --- |
 | Absence of Anti-CSRF Tokens | Medium | 8 |
-| Content Security Policy (CSP) Header Not Set | Medium | 10 |
-| Missing Anti-clickjacking Header | Medium | 8 |
+| Content Security Policy (CSP) Header Not Set | Medium | 8 |
+| Missing Anti-clickjacking Header | Medium | 6 |
 | Application Error Disclosure | Low | 1 |
-| Cookie Without Secure Flag | Low | 2 |
-| Cookie without SameSite Attribute | Low | 2 |
+| Cookie with SameSite Attribute None | Low | 2 |
 | Information Disclosure - Debug Error Messages | Low | 1 |
-| Permissions Policy Header Not Set | Low | 10 |
+| Permissions Policy Header Not Set | Low | 11 |
 | Server Leaks Information via "X-Powered-By" HTTP Response Header Field(s) | Low | 11 |
 | Strict-Transport-Security Header Not Set | Low | 11 |
 | X-Content-Type-Options Header Missing | Low | 11 |
-| Base64 Disclosure | Informational | 8 |
+| Base64 Disclosure | Informational | 6 |
 | Information Disclosure - Suspicious Comments | Informational | 6 |
-| Non-Storable Content | Informational | 4 |
-| Re-examine Cache-control Directives | Informational | 9 |
+| Non-Storable Content | Informational | 6 |
+| Re-examine Cache-control Directives | Informational | 1 |
 | Sec-Fetch-Dest Header is Missing | Informational | 3 |
 | Sec-Fetch-Mode Header is Missing | Informational | 3 |
 | Sec-Fetch-Site Header is Missing | Informational | 3 |
 | Sec-Fetch-User Header is Missing | Informational | 3 |
 | Session Management Response Identified | Informational | 3 |
-| Storable and Cacheable Content | Informational | 5 |
-| Storable but Non-Cacheable Content | Informational | 4 |
+| Storable but Non-Cacheable Content | Informational | 5 |
 | User Controllable HTML Element Attribute (Potential XSS) | Informational | 1 |
 
 
@@ -179,19 +177,7 @@ Content Security Policy (CSP) is an added layer of security that helps to detect
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=1
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=44&MinToReAssign=1
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=41&MinToReAssign=1
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
@@ -228,7 +214,7 @@ Content Security Policy (CSP) is an added layer of security that helps to detect
   * Evidence: ``
   * Other Info: ``
 
-Instances: 10
+Instances: 8
 
 ### Solution
 
@@ -275,19 +261,7 @@ The response does not include either Content-Security-Policy with 'frame-ancesto
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=1
-  * Method: `GET`
-  * Parameter: `x-frame-options`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=44&MinToReAssign=1
-  * Method: `GET`
-  * Parameter: `x-frame-options`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=41&MinToReAssign=1
   * Method: `GET`
   * Parameter: `x-frame-options`
   * Attack: ``
@@ -312,7 +286,7 @@ The response does not include either Content-Security-Policy with 'frame-ancesto
   * Evidence: ``
   * Other Info: ``
 
-Instances: 8
+Instances: 6
 
 ### Solution
 
@@ -366,7 +340,7 @@ Review the source code of this page. Implement custom error pages. Consider impl
 
 #### Source ID: 3
 
-### [ Cookie Without Secure Flag ](https://www.zaproxy.org/docs/alerts/10011/)
+### [ Cookie with SameSite Attribute None ](https://www.zaproxy.org/docs/alerts/10054/)
 
 
 
@@ -374,49 +348,7 @@ Review the source code of this page. Implement custom error pages. Consider impl
 
 ### Description
 
-A cookie has been set without the secure flag, which means that the cookie can be accessed via unencrypted connections.
-
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/
-  * Method: `GET`
-  * Parameter: `f4be5fefe14e3ad10c093a7de37e8c69`
-  * Attack: ``
-  * Evidence: `set-cookie: f4be5fefe14e3ad10c093a7de37e8c69`
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/robots.txt
-  * Method: `GET`
-  * Parameter: `f4be5fefe14e3ad10c093a7de37e8c69`
-  * Attack: ``
-  * Evidence: `set-cookie: f4be5fefe14e3ad10c093a7de37e8c69`
-  * Other Info: ``
-
-Instances: 2
-
-### Solution
-
-Whenever a cookie contains sensitive information or is a session token, then it should always be passed using an encrypted channel. Ensure that the secure flag is set for cookies containing such sensitive information.
-
-### Reference
-
-
-* [ https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.html ](https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.html)
-
-
-#### CWE Id: [ 614 ](https://cwe.mitre.org/data/definitions/614.html)
-
-
-#### WASC Id: 13
-
-#### Source ID: 3
-
-### [ Cookie without SameSite Attribute ](https://www.zaproxy.org/docs/alerts/10054/)
-
-
-
-##### Low (Medium)
-
-### Description
-
-A cookie has been set without the SameSite attribute, which means that the cookie can be sent as a result of a 'cross-site' request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.
+A cookie has been set with its SameSite attribute set to "none", which means that the cookie can be sent as a result of a 'cross-site' request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.
 
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/
   * Method: `GET`
@@ -506,13 +438,7 @@ Permissions Policy Header is an added layer of security that helps to restrict f
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=1
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=41&MinToReAssign=1
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
@@ -548,6 +474,18 @@ Permissions Policy Header is an added layer of security that helps to restrict f
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/success
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/acronym/addNewAcronym
+  * Method: `POST`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/acronym/pairMinistryAcronym
   * Method: `POST`
   * Parameter: ``
@@ -555,7 +493,7 @@ Permissions Policy Header is an added layer of security that helps to restrict f
   * Evidence: ``
   * Other Info: ``
 
-Instances: 10
+Instances: 11
 
 ### Solution
 
@@ -630,6 +568,18 @@ The web/application server is leaking information via one or more "X-Powered-By"
   * Attack: ``
   * Evidence: `x-powered-by: Express`
   * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/historyFunctionality.js
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: `x-powered-by: Express`
+  * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/indexFunctionality.js
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: `x-powered-by: Express`
+  * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/sitemap.xml
   * Method: `GET`
   * Parameter: ``
@@ -638,18 +588,6 @@ The web/application server is leaking information via one or more "X-Powered-By"
   * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/style.css
   * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `x-powered-by: Express`
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/addMinistry
-  * Method: `POST`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `x-powered-by: Express`
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/acronym/pairMinistryAcronym
-  * Method: `POST`
   * Parameter: ``
   * Attack: ``
   * Evidence: `x-powered-by: Express`
@@ -727,6 +665,18 @@ HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/historyFunctionality.js
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/indexFunctionality.js
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/sitemap.xml
   * Method: `GET`
   * Parameter: ``
@@ -735,18 +685,6 @@ HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby
   * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/style.css
   * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/acronym/pairMinistryAcronym
-  * Method: `POST`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/mergeMinistry
-  * Method: `POST`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
@@ -799,21 +737,14 @@ At "High" threshold this scan rule will not alert on client or server error resp
   * Evidence: ``
   * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
 At "High" threshold this scan rule will not alert on client or server error responses.`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=1
-  * Method: `GET`
-  * Parameter: `x-content-type-options`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
-At "High" threshold this scan rule will not alert on client or server error responses.`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error
-  * Method: `GET`
-  * Parameter: `x-content-type-options`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
-At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history
+  * Method: `GET`
+  * Parameter: `x-content-type-options`
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history%3FselectMinistryHist=1
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
@@ -856,6 +787,13 @@ At "High" threshold this scan rule will not alert on client or server error resp
   * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
 At "High" threshold this scan rule will not alert on client or server error responses.`
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/style.css
+  * Method: `GET`
+  * Parameter: `x-content-type-options`
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
+At "High" threshold this scan rule will not alert on client or server error responses.`
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/success
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
@@ -906,19 +844,7 @@ Base64 encoded data was disclosed by the application/web server. Note: in the in
   * Attack: ``
   * Evidence: `sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH`
   * Other Info: `���Y2��:O2���EON�i�N�r�ؘ:���rOfэxt$�cc�V����`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=1
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH`
-  * Other Info: `���Y2��:O2���EON�i�N�r�ؘ:���rOfэxt$�cc�V����`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=44&MinToReAssign=1
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH`
-  * Other Info: `���Y2��:O2���EON�i�N�r�ؘ:���rOfэxt$�cc�V����`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=41&MinToReAssign=1
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
@@ -943,7 +869,7 @@ Base64 encoded data was disclosed by the application/web server. Note: in the in
   * Evidence: `sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH`
   * Other Info: `���Y2��:O2���EON�i�N�r�ؘ:���rOfэxt$�cc�V����`
 
-Instances: 8
+Instances: 6
 
 ### Solution
 
@@ -1043,28 +969,40 @@ The response contents are not storable by caching components such as proxy serve
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
-  * Evidence: `private`
+  * Evidence: `no-store`
+  * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: `no-store`
+  * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: `no-store`
   * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/robots.txt
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
-  * Evidence: `private`
+  * Evidence: `no-store`
+  * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/sitemap.xml
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: `no-store`
   * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/addMinistry
   * Method: `POST`
   * Parameter: ``
   * Attack: ``
-  * Evidence: `302`
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/acronym/pairMinistryAcronym
-  * Method: `POST`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `500`
+  * Evidence: `no-store`
   * Other Info: ``
 
-Instances: 4
+Instances: 6
 
 ### Solution
 
@@ -1106,62 +1044,14 @@ It must have a status code that is defined as cacheable by default (200, 203, 20
 
 The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.
 
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/
-  * Method: `GET`
-  * Parameter: `cache-control`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/
-  * Method: `GET`
-  * Parameter: `cache-control`
-  * Attack: ``
-  * Evidence: `private`
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym
-  * Method: `GET`
-  * Parameter: `cache-control`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=1
-  * Method: `GET`
-  * Parameter: `cache-control`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=44&MinToReAssign=1
-  * Method: `GET`
-  * Parameter: `cache-control`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error
-  * Method: `GET`
-  * Parameter: `cache-control`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history
-  * Method: `GET`
-  * Parameter: `cache-control`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history%3FselectMinistryHist=1
-  * Method: `GET`
-  * Parameter: `cache-control`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/success
   * Method: `GET`
   * Parameter: `cache-control`
   * Attack: ``
-  * Evidence: ``
+  * Evidence: `public, max-age=3600, s-maxage=3600`
   * Other Info: ``
 
-Instances: 9
+Instances: 1
 
 ### Solution
 
@@ -1378,7 +1268,7 @@ Ensure that Sec-Fetch-User header is included in user initiated requests.
 
 
 
-##### Informational (Medium)
+##### Informational (High)
 
 ### Description
 
@@ -1388,21 +1278,21 @@ The given response has been identified as containing a session management token.
   * Method: `GET`
   * Parameter: `f4be5fefe14e3ad10c093a7de37e8c69`
   * Attack: ``
-  * Evidence: `783713228ef11cbbebeefac7efbb8f81`
+  * Evidence: `9f677b2f9ea42c42d73c9e50902fee1b`
   * Other Info: `
 cookie:f4be5fefe14e3ad10c093a7de37e8c69`
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/robots.txt
   * Method: `GET`
   * Parameter: `f4be5fefe14e3ad10c093a7de37e8c69`
   * Attack: ``
-  * Evidence: `783713228ef11cbbebeefac7efbb8f81`
+  * Evidence: `9f677b2f9ea42c42d73c9e50902fee1b`
   * Other Info: `
 cookie:f4be5fefe14e3ad10c093a7de37e8c69`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history%3FselectMinistryHist=1
-  * Method: `GET`
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/acronym/pairMinistryAcronym
+  * Method: `POST`
   * Parameter: `f4be5fefe14e3ad10c093a7de37e8c69`
   * Attack: ``
-  * Evidence: `783713228ef11cbbebeefac7efbb8f81`
+  * Evidence: `9f677b2f9ea42c42d73c9e50902fee1b`
   * Other Info: `
 cookie:f4be5fefe14e3ad10c093a7de37e8c69`
 
@@ -1418,72 +1308,6 @@ This is an informational alert rather than a vulnerability and so there is nothi
 * [ https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id ](https://www.zaproxy.org/docs/desktop/addons/authentication-helper/session-mgmt-id)
 
 
-
-#### Source ID: 3
-
-### [ Storable and Cacheable Content ](https://www.zaproxy.org/docs/alerts/10049/)
-
-
-
-##### Informational (Medium)
-
-### Description
-
-The response contents are storable by caching components such as proxy servers, and may be retrieved directly from the cache, rather than from the origin server by the caching servers, in response to similar requests from other users. If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where "shared" caching servers such as "proxy" caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance.
-
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/sitemap.xml
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/mergeMinistry
-  * Method: `POST`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.`
-
-Instances: 5
-
-### Solution
-
-Validate that the response does not contain sensitive, personal or user-specific information. If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:
-Cache-Control: no-cache, no-store, must-revalidate, private
-Pragma: no-cache
-Expires: 0
-This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request.
-
-### Reference
-
-
-* [ https://datatracker.ietf.org/doc/html/rfc7234 ](https://datatracker.ietf.org/doc/html/rfc7234)
-* [ https://datatracker.ietf.org/doc/html/rfc7231 ](https://datatracker.ietf.org/doc/html/rfc7231)
-* [ https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html ](https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html)
-
-
-#### CWE Id: [ 524 ](https://cwe.mitre.org/data/definitions/524.html)
-
-
-#### WASC Id: 13
 
 #### Source ID: 3
 
@@ -1515,6 +1339,12 @@ The response contents are storable by caching components such as proxy servers, 
   * Attack: ``
   * Evidence: `max-age=0`
   * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/historyFunctionality.js
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: `max-age=0`
+  * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/style.css
   * Method: `GET`
   * Parameter: ``
@@ -1522,7 +1352,7 @@ The response contents are storable by caching components such as proxy servers, 
   * Evidence: `max-age=0`
   * Other Info: ``
 
-Instances: 4
+Instances: 5
 
 ### Solution
 
@@ -1553,24 +1383,24 @@ Instances: 4
 
 This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.
 
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=44&MinToReAssign=1
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=41&MinToReAssign=1
   * Method: `GET`
   * Parameter: `AcrToReAssign`
   * Attack: ``
   * Evidence: ``
   * Other Info: `User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:
 
-https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=44&MinToReAssign=1
+https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=41&MinToReAssign=1
 
 appears to include user input in: 
 
 a(n) [option] tag [value] attribute 
 
 The user input found was:
-AcrToReAssign=44
+AcrToReAssign=41
 
 The user-controlled value was:
-44`
+41`
 
 Instances: 1
 

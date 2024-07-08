@@ -1,7 +1,7 @@
 {
 	"@programName": "ZAP",
 	"@version": "2.15.0",
-	"@generated": "Thu, 4 Jul 2024 21:23:12",
+	"@generated": "Mon, 8 Jul 2024 15:25:22",
 	"site":[ 
 		{
 			"@name": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca",
@@ -90,7 +90,7 @@
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html</p><p>https://cwe.mitre.org/data/definitions/352.html</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "8"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10038",
@@ -119,23 +119,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign&MinToReAssign=1",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=44&MinToReAssign=1",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error",
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=41&MinToReAssign=1",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -183,13 +167,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "10",
+					"count": "8",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</p><p>https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p><p>https://www.w3.org/TR/CSP/</p><p>https://w3c.github.io/webappsec-csp/</p><p>https://web.dev/articles/csp</p><p>https://caniuse.com/#feat=contentsecuritypolicy</p><p>https://content-security-policy.com/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "8"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10020",
@@ -218,23 +202,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign&MinToReAssign=1",
-							"method": "GET",
-							"param": "x-frame-options",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=44&MinToReAssign=1",
-							"method": "GET",
-							"param": "x-frame-options",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error",
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=41&MinToReAssign=1",
 							"method": "GET",
 							"param": "x-frame-options",
 							"attack": "",
@@ -266,13 +234,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "8",
+					"count": "6",
 					"solution": "<p>Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app.</p><p>If you expect the page to be framed only by pages on your server (e.g. it's part of a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy's \"frame-ancestors\" directive.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</p>",
 					"cweid": "1021",
 					"wascid": "15",
-					"sourceid": "1"
+					"sourceid": "8"
 				},
 				{
 					"pluginid": "90022",
@@ -299,52 +267,17 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "33"
-				},
-				{
-					"pluginid": "10011",
-					"alertRef": "10011",
-					"alert": "Cookie Without Secure Flag",
-					"name": "Cookie Without Secure Flag",
-					"riskcode": "1",
-					"confidence": "2",
-					"riskdesc": "Low (Medium)",
-					"desc": "<p>A cookie has been set without the secure flag, which means that the cookie can be accessed via unencrypted connections.</p>",
-					"instances":[ 
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/",
-							"method": "GET",
-							"param": "f4be5fefe14e3ad10c093a7de37e8c69",
-							"attack": "",
-							"evidence": "set-cookie: f4be5fefe14e3ad10c093a7de37e8c69",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/robots.txt",
-							"method": "GET",
-							"param": "f4be5fefe14e3ad10c093a7de37e8c69",
-							"attack": "",
-							"evidence": "set-cookie: f4be5fefe14e3ad10c093a7de37e8c69",
-							"otherinfo": ""
-						}
-					],
-					"count": "2",
-					"solution": "<p>Whenever a cookie contains sensitive information or is a session token, then it should always be passed using an encrypted channel. Ensure that the secure flag is set for cookies containing such sensitive information.</p>",
-					"otherinfo": "",
-					"reference": "<p>https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes.html</p>",
-					"cweid": "614",
-					"wascid": "13",
-					"sourceid": "1"
+					"sourceid": "40"
 				},
 				{
 					"pluginid": "10054",
-					"alertRef": "10054-1",
-					"alert": "Cookie without SameSite Attribute",
-					"name": "Cookie without SameSite Attribute",
+					"alertRef": "10054-2",
+					"alert": "Cookie with SameSite Attribute None",
+					"name": "Cookie with SameSite Attribute None",
 					"riskcode": "1",
 					"confidence": "2",
 					"riskdesc": "Low (Medium)",
-					"desc": "<p>A cookie has been set without the SameSite attribute, which means that the cookie can be sent as a result of a 'cross-site' request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.</p>",
+					"desc": "<p>A cookie has been set with its SameSite attribute set to \"none\", which means that the cookie can be sent as a result of a 'cross-site' request. The SameSite attribute is an effective counter measure to cross-site request forgery, cross-site script inclusion, and timing attacks.</p>",
 					"instances":[ 
 						{
 							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/",
@@ -396,7 +329,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "33"
+					"sourceid": "40"
 				},
 				{
 					"pluginid": "10063",
@@ -425,15 +358,7 @@
 							"otherinfo": ""
 						},
 						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign&MinToReAssign=1",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error",
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=41&MinToReAssign=1",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -481,6 +406,22 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/success",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/acronym/addNewAcronym",
+							"method": "POST",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/acronym/pairMinistryAcronym",
 							"method": "POST",
 							"param": "",
@@ -489,13 +430,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "10",
+					"count": "11",
 					"solution": "<p>Ensure that your web server, application server, load balancer, etc. is configured to set the Permissions-Policy header.</p>",
 					"otherinfo": "",
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy</p><p>https://developer.chrome.com/blog/feature-policy/</p><p>https://scotthelme.co.uk/a-new-security-header-feature-policy/</p><p>https://w3c.github.io/webappsec-feature-policy/</p><p>https://www.smashingmagazine.com/2018/12/feature-policy/</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "8"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10037",
@@ -564,6 +505,22 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/historyFunctionality.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "x-powered-by: Express",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/indexFunctionality.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "x-powered-by: Express",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/sitemap.xml",
 							"method": "GET",
 							"param": "",
@@ -578,22 +535,6 @@
 							"attack": "",
 							"evidence": "x-powered-by: Express",
 							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/addMinistry",
-							"method": "POST",
-							"param": "",
-							"attack": "",
-							"evidence": "x-powered-by: Express",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/acronym/pairMinistryAcronym",
-							"method": "POST",
-							"param": "",
-							"attack": "",
-							"evidence": "x-powered-by: Express",
-							"otherinfo": ""
 						}
 					],
 					"count": "11",
@@ -602,7 +543,7 @@
 					"reference": "<p>https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework</p><p>https://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html</p>",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "8"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10035",
@@ -671,6 +612,22 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/historyFunctionality.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/indexFunctionality.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/sitemap.xml",
 							"method": "GET",
 							"param": "",
@@ -681,22 +638,6 @@
 						{
 							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/style.css",
 							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/acronym/pairMinistryAcronym",
-							"method": "POST",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/mergeMinistry",
-							"method": "POST",
 							"param": "",
 							"attack": "",
 							"evidence": "",
@@ -738,23 +679,15 @@
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						},
 						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign&MinToReAssign=1",
-							"method": "GET",
-							"param": "x-content-type-options",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error",
-							"method": "GET",
-							"param": "x-content-type-options",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
-						},
-						{
 							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history",
+							"method": "GET",
+							"param": "x-content-type-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
+						},
+						{
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history?selectMinistryHist=1",
 							"method": "GET",
 							"param": "x-content-type-options",
 							"attack": "",
@@ -808,6 +741,14 @@
 							"attack": "",
 							"evidence": "",
 							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
+						},
+						{
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/success",
+							"method": "GET",
+							"param": "x-content-type-options",
+							"attack": "",
+							"evidence": "",
+							"otherinfo": "This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\nAt \"High\" threshold this scan rule will not alert on client or server error responses."
 						}
 					],
 					"count": "11",
@@ -816,7 +757,7 @@
 					"reference": "<p>https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/gg622941(v=vs.85)</p><p>https://owasp.org/www-community/Security_Headers</p>",
 					"cweid": "693",
 					"wascid": "15",
-					"sourceid": "8"
+					"sourceid": "1"
 				},
 				{
 					"pluginid": "10094",
@@ -845,23 +786,7 @@
 							"otherinfo": "\uFFFD\\x0016\uFFFD\uFFFDY2\uFFFD\uFFFD:O\\x00122\\x0012\uFFFD\uFFFD\uFFFDEON\\x0015\uFFFDi\uFFFDN\uFFFDr\uFFFD\u0618:\uFFFD\uFFFD\uFFFDrOf\u044Dxt$\uFFFDcc\uFFFDV\uFFFD\\x0002\uFFFD\uFFFD\uFFFD"
 						},
 						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign&MinToReAssign=1",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH",
-							"otherinfo": "\uFFFD\\x0016\uFFFD\uFFFDY2\uFFFD\uFFFD:O\\x00122\\x0012\uFFFD\uFFFD\uFFFDEON\\x0015\uFFFDi\uFFFDN\uFFFDr\uFFFD\u0618:\uFFFD\uFFFD\uFFFDrOf\u044Dxt$\uFFFDcc\uFFFDV\uFFFD\\x0002\uFFFD\uFFFD\uFFFD"
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=44&MinToReAssign=1",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH",
-							"otherinfo": "\uFFFD\\x0016\uFFFD\uFFFDY2\uFFFD\uFFFD:O\\x00122\\x0012\uFFFD\uFFFD\uFFFDEON\\x0015\uFFFDi\uFFFDN\uFFFDr\uFFFD\u0618:\uFFFD\uFFFD\uFFFDrOf\u044Dxt$\uFFFDcc\uFFFDV\uFFFD\\x0002\uFFFD\uFFFD\uFFFD"
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error",
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=41&MinToReAssign=1",
 							"method": "GET",
 							"param": "",
 							"attack": "",
@@ -893,7 +818,7 @@
 							"otherinfo": "\uFFFD\\x0016\uFFFD\uFFFDY2\uFFFD\uFFFD:O\\x00122\\x0012\uFFFD\uFFFD\uFFFDEON\\x0015\uFFFDi\uFFFDN\uFFFDr\uFFFD\u0618:\uFFFD\uFFFD\uFFFDrOf\u044Dxt$\uFFFDcc\uFFFDV\uFFFD\\x0002\uFFFD\uFFFD\uFFFD"
 						}
 					],
-					"count": "8",
+					"count": "6",
 					"solution": "<p>Manually confirm that the Base64 data does not leak sensitive information, and that the data cannot be aggregated/used to exploit other vulnerabilities.</p>",
 					"otherinfo": "<p>\uFFFD\\x0016\uFFFD\uFFFDY2\uFFFD\uFFFD:O\\x00122\\x0012\uFFFD\uFFFD\uFFFDEON\\x0015\uFFFDi\uFFFDN\uFFFDr\uFFFD\u0618:\uFFFD\uFFFD\uFFFDrOf\u044Dxt$\uFFFDcc\uFFFDV\uFFFD\\x0002\uFFFD\uFFFD\uFFFD</p>",
 					"reference": "<p>https://projects.webappsec.org/w/page/13246936/Information%20Leakage</p>",
@@ -966,7 +891,7 @@
 					"reference": "",
 					"cweid": "200",
 					"wascid": "13",
-					"sourceid": "29"
+					"sourceid": "32"
 				},
 				{
 					"pluginid": "10049",
@@ -983,7 +908,23 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "private",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-store",
 							"otherinfo": ""
 						},
 						{
@@ -991,7 +932,15 @@
 							"method": "GET",
 							"param": "",
 							"attack": "",
-							"evidence": "private",
+							"evidence": "no-store",
+							"otherinfo": ""
+						},
+						{
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/sitemap.xml",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "no-store",
 							"otherinfo": ""
 						},
 						{
@@ -999,19 +948,11 @@
 							"method": "POST",
 							"param": "",
 							"attack": "",
-							"evidence": "302",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/acronym/pairMinistryAcronym",
-							"method": "POST",
-							"param": "",
-							"attack": "",
-							"evidence": "500",
+							"evidence": "no-store",
 							"otherinfo": ""
 						}
 					],
-					"count": "4",
+					"count": "6",
 					"solution": "<p>The content may be marked as storable by ensuring that the following conditions are satisfied:</p><p>The request method must be understood by the cache and defined as being cacheable (\"GET\", \"HEAD\", and \"POST\" are currently defined as cacheable)</p><p>The response status code must be understood by the cache (one of the 1XX, 2XX, 3XX, 4XX, or 5XX response classes are generally understood)</p><p>The \"no-store\" cache directive must not appear in the request or response header fields</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"private\" response directive must not appear in the response</p><p>For caching by \"shared\" caches such as \"proxy\" caches, the \"Authorization\" header field must not appear in the request, unless the response explicitly allows it (using one of the \"must-revalidate\", \"public\", or \"s-maxage\" Cache-Control response directives)</p><p>In addition to the conditions above, at least one of the following conditions must also be satisfied by the response:</p><p>It must contain an \"Expires\" header field</p><p>It must contain a \"max-age\" response directive</p><p>For \"shared\" caches such as \"proxy\" caches, it must contain a \"s-maxage\" response directive</p><p>It must contain a \"Cache Control Extension\" that allows it to be cached</p><p>It must have a status code that is defined as cacheable by default (200, 203, 204, 206, 300, 301, 404, 405, 410, 414, 501).</p>",
 					"otherinfo": "",
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
@@ -1030,85 +971,21 @@
 					"desc": "<p>The cache-control header has not been set properly or is missing, allowing the browser and proxies to cache content. For static assets like css, js, or image files this might be intended, however, the resources should be reviewed to ensure that no sensitive content will be cached.</p>",
 					"instances":[ 
 						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "private",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign&MinToReAssign=1",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=44&MinToReAssign=1",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history?selectMinistryHist=1",
-							"method": "GET",
-							"param": "cache-control",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": ""
-						},
-						{
 							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/success",
 							"method": "GET",
 							"param": "cache-control",
 							"attack": "",
-							"evidence": "",
+							"evidence": "public, max-age=3600, s-maxage=3600",
 							"otherinfo": ""
 						}
 					],
-					"count": "9",
+					"count": "1",
 					"solution": "<p>For secure content, ensure the cache-control HTTP header is set with \"no-cache, no-store, must-revalidate\". If an asset should be cached consider setting the directives \"public, max-age, immutable\".</p>",
 					"otherinfo": "",
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#web-content-caching</p><p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</p><p>https://grayduck.mn/2021/09/13/cache-control-recommendations/</p>",
 					"cweid": "525",
 					"wascid": "13",
-					"sourceid": "8"
+					"sourceid": "42"
 				},
 				{
 					"pluginid": "90005",
@@ -1151,7 +1028,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "16"
+					"sourceid": "15"
 				},
 				{
 					"pluginid": "90005",
@@ -1194,7 +1071,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "16"
+					"sourceid": "15"
 				},
 				{
 					"pluginid": "90005",
@@ -1237,7 +1114,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "16"
+					"sourceid": "15"
 				},
 				{
 					"pluginid": "90005",
@@ -1280,7 +1157,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User</p>",
 					"cweid": "352",
 					"wascid": "9",
-					"sourceid": "16"
+					"sourceid": "15"
 				},
 				{
 					"pluginid": "10112",
@@ -1297,7 +1174,7 @@
 							"method": "GET",
 							"param": "f4be5fefe14e3ad10c093a7de37e8c69",
 							"attack": "",
-							"evidence": "783713228ef11cbbebeefac7efbb8f81",
+							"evidence": "9f677b2f9ea42c42d73c9e50902fee1b",
 							"otherinfo": "\ncookie:f4be5fefe14e3ad10c093a7de37e8c69"
 						},
 						{
@@ -1305,15 +1182,15 @@
 							"method": "GET",
 							"param": "f4be5fefe14e3ad10c093a7de37e8c69",
 							"attack": "",
-							"evidence": "783713228ef11cbbebeefac7efbb8f81",
+							"evidence": "9f677b2f9ea42c42d73c9e50902fee1b",
 							"otherinfo": "\ncookie:f4be5fefe14e3ad10c093a7de37e8c69"
 						},
 						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history?selectMinistryHist=1",
-							"method": "GET",
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/acronym/pairMinistryAcronym",
+							"method": "POST",
 							"param": "f4be5fefe14e3ad10c093a7de37e8c69",
 							"attack": "",
-							"evidence": "783713228ef11cbbebeefac7efbb8f81",
+							"evidence": "9f677b2f9ea42c42d73c9e50902fee1b",
 							"otherinfo": "\ncookie:f4be5fefe14e3ad10c093a7de37e8c69"
 						}
 					],
@@ -1324,65 +1201,6 @@
 					"cweid": "-1",
 					"wascid": "-1",
 					"sourceid": "1"
-				},
-				{
-					"pluginid": "10049",
-					"alertRef": "10049",
-					"alert": "Storable and Cacheable Content",
-					"name": "Storable and Cacheable Content",
-					"riskcode": "0",
-					"confidence": "2",
-					"riskdesc": "Informational (Medium)",
-					"desc": "<p>The response contents are storable by caching components such as proxy servers, and may be retrieved directly from the cache, rather than from the origin server by the caching servers, in response to similar requests from other users. If the response data is sensitive, personal or user-specific, this may result in sensitive information being leaked. In some cases, this may even result in a user gaining complete control of the session of another user, depending on the configuration of the caching components in use in their environment. This is primarily an issue where \"shared\" caching servers such as \"proxy\" caches are configured on the local network. This configuration is typically found in corporate or educational environments, for instance.</p>",
-					"instances":[ 
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/sitemap.xml",
-							"method": "GET",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
-						},
-						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/mergeMinistry",
-							"method": "POST",
-							"param": "",
-							"attack": "",
-							"evidence": "",
-							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
-						}
-					],
-					"count": "5",
-					"solution": "<p>Validate that the response does not contain sensitive, personal or user-specific information. If it does, consider the use of the following HTTP response headers, to limit, or prevent the content being stored and retrieved from the cache by another user:</p><p>Cache-Control: no-cache, no-store, must-revalidate, private</p><p>Pragma: no-cache</p><p>Expires: 0</p><p>This configuration directs both HTTP 1.0 and HTTP 1.1 compliant caching servers to not store the response, and to not retrieve the response (without validation) from the cache, in response to a similar request.</p>",
-					"otherinfo": "<p>In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234.</p>",
-					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
-					"cweid": "524",
-					"wascid": "13",
-					"sourceid": "8"
 				},
 				{
 					"pluginid": "10049",
@@ -1419,6 +1237,14 @@
 							"otherinfo": ""
 						},
 						{
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/historyFunctionality.js",
+							"method": "GET",
+							"param": "",
+							"attack": "",
+							"evidence": "max-age=0",
+							"otherinfo": ""
+						},
+						{
 							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/style.css",
 							"method": "GET",
 							"param": "",
@@ -1427,13 +1253,13 @@
 							"otherinfo": ""
 						}
 					],
-					"count": "4",
+					"count": "5",
 					"solution": "",
 					"otherinfo": "",
 					"reference": "<p>https://datatracker.ietf.org/doc/html/rfc7234</p><p>https://datatracker.ietf.org/doc/html/rfc7231</p><p>https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html</p>",
 					"cweid": "524",
 					"wascid": "13",
-					"sourceid": "16"
+					"sourceid": "15"
 				},
 				{
 					"pluginid": "10031",
@@ -1446,21 +1272,21 @@
 					"desc": "<p>This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.</p>",
 					"instances":[ 
 						{
-							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=44&MinToReAssign=1",
+							"uri": "https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=41&MinToReAssign=1",
 							"method": "GET",
 							"param": "AcrToReAssign",
 							"attack": "",
 							"evidence": "",
-							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\n\nhttps://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=44&MinToReAssign=1\n\nappears to include user input in: \n\na(n) [option] tag [value] attribute \n\nThe user input found was:\nAcrToReAssign=44\n\nThe user-controlled value was:\n44"
+							"otherinfo": "User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:\n\nhttps://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=41&MinToReAssign=1\n\nappears to include user input in: \n\na(n) [option] tag [value] attribute \n\nThe user input found was:\nAcrToReAssign=41\n\nThe user-controlled value was:\n41"
 						}
 					],
 					"count": "1",
 					"solution": "<p>Validate all input and sanitize output it before writing to any HTML attributes.</p>",
-					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=44&MinToReAssign=1</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [option] tag [value] attribute </p><p></p><p>The user input found was:</p><p>AcrToReAssign=44</p><p></p><p>The user-controlled value was:</p><p>44</p>",
+					"otherinfo": "<p>User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:</p><p></p><p>https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=41&MinToReAssign=1</p><p></p><p>appears to include user input in: </p><p></p><p>a(n) [option] tag [value] attribute </p><p></p><p>The user input found was:</p><p>AcrToReAssign=41</p><p></p><p>The user-controlled value was:</p><p>41</p>",
 					"reference": "<p>https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html</p>",
 					"cweid": "20",
 					"wascid": "20",
-					"sourceid": "48"
+					"sourceid": "44"
 				}
 			]
 		}
