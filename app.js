@@ -47,6 +47,7 @@ app.use(
         "frame-src": ["'self'"],
       },
     },
+    xFrameOptions : { action : "deny"},
   })
 );
 

@@ -1,7 +1,7 @@
 --Create the database and user with password:
-CREATE DATABASE nameapp;
-CREATE USER kat WITH PASSWORD 'mypass';
-GRANT ALL PRIVILEGES ON DATABASE nameapp TO kat;
+--CREATE DATABASE nameapp;
+--CREATE USER kat WITH PASSWORD 'mypass';
+--GRANT ALL PRIVILEGES ON DATABASE nameapp TO kat;
 --if exists, drop all tables first to avoid foreign/primary key constrait errors
 DROP TABLE IF EXISTS ministry_history;
 DROP TABLE IF EXISTS ministry_acronym;
