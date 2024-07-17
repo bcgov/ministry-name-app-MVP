@@ -1,0 +1,20 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: db-donfig-create-db
+  namespace: fe6594-dev
+  uid: bbdd94d3-d13f-44b9-9117-64fc3c1cda97
+  resourceVersion: '2969481730'
+  creationTimestamp: '2024-07-17T15:23:34Z'
+  managedFields:
+    - manager: kubectl-create
+      operation: Update
+      apiVersion: v1
+      time: '2024-07-17T15:23:34Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:createDb.sql': {}
+data:
+  createDb.sql: "--Create the database and user with password:\r\nCREATE DATABASE nameapp;\r\nCREATE USER kat WITH PASSWORD 'mypass';\r\nGRANT ALL PRIVILEGES ON DATABASE nameapp TO kat;"

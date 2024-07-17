@@ -1,4 +1,6 @@
 console.log(`hit historyFunctionality.js file`);
+const API_URL="https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/api/history/all"
+const API_URL_LOCAL = "http://localhost:8080/api/history/all"
 
 //______________________Globals_______________
 

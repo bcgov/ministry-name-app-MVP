@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: init-db-1
+  namespace: fe6594-dev
+spec:
+  selector: {}
+  template:
+    metadata:
+      name: init-db-1
+    spec:
+      containers:
+        - name: init-db-1
+          image: postgres:latest
+          env: 
+            - name: POSTGRES_DB
+              value: nameapp
+            - name: POSTGRES_HOST
+              value: postgres.fe6594-dev.svc.cluster.local
+            - name: POSTGRES_PASSWORD
+              value: mypass            
+            - name: POSTGRES_USER
+              value: kat
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |
+              PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -U $POSTGRES_USER -p 5432 -d $POSTGRES_DB -a -f /config/createDbTables.sql && \
+              PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -U $POSTGRES_USER -p 5432 -d $POSTGRES_DB -a -f /config/populateDbTables.sql
+      restartPolicy: OnFailure
+      volumes:
+        - name: config-volume
+          configMap:
+            name: db-config
