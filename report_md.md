@@ -20,8 +20,8 @@ ZAP is supported by the [Crash Override Open Source Fellowship](https://crashove
 | Name | Risk Level | Number of Instances |
 | --- | --- | --- |
 | Absence of Anti-CSRF Tokens | Medium | 8 |
-| Content Security Policy (CSP) Header Not Set | Medium | 10 |
-| Missing Anti-clickjacking Header | Medium | 8 |
+| Content Security Policy (CSP) Header Not Set | Medium | 9 |
+| Missing Anti-clickjacking Header | Medium | 7 |
 | Application Error Disclosure | Low | 1 |
 | Cookie with SameSite Attribute None | Low | 1 |
 | Information Disclosure - Debug Error Messages | Low | 1 |
@@ -29,17 +29,17 @@ ZAP is supported by the [Crash Override Open Source Fellowship](https://crashove
 | Server Leaks Information via "X-Powered-By" HTTP Response Header Field(s) | Low | 11 |
 | Strict-Transport-Security Header Not Set | Low | 11 |
 | X-Content-Type-Options Header Missing | Low | 11 |
-| Base64 Disclosure | Informational | 8 |
+| Base64 Disclosure | Informational | 7 |
 | Information Disclosure - Suspicious Comments | Informational | 6 |
-| Non-Storable Content | Informational | 7 |
+| Non-Storable Content | Informational | 6 |
 | Re-examine Cache-control Directives | Informational | 1 |
 | Sec-Fetch-Dest Header is Missing | Informational | 3 |
 | Sec-Fetch-Mode Header is Missing | Informational | 3 |
 | Sec-Fetch-Site Header is Missing | Informational | 3 |
 | Sec-Fetch-User Header is Missing | Informational | 3 |
 | Session Management Response Identified | Informational | 2 |
-| Storable but Non-Cacheable Content | Informational | 4 |
-| User Controllable HTML Element Attribute (Potential XSS) | Informational | 3 |
+| Storable but Non-Cacheable Content | Informational | 5 |
+| User Controllable HTML Element Attribute (Potential XSS) | Informational | 1 |
 
 
 
@@ -177,19 +177,13 @@ Content Security Policy (CSP) is an added layer of security that helps to detect
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=42
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=2
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=43&MinToReAssign=42
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=40&MinToReAssign=1
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
@@ -201,7 +195,7 @@ Content Security Policy (CSP) is an added layer of security that helps to detect
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history%3FselectMinistryHist=1
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history%3FselectMinistryHist=2
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
@@ -226,7 +220,7 @@ Content Security Policy (CSP) is an added layer of security that helps to detect
   * Evidence: ``
   * Other Info: ``
 
-Instances: 10
+Instances: 9
 
 ### Solution
 
@@ -273,19 +267,13 @@ The response does not include either Content-Security-Policy with 'frame-ancesto
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=42
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=2
   * Method: `GET`
   * Parameter: `x-frame-options`
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=43&MinToReAssign=42
-  * Method: `GET`
-  * Parameter: `x-frame-options`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=40&MinToReAssign=1
   * Method: `GET`
   * Parameter: `x-frame-options`
   * Attack: ``
@@ -297,7 +285,7 @@ The response does not include either Content-Security-Policy with 'frame-ancesto
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history%3FselectMinistryHist=1
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history%3FselectMinistryHist=2
   * Method: `GET`
   * Parameter: `x-frame-options`
   * Attack: ``
@@ -310,7 +298,7 @@ The response does not include either Content-Security-Policy with 'frame-ancesto
   * Evidence: ``
   * Other Info: ``
 
-Instances: 8
+Instances: 7
 
 ### Solution
 
@@ -456,13 +444,13 @@ Permissions Policy Header is an added layer of security that helps to restrict f
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history%3FselectMinistryHist=2
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
@@ -580,6 +568,12 @@ The web/application server is leaking information via one or more "X-Powered-By"
   * Attack: ``
   * Evidence: `x-powered-by: Express`
   * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/historyFunctionality.js
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: `x-powered-by: Express`
+  * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/indexFunctionality.js
   * Method: `GET`
   * Parameter: ``
@@ -594,12 +588,6 @@ The web/application server is leaking information via one or more "X-Powered-By"
   * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/style.css
   * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `x-powered-by: Express`
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/addMinistry
-  * Method: `POST`
   * Parameter: ``
   * Attack: ``
   * Evidence: `x-powered-by: Express`
@@ -653,13 +641,13 @@ HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history%3FselectMinistryHist=2
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
@@ -683,6 +671,12 @@ HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby
   * Attack: ``
   * Evidence: ``
   * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/historyFunctionality.js
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: ``
+  * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/indexFunctionality.js
   * Method: `GET`
   * Parameter: ``
@@ -697,12 +691,6 @@ HTTP Strict Transport Security (HSTS) is a web security policy mechanism whereby
   * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/style.css
   * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/mergeMinistry
-  * Method: `POST`
   * Parameter: ``
   * Attack: ``
   * Evidence: ``
@@ -755,14 +743,14 @@ At "High" threshold this scan rule will not alert on client or server error resp
   * Evidence: ``
   * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
 At "High" threshold this scan rule will not alert on client or server error responses.`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
   * Evidence: ``
   * Other Info: `This issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.
 At "High" threshold this scan rule will not alert on client or server error responses.`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history%3FselectMinistryHist=2
   * Method: `GET`
   * Parameter: `x-content-type-options`
   * Attack: ``
@@ -862,19 +850,13 @@ Base64 encoded data was disclosed by the application/web server. Note: in the in
   * Attack: ``
   * Evidence: `sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH`
   * Other Info: `���Y2��:O2���EON�i�N�r�ؘ:���rOfэxt$�cc�V����`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=42
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=2
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
   * Evidence: `sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH`
   * Other Info: `���Y2��:O2���EON�i�N�r�ؘ:���rOfэxt$�cc�V����`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=43&MinToReAssign=42
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH`
-  * Other Info: `���Y2��:O2���EON�i�N�r�ؘ:���rOfэxt$�cc�V����`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/error
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=40&MinToReAssign=1
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
@@ -886,7 +868,7 @@ Base64 encoded data was disclosed by the application/web server. Note: in the in
   * Attack: ``
   * Evidence: `sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH`
   * Other Info: `���Y2��:O2���EON�i�N�r�ؘ:���rOfэxt$�cc�V����`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history%3FselectMinistryHist=1
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/history%3FselectMinistryHist=2
   * Method: `GET`
   * Parameter: ``
   * Attack: ``
@@ -899,7 +881,7 @@ Base64 encoded data was disclosed by the application/web server. Note: in the in
   * Evidence: `sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH`
   * Other Info: `���Y2��:O2���EON�i�N�r�ؘ:���rOfэxt$�cc�V����`
 
-Instances: 8
+Instances: 7
 
 ### Solution
 
@@ -922,7 +904,7 @@ Manually confirm that the Base64 data does not leak sensitive information, and t
 
 
 
-##### Informational (Low)
+##### Informational (Medium)
 
 ### Description
 
@@ -1025,12 +1007,6 @@ The response contents are not storable by caching components such as proxy serve
   * Attack: ``
   * Evidence: `no-store`
   * Other Info: ``
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/addMinistry
-  * Method: `POST`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `no-store`
-  * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/retireMinistry
   * Method: `POST`
   * Parameter: ``
@@ -1038,7 +1014,7 @@ The response contents are not storable by caching components such as proxy serve
   * Evidence: `no-store`
   * Other Info: ``
 
-Instances: 7
+Instances: 6
 
 ### Solution
 
@@ -1118,7 +1094,7 @@ For secure content, ensure the cache-control HTTP header is set with "no-cache, 
 
 Specifies how and where the data would be used. For instance, if the value is audio, then the requested resource must be audio data and not any other type of resource.
 
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/images/favicon.png
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/
   * Method: `GET`
   * Parameter: `Sec-Fetch-Dest`
   * Attack: ``
@@ -1166,7 +1142,7 @@ Ensure that Sec-Fetch-Dest header is included in request headers.
 
 Allows to differentiate between requests for navigating between HTML pages and requests for loading resources like images, audio etc.
 
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/images/favicon.png
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/
   * Method: `GET`
   * Parameter: `Sec-Fetch-Mode`
   * Attack: ``
@@ -1214,7 +1190,7 @@ Ensure that Sec-Fetch-Mode header is included in request headers.
 
 Specifies the relationship between request initiator's origin and target's origin.
 
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/images/favicon.png
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/
   * Method: `GET`
   * Parameter: `Sec-Fetch-Site`
   * Attack: ``
@@ -1262,7 +1238,7 @@ Ensure that Sec-Fetch-Site header is included in request headers.
 
 Specifies if a navigation request was initiated by a user.
 
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/images/favicon.png
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/
   * Method: `GET`
   * Parameter: `Sec-Fetch-User`
   * Attack: ``
@@ -1304,7 +1280,7 @@ Ensure that Sec-Fetch-User header is included in user initiated requests.
 
 
 
-##### Informational (High)
+##### Informational (Medium)
 
 ### Description
 
@@ -1314,14 +1290,14 @@ The given response has been identified as containing a session management token.
   * Method: `GET`
   * Parameter: `f4be5fefe14e3ad10c093a7de37e8c69`
   * Attack: ``
-  * Evidence: `9f677b2f9ea42c42d73c9e50902fee1b`
+  * Evidence: `9e6bc9d6aa2c59b63384c12f523add08`
   * Other Info: `
 cookie:f4be5fefe14e3ad10c093a7de37e8c69`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=42
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=2
   * Method: `GET`
   * Parameter: `f4be5fefe14e3ad10c093a7de37e8c69`
   * Attack: ``
-  * Evidence: `9f677b2f9ea42c42d73c9e50902fee1b`
+  * Evidence: `9e6bc9d6aa2c59b63384c12f523add08`
   * Other Info: `
 cookie:f4be5fefe14e3ad10c093a7de37e8c69`
 
@@ -1362,6 +1338,12 @@ The response contents are storable by caching components such as proxy servers, 
   * Attack: ``
   * Evidence: `max-age=0`
   * Other Info: ``
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/historyFunctionality.js
+  * Method: `GET`
+  * Parameter: ``
+  * Attack: ``
+  * Evidence: `max-age=0`
+  * Other Info: ``
 * URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/script/indexFunctionality.js
   * Method: `GET`
   * Parameter: ``
@@ -1375,7 +1357,7 @@ The response contents are storable by caching components such as proxy servers, 
   * Evidence: `max-age=0`
   * Other Info: ``
 
-Instances: 4
+Instances: 5
 
 ### Solution
 
@@ -1406,62 +1388,26 @@ Instances: 4
 
 This check looks at user-supplied input in query string parameters and POST data to identify where certain HTML attribute values might be controlled. This provides hot-spot detection for XSS (cross-site scripting) that will require further review by a security analyst to determine exploitability.
 
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign&MinToReAssign=42
-  * Method: `GET`
-  * Parameter: `MinToReAssign`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:
-
-https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign&MinToReAssign=42
-
-appears to include user input in: 
-
-a(n) [option] tag [value] attribute 
-
-The user input found was:
-MinToReAssign=42
-
-The user-controlled value was:
-42`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=43&MinToReAssign=42
+* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=40&MinToReAssign=1
   * Method: `GET`
   * Parameter: `AcrToReAssign`
   * Attack: ``
   * Evidence: ``
   * Other Info: `User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:
 
-https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=43&MinToReAssign=42
+https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=40&MinToReAssign=1
 
 appears to include user input in: 
 
 a(n) [option] tag [value] attribute 
 
 The user input found was:
-AcrToReAssign=43
+AcrToReAssign=40
 
 The user-controlled value was:
-43`
-* URL: https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym%3FAcrToReAssign=43&MinToReAssign=42
-  * Method: `GET`
-  * Parameter: `MinToReAssign`
-  * Attack: ``
-  * Evidence: ``
-  * Other Info: `User-controlled HTML attribute values were found. Try injecting special characters to see if XSS might be possible. The page at the following URL:
+40`
 
-https://ministry-name-app-fe6594-dev.apps.klab.devops.gov.bc.ca/acronym?AcrToReAssign=43&MinToReAssign=42
-
-appears to include user input in: 
-
-a(n) [option] tag [value] attribute 
-
-The user input found was:
-MinToReAssign=42
-
-The user-controlled value was:
-42`
-
-Instances: 3
+Instances: 1
 
 ### Solution
 
