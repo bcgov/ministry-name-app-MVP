@@ -1,6 +1,6 @@
 // dependecies
-const pool = require("../db/dbConnectionConfig.js");
-const { queryHistory, queryHistoryByMinId } = require("../db/queries.js");
+const pool = require("../../db/dbConnectionConfig.js");
+const { queryHistory, queryHistoryByMinId } = require("../../db/queries.js");
 
 // get all history data
 const getHistoryAllApi = (req, res) => {

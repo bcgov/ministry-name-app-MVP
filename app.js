@@ -60,7 +60,7 @@ app.use(logger("dev"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(limiter);
 
-// add routes
+// add routes from ./routes/indexRouter.js
 mountRoutes(app);
 
 // catch 404 for incorrect routes and forward to error handler

@@ -4,7 +4,7 @@ const router = express.Router();
 const {
   getHistoryAllApi,
   getHistoryById,
-} = require("../controllers/apiHistoryController.js");
+} = require("../controllers/api/apiHistoryController.js");
 
 // history api routers
 router.get("/all", getHistoryAllApi);

@@ -1,12 +1,12 @@
 // dependecies
-const pool = require("../db/dbConnectionConfig.js");
+const pool = require("../../db/dbConnectionConfig.js");
 const {
   fetchData,
   setIsCurrentFalse,
-} = require("../utils/helperfunctions.js");
+} = require("../../utils/helperfunctions.js");
 const asyncHandler = require("express-async-handler");
 //const {body, validationResult} = require("express-validator");
-const { queryMinistry } = require("../db/queries.js");
+const { queryMinistry } = require("../../db/queries.js");
 
 const addMinistry = asyncHandler(async (req, res) => {
   try {

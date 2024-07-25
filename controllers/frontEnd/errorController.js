@@ -1,3 +1,5 @@
+
+// render error page
 const displayError = (req, res)=>{
     try{
         console.log(`access error router: dispayError`);

@@ -1,5 +1,5 @@
 // dependecies
-const pool = require("../db/dbConnectionConfig.js");
+const pool = require("../../db/dbConnectionConfig.js");
 const { queryAcronymsAll,
         queryAddAcronym,
         queryAcronymById,
@@ -8,7 +8,7 @@ const { queryAcronymsAll,
         queryAddMinistryAcronym,
         queryUpdateMinistryAcronymHistory,
         queryAcronymExistsCheck, 
-    } = require("../db/queries.js");
+    } = require("../../db/queries.js");
 
   // API's for database:
 

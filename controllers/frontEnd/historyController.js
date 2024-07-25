@@ -1,8 +1,8 @@
 // dependecies
-const pool = require("../db/dbConnectionConfig.js");
-const { fetchData } = require("../utils/helperfunctions.js");
+const pool = require("../../db/dbConnectionConfig.js");
+const { fetchData } = require("../../utils/helperfunctions.js");
 const asyncHandler = require("express-async-handler");
-const { queryHistory } = require("../db/queries.js");
+const { queryHistory } = require("../../db/queries.js");
 
 // get history data and render to history view
 const getHistory = asyncHandler(async (req, res) => {
