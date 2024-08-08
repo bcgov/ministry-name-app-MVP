@@ -1,5 +1,6 @@
 // dependecies
 const pool = require("../../db/dbConnectionConfig.js");
+const escape = require('escape-html');
 const { queryAcronymsAll,
         queryAddAcronym,
         queryAcronymById,
@@ -63,7 +64,7 @@ const getAcronymAll = (req, res) => {
                 console.error("Error adding new acronym:", error);
                 return res.status(500).send("Internal Server Error");
               }
-              res.status(201).send(`${acronymNew} successfully created.`);
+              res.status(201).send(`${escape(acronymNew)} successfully created.`);
             });
         }
       });

@@ -1,7 +1,7 @@
 //_____________________________API url:___________________
 
 const getMinistryDataUrl = "/api/ministry";
-//const wholeURL = "http://localhost:3000/api/ministry";
+//const wholeURL = "http://localhost:8080/api/ministry";
 
 //______________________Function Definitions_______________
 
