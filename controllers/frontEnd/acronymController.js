@@ -1,8 +1,8 @@
 // dependecies
-const pool = require("../db/dbConnectionConfig.js");
-const { fetchData } = require("../utils/helperfunctions.js");
+const pool = require("../../db/dbConnectionConfig.js");
+const { fetchData } = require("../../utils/helperfunctions.js");
 const asyncHandler = require("express-async-handler");
-const { queryAcronymsAll } = require("../db/queries.js");
+const { queryAcronymsAll } = require("../../db/queries.js");
 
 // render ejs page:
 const getAcronymAllToRender = asyncHandler(async (req, res) => {

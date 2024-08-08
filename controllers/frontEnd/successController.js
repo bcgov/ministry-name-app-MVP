@@ -1,3 +1,5 @@
+// Render success page
+
 const displaySuccess =  (req, res)=>{
     try{
         console.log(`accessing the success page function displaySuccess`);

@@ -1,5 +1,5 @@
 // dependecies
-const pool = require("../db/dbConnectionConfig.js");
+const pool = require("../../db/dbConnectionConfig.js");
 const {
   queryMinistryAll,
   queryMinistry,
@@ -10,7 +10,7 @@ const {
   queryAddMinistryHistory,
   queryAddMinistryReturning,
   queryUpdateMinistryName
-} = require("../db/queries.js");
+} = require("../../db/queries.js");
 
 // API's for database:
 
@@ -22,6 +22,7 @@ const getMinistryTEST = (req, res) => {
     });
   };
   
+  // Get all ministry data
   const getMinistry = (req, res) => {
     pool.query(queryMinistry, (error, results) => {
       if (error) throw error;
@@ -29,6 +30,7 @@ const getMinistryTEST = (req, res) => {
     });
   };
   
+  // get a ministry's data by ministry ID
   const getMinistryByID = (req, res) => {
     const minId = parseInt(req.params.id);
     pool.query(queryMinistryById, [minId], (error, results) => {
@@ -37,6 +39,7 @@ const getMinistryTEST = (req, res) => {
     });
   };
   
+  // add a new ministry
   const addMinistryAPI = (req, res) => {
     const { ministry_name, m_change_effective_date, is_current } = req.body;
   
@@ -62,6 +65,7 @@ const getMinistryTEST = (req, res) => {
     });
   };
   
+  // retire a ministry by setting is_current to false
   const retireMinistryById = (req, res) => {
     const minRetireId = parseInt(req.params.id);
     pool.query(queryMinistryExistsCheckById, [minRetireId], (error, results) => {
@@ -77,6 +81,7 @@ const getMinistryTEST = (req, res) => {
     });
   };
   
+  // add data to ministry history table
   const addMinistryHistory = (req, res) => {
     try {
       const { ministry_id, ministry_id_history } = req.body;
@@ -96,6 +101,7 @@ const getMinistryTEST = (req, res) => {
     }
   };
   
+  // edit an existing ministy's info
   const editMinistryNameById = (req, res) => {
     try {
       const { ministry_name, ministry_id } = req.body;

@@ -9,7 +9,7 @@ const {
     getAcronymIdByMinistryId,
     updateMinistryAcronym,
     updateMinistryAcronymHistory
-} = require("../controllers/apiAcronymController.js");
+} = require("../controllers/api/apiAcronymController.js");
 
 // Acronym API routes:
 router.get("/", getAcronymAll);

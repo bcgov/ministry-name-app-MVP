@@ -6,7 +6,7 @@ const {
   getMinistryData,
   retireMinistry,
   splitMinistry,
-} = require("../controllers/ministryController.js");
+} = require("../controllers/frontEnd/ministryController.js");
 
 // run select query and send render results to ministry view ejs file to display
 router.get("/", getMinistryData);

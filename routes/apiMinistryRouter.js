@@ -9,7 +9,7 @@ const {
   addMinistryAPI,
   retireMinistryById,
   editMinistryNameById,
-} = require("../controllers/apiMinistryController.js");
+} = require("../controllers/api/apiMinistryController.js");
 
 // API routes
 router.get("/test", getMinistryTEST); //testing only
