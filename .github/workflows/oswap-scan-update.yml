@@ -53,7 +53,7 @@ jobs:
           target: ${{ inputs.ZAP_TARGET_URL }}
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -d -T ${{ inputs.ZAP_MAX_DURATION }} -m ${{ inputs.ZAP_DURATION }}'
-          issue_title: OWAP Baseline
+          issue_title: OWSAP Baseline
       - name: ZAP Full Scan
         if: ${{ inputs.ZAP_SCAN_TYPE == 'full' }}
         uses: zaproxy/action-full-scan@v0.3.0

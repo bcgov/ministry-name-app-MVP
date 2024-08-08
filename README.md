@@ -67,12 +67,47 @@ In openshift.yml, check that all the env. variables are correct eg. APP_NAME. In
 
 * TOKEN: github access token used to access ghcr. See [registry docs](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) for more information.
 
-![e.g.](image.png)
+![e.g.](public/images/readMeImages/image.png)
 
 This workflow is set to run on a push/merge to master branch. Update this if a different trigger is needed.
 
-![e.g.](image-1.png)
+![e.g.](public/images/readMeImages/image-1.png)
 
 The CRDA scan section is not configured. If you want to run this vulnerability check, see the [github crda action](https://github.com/redhat-actions/crda/blob/main/README.md) for info on updating this section of the worklow.
 
-![e.g.](image-2.png)
+![e.g.](public/images/readMeImages/image-2.png)
+
+The workflow is now ready to run. It can be triggered manually in github > actions or run by merging a PR to master. Once run successfully, navigate to the openshift namespace for further steps to complete the deployment.
+
+### Openshift 
+
+In Openshift, navigate to the ministry-name-app Route and edit it so the `Security` > `Secure Route` checkbox is selected.
+
+![e.g.](public/images/readMeImages/image-3.png)
+
+If you have a database already implemented and the correct variables/secretes added to the deployment, you are good to go. 
+
+If this is the first deployment, continue on to the 'adding the database section'
+
+### Openshift - Adding the Database
+This app is configured to use a postgres database. Add a postgres database either through the GUI or CLI with: 
+
+    oc new-app --template=postgresql-persistent --param=DATABASE_SERVICE_NAME=<database serice name> --param=POSTGRESQL_USER=<POSTGRES_USER> --param=VOLUME_CAPACITY=<in Mi> --param=MEMORY_LIMIT=<in Mi> --param=POSTGRESQL_PASSWORD=<POSTGRES_PASSWORD> --param=POSTGRESQL_DATABASE=<POSTGRES_DB>--param=NAMESPACE=<your namespace>
+
+and make sure you expose the postgres app:
+
+    oc expose service/<DATABASE_SERVICE_NAME>
+    
+
+### Openshift - Adding Environmental Variables
+Finally, environmental variables/secretes need to be added to the app deployment so the app can connect to the database. Navigate to the ministry-name-app deployment and add the following variables/secrets to the `Environment` tab:
+* DB_PORT
+* PORT
+* POSTGRES_DB
+* POSTGRES_HOST **
+* POSTGRES_PASSWORD
+* POSTGRES_USER
+
+All of the variables except **POSTGRES_HOST** should be the same as from the `getting started` section.
+
+`**` For the openshift deployment, the **POSTGRES_HOST** value is found in the postgres `Services > Details tab > Service Routing > Hostname`
