@@ -1,5 +1,5 @@
 # Ministry Name Tracking App
-##### This app was made as a minimum viable product (MVP) to track ministry name and acronym changes. It can also track ministry name history going forward.
+##### This co-op project app was made as a minimum viable product (MVP) to track ministry name and acronym changes. It can also track ministry name history going forward.
 
 ---
 
@@ -97,7 +97,8 @@ This app is configured to use a postgres database. Add a postgres database eithe
 and make sure you expose the postgres app:
 
     oc expose service/<DATABASE_SERVICE_NAME>
-    
+
+In the postgres pod terminal, you can run the creatDbTables.sql & populateDbTables.sql scripts from the ./db folder manually using psql or convert the scripts into configMaps and create an Openshift job to run them automatically.  
 
 ### Openshift - Adding Environmental Variables
 Finally, environmental variables/secretes need to be added to the app deployment so the app can connect to the database. Navigate to the ministry-name-app deployment and add the following variables/secrets to the `Environment` tab:
@@ -111,3 +112,9 @@ Finally, environmental variables/secretes need to be added to the app deployment
 All of the variables except **POSTGRES_HOST** should be the same as from the `getting started` section.
 
 `**` For the openshift deployment, the **POSTGRES_HOST** value is found in the postgres `Services > Details tab > Service Routing > Hostname`
+
+---
+
+## Recommendations for Further Development & Refactoring 
+
+Rebuild front-end with a proper JS framework (w/ Reach or Vue). Add unit tests & further error handling. For Openshift deployment, add database backup. 
